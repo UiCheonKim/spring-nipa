@@ -114,8 +114,10 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	            <div class="popup_box">
 	                <p>원본 NFT입니다.</p>
 	                <span>
-	                	본 NFT는 &lt;NIPA 블록체인 보고서 원본증명(NFT)체험 사이트&gt;에서만 유효합니다.
-					</span>
+                      본 NFT는 &lt;NIPA 블록체인 보고서 원본증명(NFT) 체험 사이트&gt;에서만 유효합니다.
+                      NFT 조회 이력은 블록체인에 등록되며<br>
+                      이는 [NFT 상세 이력]을 통해 확인할 수 있습니다.
+                  </span>
 	            </div>
 	            <div class="popup_add_btn close"><a onclick="closePop_1()">확인</a></div>
 	        </div>
