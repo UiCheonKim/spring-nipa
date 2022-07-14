@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "security.require-ssl",
+    "type": "java.lang.String",
+    "description": "A description for 'security.require-ssl'"
+  },
+  {
+    "name": "tomcat.ajp.protocol",
+    "type": "java.lang.String",
+    "description": "A description for 'tomcat.ajp.protocol'"
+  },
+  {
+    "name": "tomcat.ajp.enable",
+    "type": "java.lang.String",
+    "description": "A description for 'tomcat.ajp.enable'"
+  },
+  {
+    "name": "tomcat.ajp.port",
+    "type": "java.lang.String",
+    "description": "A description for 'tomcat.ajp.port'"
+  }
+]}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dz.nft.nipa.block.mapper.BlockMapper">
+	
+	<select id="getBlockCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+	</select>
+	
+	<select id="getFirstBlockNum" resultType="int">
+		SELECT b.blocknum
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		ORDER BY b.blocknum desc
+		LIMIT 1
+	</select>
+	
+	<select id="getRecentBlList" resultType="dz.nft.nipa.dto.BlockDto">
+		SELECT 
+			b.id,
+			b.blocknum,
+			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			b.blockhash,
+			b.datahash,
+			b.blksize,
+			b.txcount,
+			b.channel_genesis_hash
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		ORDER BY b.blocknum DESC
+		LIMIT 5
+	</select>
+	
+	<select id="getBlDataById" resultType="dz.nft.nipa.dto.BlockDto">
+		SELECT 
+			b.id,
+			b.blocknum,
+			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			b.blockhash,
+			b.datahash,
+			b.prehash,
+			b.blksize,
+			b.txcount
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND b.id=#{blNum}
+	</select>
+	
+	<select id="getBlDataByBlocknum" resultType="dz.nft.nipa.dto.BlockDto">
+		SELECT 
+			b.id,
+			b.blocknum,
+			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			b.blockhash,
+			b.datahash,
+			b.blksize,
+			b.txcount
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND b.blocknum=#{blocknum}
+	</select>
+	
+	<select id="getTotalBlList" resultType="dz.nft.nipa.dto.BlockDto">
+		SELECT 
+			b.id,
+			b.blocknum,
+			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			b.blockhash,
+			b.datahash,
+			b.blksize,
+			b.txcount
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		ORDER BY b.blocknum DESC
+		LIMIT 10 OFFSET (#{pageNum}-1)*10
+	</select>
+	
+	<select id="getTestResult4SearchHash" resultType="int">
+		SELECT COUNT(*)
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND b.blockhash = #{searchWord}
+	</select>
+	
+	<select id="getBlNumByHash" resultType="int">
+		SELECT b.id
+		FROM blocks b
+		LEFT JOIN (
+				SELECT it.blockid
+				FROM transactions_nipanft it
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = it.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+				GROUP BY it.blockid
+			)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND b.blockhash = #{searchWord}
+	</select>
+	
+</mapper>

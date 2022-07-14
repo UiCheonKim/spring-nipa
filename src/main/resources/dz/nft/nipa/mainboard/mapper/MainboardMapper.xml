@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dz.nft.nipa.mainboard.mapper.MainboardMapper">
+	
+	<select id="getAllDataType" resultType="dz.nft.nipa.dto.DataTypeDto">
+		SELECT * FROM nft_data_type
+	</select>
+	
+	<select id="getAllDataDetail" resultType="dz.nft.nipa.dto.DataDetailDto">
+		SELECT * FROM nft_data_detail WHERE type_num=#{typeNum}
+	</select>
+	
+	<select id="getAllDataDetailList" resultType="dz.nft.nipa.dto.DataDetailDto">
+		SELECT * FROM nft_data_detail WHERE type_num=#{typeNum}
+	</select>
+	
+	<select id="getNftDateList" resultType="string">
+		SELECT SUBSTRING(nd.nft_original_date::VARCHAR, 1, 4) AS dateType
+		FROM nft_data nd
+		JOIN nft_data_detail ndd
+		ON nd.detail_num = ndd.detail_num
+		WHERE ndd.type_num = #{detailNum}
+		AND nd.del_yn = 'N'
+		AND nd.hide_yn = 'N'
+		GROUP BY 1
+		ORDER BY 1 desc
+	</select>
+	
+	<select id="getImgLocation" resultType="String">
+		SELECT img_location
+		FROM nft_data_img
+		WHERE img_num=#{imgNum}
+	</select>
+	
+	<select id="getAllNftListByDataType" resultType="map">
+		SELECT 
+			nd.nft_num,
+			nd.user_num,
+			nd.nft_title,
+			nd.nft_publisher,
+			nd.nft_owner,
+			nd.nft_original_date,
+			ndd.detail_num,
+			ndd.type_num,
+			ndd.detail_name,
+			ndi.img_num,
+			nd.nft_id,
+			COALESCE(
+				(
+					SELECT COUNT(t2.fcn) AS nft_cnt
+					FROM transactions_nipanft t2
+					WHERE t2.fcn = 'Read_NFT'
+					AND t2.nft_id = nd.nft_id
+				), 0) AS nft_cnt
+		FROM nft_data nd
+		JOIN nft_data_detail ndd 
+		ON nd.detail_num = ndd.detail_num
+		JOIN nft_data_img ndi
+		ON ndi.nft_num = nd.nft_num
+		LEFT JOIN 
+			(
+				SELECT CAST(t1.nft_num AS INT), t1.nft_id, t1.nft_status
+				FROM transactions_nipanft t1
+				LEFT JOIN channel c1 
+				ON c1.channel_genesis_hash = t1.channel_genesis_hash
+				WHERE c1.name='digitalzonenipanft'
+				AND t1.nft_status = 'NFT_CREATE'
+			)tr
+		ON tr.nft_id = nd.nft_id
+		WHERE tr.nft_status = 'NFT_CREATE'
+		AND nd.detail_num=#{detailNum}
+		AND ndd.type_num=#{typeNum}
+		AND nd.del_yn = 'N'
+		AND nd.hide_yn = 'N'
+		ORDER BY 1 desc
+	</select><!-- 수정 완료 -->
+	
+	<select id="getNftListByDateType" resultType="map">
+		SELECT 
+			nd.nft_num,
+			nd.user_num,
+			nd.nft_title,
+			nd.nft_publisher,
+			nd.nft_owner,
+			nd.nft_original_date,
+			ndd.detail_num,
+			ndd.type_num,
+			ndd.detail_name,
+			ndi.img_num,
+			nd.nft_id,
+			COALESCE(
+				(
+					SELECT COUNT(t2.fcn) AS nft_cnt
+					FROM transactions_nipanft t2
+					WHERE t2.fcn = 'Read_NFT'
+					AND t2.nft_id = nd.nft_id
+				), 0) AS nft_cnt
+		FROM nft_data nd
+		JOIN nft_data_detail ndd 
+		ON nd.detail_num = ndd.detail_num
+		JOIN nft_data_img ndi
+		ON ndi.nft_num = nd.nft_num
+		LEFT JOIN 
+			(
+				SELECT CAST(t1.nft_num AS INT), t1.nft_id, t1.nft_status
+				FROM transactions_nipanft t1
+				LEFT JOIN channel c1 
+				ON c1.channel_genesis_hash = t1.channel_genesis_hash
+				WHERE c1.name='digitalzonenipanft'
+				AND t1.nft_status = 'NFT_CREATE'
+			)tr
+		ON tr.nft_id = nd.nft_id
+		WHERE tr.nft_status = 'NFT_CREATE'
+		AND nd.detail_num=#{detailNum}
+		AND ndd.type_num=#{typeNum}
+		AND nd.nft_original_date LIKE CONCAT(#{dateType},'%')
+		AND nd.del_yn = 'N'
+		AND nd.hide_yn = 'N'
+		ORDER BY 1 DESC
+	</select>
+	
+	<select id="getNftDataBynftNum" resultType="map">
+		SELECT 
+			nd.nft_num,
+			nd.user_num,
+			nd.nft_title,
+			nd.nft_publisher,
+			nd.nft_owner,
+			nd.nft_original_date,
+			ndd.detail_num,
+			ndd.type_num,
+			ndd.detail_name,
+			ndd.detail_attach,
+			ndi.img_num,
+			nd.nft_id,
+			tr.id,
+			TO_CHAR(tr.createdt, 'YYYY.MM.DD') AS createdt,
+			COALESCE(
+				(
+					SELECT COUNT(t2.fcn) AS nft_cnt
+					FROM transactions_nipanft t2
+					WHERE t2.fcn = 'Read_NFT'
+					AND t2.nft_id = nd.nft_id
+				), 0) AS nft_cnt
+		FROM nft_data nd
+		JOIN nft_data_detail ndd 
+		ON nd.detail_num = ndd.detail_num
+		JOIN nft_data_img ndi
+		ON ndi.nft_num = nd.nft_num
+		LEFT JOIN 
+			(
+				SELECT CAST(t1.nft_num AS INT), t1.nft_id, t1.nft_status, t1.createdt, t1.id
+				FROM transactions_nipanft t1
+				LEFT JOIN channel c1 
+				ON c1.channel_genesis_hash = t1.channel_genesis_hash
+				WHERE c1.name='digitalzonenipanft'
+				AND t1.nft_status = 'NFT_CREATE'
+			)tr
+		ON tr.nft_id = nd.nft_id
+		WHERE tr.nft_status = 'NFT_CREATE'
+		AND nd.nft_num=#{nftNum}
+		AND nd.del_yn = 'N'
+		AND nd.hide_yn = 'N'
+	</select>
+	
+	<update id="updateReadCnt">
+		UPDATE nft_data SET read_cnt = read_cnt+1 WHERE nft_num=#{nftNum};
+	</update>
+	
+	<select id="getNftDataCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM nft_data
+		WHERE del_yn = 'N'
+		AND hide_yn = 'N'
+	</select>
+	
+	<select id="getTestResult4SearchWord" resultType="int">
+		SELECT COUNT(*) 
+		FROM nft_data 
+		WHERE nft_id = #{searchWord}
+		AND del_yn = 'N'
+		AND hide_yn = 'N'
+	</select>
+	
+	<select id="getNftDataByNftId" resultType="dz.nft.nipa.dto.DataNftDto">
+		SELECT
+			nft_num,
+			detail_num
+		FROM nft_data
+		WHERE nft_id = #{searchWord}
+		AND del_yn = 'N'
+		AND hide_yn = 'N'
+	</select>
+	
+	<select id="getNftCntBytypeNum" resultType="int">
+		SELECT COUNT(nd.*)
+		FROM nft_data nd
+		JOIN nft_data_detail ndd 
+		ON nd.detail_num = ndd.detail_num
+		WHERE ndd.type_num = #{typeNum}
+		AND nd.del_yn = 'N'
+		AND nd.hide_yn = 'N'
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<select id="getAdminNftListByDataType" resultType="map">
+		<![CDATA[
+			SELECT
+				nd.nft_num,
+				nd.user_num,
+				nd.nft_title,
+				nd.nft_id,
+				nd.nft_publisher,
+				nd.nft_owner,
+				nd.nft_original_date,
+				nd.hide_yn,
+				CASE WHEN nd.del_yn='N' THEN '발행' ELSE '삭제' END AS del_yn,
+				ndd.type_num 
+			FROM nft_data nd
+			LEFT JOIN(
+				SELECT nd1.nft_num, (row_number() over(order by nd1.nft_num desc)) AS rnum
+				FROM nft_data nd1
+				JOIN nft_data_detail ndd1 
+				ON nd1.detail_num = ndd1.detail_num
+				WHERE ndd1.type_num = #{typeNum}
+			)nd2
+			ON nd.nft_num = nd2.nft_num
+			JOIN nft_data_detail ndd 
+			ON nd.detail_num = ndd.detail_num
+			WHERE rnum >= (#{pageNum}-1)*#{listNum}+1 AND rnum <= #{pageNum}*#{listNum}
+			AND ndd.type_num = #{typeNum}
+			ORDER BY 1 DESC
+		]]>
+	</select>
+	
+	<select id="getAdminNftListCnt" resultType="int">
+		SELECT COUNT(nd.*)
+		FROM nft_data nd
+		JOIN nft_data_detail ndd 
+		ON nd.detail_num = ndd.detail_num
+		WHERE ndd.type_num = #{typeNum}
+	</select>
+	
+	<update id="updateHideYn">
+		UPDATE
+			nft_data
+		SET hide_yn =
+			CASE
+				WHEN hide_yn = 'Y' 
+				THEN 'N'
+				WHEN hide_yn = 'N' 
+				THEN 'Y'
+			END
+		WHERE
+			nft_num=#{nftNum}
+	</update>
+	
+	<update id="updatedelYn">
+		UPDATE nft_data
+		SET del_yn = 'Y'
+		WHERE nft_num=#{nftNum}
+	</update>
+	
+	<select id="searchByConditions" resultType="map">
+		SELECT sel.*
+		FROM
+			(SELECT
+					nd.nft_num,
+					nd.user_num,
+					nd.nft_title,
+					nd.nft_id,
+					nd.nft_publisher,
+					nd.nft_owner,
+					nd.nft_original_date,
+					nd.hide_yn,
+					CASE WHEN nd.del_yn='N' THEN '발행' ELSE '삭제' END AS del_yn,
+					ndd.type_num
+				FROM nft_data nd
+				JOIN nft_data_detail ndd 
+				ON nd.detail_num = ndd.detail_num
+				<if test="searchType != null and searchType == 'searchTitle' and searchWord != null">
+					WHERE nd.nft_title LIKE '%' || #{searchWord} || '%'
+				</if>
+				<if test="searchType != null and searchType == 'searchId' and searchWord != null">
+					WHERE nd.nft_id LIKE '%' || #{searchWord} || '%'
+				</if>
+				<if test="searchType != null and searchType == 'searchYear' and searchWord != null">
+					WHERE nd.nft_original_date LIKE #{searchWord} || '%'
+				</if>
+				<if test="searchType != null and searchType == 'searchStatus' and searchWord != null">
+					WHERE nd.del_yn = #{searchWord}
+				</if>
+				AND ndd.type_num = #{typeNum}
+				ORDER BY 1 
+			) sel
+		LIMIT #{listNum} OFFSET (#{pageNum}-1)*#{listNum}
+	</select>
+	
+	<select id="searchByConditionsCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM nft_data nd
+		JOIN nft_data_detail ndd 
+		ON nd.detail_num = ndd.detail_num
+		<if test="searchType != null and searchType == 'searchTitle' and searchWord != null">
+			WHERE nd.nft_title LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchType != null and searchType == 'searchId' and searchWord != null">
+			WHERE nd.nft_id LIKE '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchType != null and searchType == 'searchYear' and searchWord != null">
+			WHERE nd.nft_original_date LIKE #{searchWord} || '%'
+		</if>
+		<if test="searchType != null and searchType == 'searchStatus' and searchWord != null">
+			WHERE nd.del_yn = #{searchWord}
+		</if>
+		AND ndd.type_num = #{typeNum}
+	</select>
+	
+	
+	<select id="getNftId4Admin" resultType="String">
+		SELECT nft_id
+		FROM nft_data
+		WHERE nft_num=#{nftNum}
+	</select>
+	
+	
+</mapper>

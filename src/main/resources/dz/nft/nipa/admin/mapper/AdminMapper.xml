@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dz.nft.nipa.admin.mapper.AdminMapper">
+	
+	<insert id="insertUserData">
+		INSERT INTO nft_user (
+			user_id,
+			user_pw,
+			user_role
+		) VALUES (
+			#{userId},
+			#{userPw},
+			#{userRole}
+		)
+	</insert>
+	
+	<select id="getUserDataById" resultType="dz.nft.nipa.dto.UserDto">
+		SELECT * FROM nft_user WHERE user_id=#{id}
+	</select>
+	
+	<select id="getUserDataByIdAndPw" resultType="dz.nft.nipa.dto.UserDto">
+		SELECT * FROM nft_user WHERE user_id=#{id} AND user_pw=#{pw}
+	</select>
+	
+	<select id="createNftKey" resultType="int">
+		SELECT NEXTVAL('nft_data_seq')
+	</select>
+	
+	<insert id="insertNftData">
+		INSERT INTO nft_data (
+			nft_num,
+			detail_num,
+			user_num,
+			nft_title,
+			nft_id,
+			nft_publisher,
+			nft_owner,
+			nft_original_date
+		) VALUES (
+			#{nftNum},
+			#{detailNum},
+			#{userNum},
+			#{nftTitle},
+			#{nftId},
+			#{nftPublisher},
+			#{nftOwner},
+			#{nftOriginalDate}
+		)
+	</insert>
+	
+	<select id="testTitle" resultType="int">
+		SELECT COUNT(*) FROM nft_data WHERE TRIM(nft_title)=TRIM(#{nftTitle})
+	</select>
+	
+	<insert id="insertThumbnailImg">
+		INSERT INTO nft_data_img (
+			nft_num,
+			img_location,
+			img_original_name
+		) VALUES (
+			#{nftNum},
+			#{imgLocation},
+			#{imgOriginalName}
+		)
+	</insert>
+	
+	<update id="updateLogFailCntByUserNum">
+		UPDATE nft_user
+		SET user_login_fail_cnt = user_login_fail_cnt+1 
+		WHERE user_num=#{userNum}
+	</update>
+	
+	<update id="updateUserLockByUserNum">
+		UPDATE nft_user
+		SET user_lock = 'Y'
+		WHERE user_num=#{userNum}
+	</update>
+	
+	<update id="resetLogFailCntByUserNum">
+		UPDATE nft_user
+		SET user_login_fail_cnt = 0
+		WHERE user_num=#{userNum}
+	</update>
+	
+</mapper>

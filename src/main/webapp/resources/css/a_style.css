@@ -1,0 +1,653 @@
+/* 로그인 페이지 */
+
+body {
+    width: 100%;
+    height: 100%;
+    /* background-color: aliceblue; */
+}
+
+.login_page {
+    width: 100%;
+    height: 100%;
+}
+
+.login_page .login_logo {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
+
+.login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login .login_wrap {
+    width: 400px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.login .login_wrap legend {
+    font-size: 0;
+}
+
+.login .login_wrap .login_title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.login .login_wrap .login_title p:first-child {
+    font-size: 31px;
+    color: #004685;
+    font-weight: bold;
+}
+
+.login .login_wrap .login_title p:last-child {
+    font-size: 26px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.login .login_wrap .input_box label {
+    position: relative;
+    width: 400px;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fafafa;
+    box-sizing: border-box
+}
+
+.login .login_wrap .input_box label:last-of-type {
+    margin-bottom: 0
+}
+
+.login .login_wrap .input_box label:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.login .login_wrap .input_box label input {
+    display: block;
+    width: 350px;
+    height: 50px;
+    width: 100%;
+    font-size: 16px;
+    line-height: 50px;
+    padding-left: 15px;
+    color: #333;
+    background: transparent;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.login .login_wrap .input_box label i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 25px;
+    padding: 6px;
+}
+
+.login .login_wrap .input_box_btn {
+    margin-top: 15px;
+    text-align: left
+}
+
+.login .login_wrap .input_box_btn a.login_btn {
+    margin-top: 20px;
+    clear: both;
+    display: block;
+    font-size: 20px;
+    line-height: 50px;
+    font-weight: 700;
+    letter-spacing: 0.5em;
+    color: #fff;
+    background: #004685;
+    border-radius: 5px;
+    text-align: center;
+    width: 400px;
+    height: 50px
+}
+
+.login .login_wrap .input_box_btn a.input_box_twobtn {
+    width: 205px;
+    display: inline-block;
+    margin-right: 10px;
+    background: #bcbcbc;
+}
+
+.login .login_wrap .input_box_btn a.input_box_twobtn:last-child {
+    margin-right: 0;
+    background: #004685;
+}
+
+.login .log_help {
+    width: 350px;
+    margin-top: 20px
+}
+
+.log_help p {
+    display: inline-block;
+    font-size: 16px;
+    text-align: left;
+}
+
+.log_help p:first-child {
+    float: left;
+}
+
+.log_help p.last {
+    float: right;
+}
+
+.log_help p.last:hover {
+    text-decoration: underline;
+}
+
+
+/* 메인페이지 */
+
+#container .nft_list_button {
+    float: right;
+    margin-bottom: 10px;
+}
+
+#container .nft_list_button li {
+    float: left;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #004685;
+    margin-left: 10px;
+}
+
+#container .nft_list_button li:last-child {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#container .nft_list_button li a {
+    display: block;
+    color: #ffffff;
+}
+
+#container .nft_list_button li:last-child a {
+    color: #333;
+}
+
+.tabWrap {
+    width: 100%;
+    margin: 0 auto;
+    border: 2px solid #004685;
+    box-sizing: border-box;
+}
+
+.tblwrap_basic td>a {
+    display: block;
+    width: 90px;
+    height: 40px;
+    line-height: 37px;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10px;
+    background-color: #004685;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+.tblwrap_basic td:last-child>a {
+    border: 1px solid #004685;
+    background-color: #ffffff;
+    color: #004685;
+}
+
+.tblwrap_basic td>a:hover {
+    text-decoration: underline;
+}
+
+.tabList .search_btn {
+    margin-top: 20px;
+    width: auto;
+    position: relative;
+}
+
+.tabList .search_btn .search_icon_title {
+    position: relative;
+    float: left;
+    margin-left: 10px;
+}
+.tabList .search_btn .search_icon_id {
+	display: none;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+}
+.tabList .search_btn .search_icon_year {
+	display: none;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+}
+.tabList .search_btn .search_icon_status {
+	display: none;
+    position: relative;
+    float: left;
+    margin-left: 10px;
+}
+
+.tabList .search_btn input[type="text"] {
+    width: 500px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+.tabList .search_btn a {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.tabList .search_btn select {
+    float: left;
+    width: 150px;
+    height: 40px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.list_choice {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
+
+.list_choice select {
+    width: 150px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.list_choice select option {
+    padding: 0 10px;
+}
+
+.page_wrap {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+    margin-bottom: 0px;
+}
+
+.page_nation {
+    display: inline-block;
+}
+
+.page_nation .none {
+    display: none;
+}
+
+.page_nation a {
+    display: block;
+    float: left;
+    width: 40px;
+    height: 40px;
+    line-height: 42px;
+    text-align: center;
+    background-color: #fff;
+    font-size: 16px;
+    color: #999999;
+    text-decoration: none;
+}
+
+.page_nation a img {
+    width: 16px;
+}
+
+.page_nation a.active {
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.popup_add_btn_two .delete_btn {
+    background-color: #ffffff;
+    color: #004685;
+    border: 1px solid #004685;
+    margin-left: 10px;
+}
+
+.popup_add_btn_two .delete_btn:hover {
+    border: 2px solid #004685;
+    line-height: 48px;
+}
+
+.no_data {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.no_data_box {
+    width: 400px;
+    height: auto;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.no_data_box p {
+    padding-top: 40px;
+    box-sizing: border-box;
+    font-size: 26px;
+    color: #666;
+}
+
+
+/* nft 항목페이지 */
+
+.content_half_center .sub_title {
+    position: relative;
+}
+
+.content_half_center .sub_title .prev_page {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    line-height: 29px;
+    text-align: center;
+    background-color: #004685;
+    color: #ffffff;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.content_half_center .nft_list_box li {
+    width: 100%;
+    height: 60px;
+    border: 2px solid #ccc;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.content_half_center .nft_list_box li a {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.content_half_center .nft_list_box li a img {
+    width: 25px;
+}
+
+.content_half_center .nft_list_box li:last-child {
+    margin-bottom: 0;
+}
+
+.content_half_center .nft_list_box li input[type=text] {
+    width: 80%;
+    height: 40px;
+    padding-left: 10px;
+    margin-left: 10px;
+    margin-top: 7px;
+}
+
+.ntf_more_btn .add_btn {
+    display: block;
+    float: right;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #3b74db;
+    margin-top: 10px;
+    color: #ffffff;
+    margin-right: 10px;
+}
+
+.ntf_more_btn .add_btn img {
+    width: 15px;
+    margin-right: 5px;
+    vertical-align: middle;
+    margin-bottom: 2px;
+}
+
+.ntf_more_btn .save_btn {
+    display: block;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #004685;
+    color: #ffffff;
+    margin-top: 10px;
+    float: right;
+}
+
+
+/* NFT 발행페이지 */
+
+.nft_modify {
+    border-bottom: 2px solid #ccc;
+}
+
+.nft_modify li {
+    margin-bottom: 20px;
+}
+
+.nft_modify li:last-child {
+    margin-bottom: 10px;
+}
+
+.nft_modify li .nft_modify_title {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.nft_modify li .nft_modify_title::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.nft_modify li .nft_modify_title p {
+    font-size: 18px;
+    float: left;
+}
+
+.nft_modify li .nft_modify_title span {
+    font-size: 14px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 3px;
+    color: #004685;
+}
+
+.nft_modify li input[type=text],
+.nft_modify li input[type=url],
+.nft_modify li select {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.nft_modify li input[type=date] {
+    width: 50%;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.nft_modify li .preview_file {
+    width: 50%;
+    height: auto;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.nft_modify li .preview_file img {
+    width: 100%;
+}
+
+.nft_modify li input[type=file] {
+    font-size: 14px;
+    width: 100%;
+    height: 40px;
+    line-height: 30px;
+    background-color: #ffffff;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+
+/* 에러페이지 */
+
+.error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 800px;
+    height: 500px;
+    border-top: 4px solid #004685;
+    border-bottom: 4px solid #004685;
+    box-sizing: border-box;
+    padding: 50px 0;
+}
+
+.error_box {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.error_box p:first-child {
+    font-size: 100px;
+    color: #004685;
+    letter-spacing: 10px;
+    text-align: center;
+}
+
+.error_box h3 {
+    font-size: 26px;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.error_box span {
+    display: block;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.error_box a {
+    margin: 40px auto 0;
+    display: block;
+    width: 200px;
+    height: 40px;
+    border-radius: 0px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #004685;
+    color: #004685;
+    transition: 0.5s;
+}
+
+.error_box a:hover {
+    background-color: #004685;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+.slider {
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 32px;
+    width: 64px;
+}
+
+.slider__input {
+    display: none;
+}
+
+.slider__label {
+    color: #000;
+    background: #fff;
+}
+
+.slider__label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider__label:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.slider__input:checked+.slider__label {
+    color: #fff;
+    background: #004685;
+}
+
+.slider__input:checked+.slider__label:before {
+    -webkit-transform: translateX(32px);
+    -ms-transform: translateX(32px);
+    transform: translateX(32px);
+}

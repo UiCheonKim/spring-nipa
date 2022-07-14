@@ -1,0 +1,2132 @@
+/* 메인 페이지 */
+
+.mainbanner {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background: url(../images/main_background.png) center no-repeat;
+}
+
+.mainbanner .bannerbox .bannerbox_text {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    color: #ffffff;
+    width: 100%;
+    margin-top: 130px;
+}
+
+.mainbanner .bannerbox .bannerbox_text .underline {
+    display: block;
+    width: 70px;
+    height: 2px;
+    background-color: #ffffff;
+    margin: 40px 0;
+    opacity: 0.8;
+}
+
+
+.mainbanner .bannerbox .bannerbox_text p {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-weight: 10;
+    text-shadow: 2px 2px 2px #004685;
+}
+
+.mainbanner .bannerbox .bannerbox_text h2 {
+    font-size: 36px;
+    letter-spacing: 5px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    line-height: 50px;
+    text-shadow: 5px 5px #004685;
+}
+
+.mainbanner .bannerbox .bannerbox_text .banner_box_bottom_text {
+    line-height: 0;
+    letter-spacing: 2px;
+    font-size: 20px;
+}
+
+.mainbanner_back_img_1>img {
+    position: absolute;
+    right: 0;
+    top: -50px;
+    z-index: 10;
+    animation-name: imgAni;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.mainbanner_back_img_2>img {
+    position: absolute;
+    right: 350px;
+    top: -20px;
+    z-index: 10;
+}
+
+.mainbanner_back_img_3>img {
+    position: absolute;
+    right: 450px;
+    top: 160px;
+    z-index: 10;
+    width: 80px;
+}
+
+.mainbanner_back_img_4>img {
+    position: absolute;
+    right: 280px;
+    top: 170px;
+    z-index: 10;
+}
+
+.mainbanner_back_img_5>img {
+    position: absolute;
+    right: 380px;
+    top: 220px;
+    z-index: 10;
+}
+
+.circle img {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    animation-name: cirAni;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes imgAni {
+    from {
+        right: 0;
+        top: -30px;
+    }
+
+    to {
+        right: -10px;
+        top: -20px;
+    }
+}
+
+@keyframes cirAni {
+    from {
+        width: 250px;
+        height: 250px;
+        opacity: 1;
+        right: 10px;
+        top: -15px;
+    }
+
+    to {
+        width: 320px;
+        height: 320px;
+        opacity: 0;
+        right: -10px;
+        top: -20px;
+    }
+}
+
+
+/* 큰 탭버튼 */
+
+.tabWrap {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: 2px solid #aaa;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+}
+
+#main_container .main_content {
+    margin-top: -99px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    /* box-shadow: 1px 1px 3px #ccc; */
+    /* border-top: none; */
+}
+
+#main_container .tabBtn {
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    background-color: #eee;
+    box-sizing: border-box;
+    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+}
+
+#main_container .tabBtn>li {
+    float: left;
+    width: 50%;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 22px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #eee;
+}
+
+#main_container .tabBtn>li:first-child {
+    border-radius: 15px 0 0 0;
+    box-shadow: inset 2px 2px 5px #ccc;
+    border: 2px solid #aaa;
+    border-top: none;
+    border-left: none;
+    box-sizing: border-box;
+}
+
+#main_container .tabBtn>li:last-child {
+    border-radius: 0 15px 0 0;
+    box-shadow: inset -2px 2px 5px #ccc;
+    border: 2px solid #aaa;
+    border-top: none;
+    border-right: none;
+    box-sizing: border-box;
+}
+
+#main_container .tabBtn>li.active:first-child {
+    border-radius: 15px 0 0 0;
+    border: 2px solid #aaa;
+    border-right: none;
+    font-weight: bold;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-bottom: none;
+    line-height: 77px;
+    box-shadow: none;
+}
+
+#main_container .tabBtn>li.active:nth-child(2) {
+    border-radius: 0 15px 0 0;
+    border: 2px solid #aaa;
+    border-left: none;
+    font-weight: bold;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-bottom: none;
+    line-height: 77px;
+    box-shadow: none;
+}
+
+#main_container .tabBtn>li>a {
+    display: block;
+    color: #666666;
+}
+
+#main_container .tabBtn>li.active a {
+    color: #333;
+}
+
+#main_container .tabBtn_sub {
+    overflow: hidden;
+    z-index: 100;
+    padding-top: 20px;
+    padding-left: 10px;
+    width: 500px;
+    height: auto;
+}
+
+#main_container .tabBtn_sub>li {
+    float: left;
+    width: 65px;
+    margin-right: 10px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+#main_container .tabBtn_sub>li:hover a {
+    font-weight: bold;
+    color: #004685;
+    border: 1px solid #004685;
+}
+
+#main_container .tabBtn_sub>li>a {
+    display: block;
+    padding: 10px;
+    border: 1px solid transparent;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#main_container .tabBtn_sub>li.active>a {
+    font-weight: bold;
+    color: #004685;
+    border: 2px solid #004685;
+}
+
+.tabList>div {
+    width: 1400px;
+    height: auto;
+    display: none;
+    border-radius: 5px;
+    padding: 0px 10px 10px;
+    box-sizing: border-box;
+}
+
+.tabList .tabList_title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0 10px;
+    margin-top: 20px;
+    padding-bottom: 15px;
+    border-bottom: 4px solid #004685;
+}
+
+.tabList>.tab1 {
+    display: block;
+}
+
+.tabList>.tab2 {
+    display: none;
+}
+
+.tabList>.tab1>ul,
+.tabList>.tab2>ul {
+    display: none;
+}
+
+.tabList>.tab1 .y_ALL,
+.tabList>.tab2 .y_ALL {
+    display: block;
+}
+
+.document {
+    width: 100%;
+}
+
+.document li {
+    display: inline-block;
+    width: calc(25% - 23px);
+    height: auto;
+    /* border-radius: 5px; */
+    margin: 20px 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 3px 1px #ccc;
+}
+
+.document li a {
+    display: block;
+}
+
+.document li:hover {
+    box-shadow: inset 1px 1px 3px 1px #ccc;
+}
+
+.document li .number {
+    font-size: 14px;
+}
+
+.document li .number img {
+    width: 20px;
+    float: right;
+    margin-right: 10px;
+}
+
+.document li .document_img {
+    /* border: 1px solid #dddddd; */
+    width: 295px;
+    margin-bottom: 10px;
+}
+
+.document li .name {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    max-width: 297px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 10px 0 5px;
+}
+
+.document li .hits {
+    display: block;
+    float: left;
+    width: auto;
+    border: 1px solid #dddddd;
+    border-radius: 50px;
+    margin-top: 10px;
+    padding: 2px 10px;
+    box-sizing: border-box;
+}
+
+.document li .hits img {
+    float: left;
+    width: 20px;
+}
+
+.document li .hits span {
+    float: right;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.document li .day {
+    display: block;
+    width: auto;
+    float: right;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.page_wrap {
+    text-align: center;
+    font-size: 0;
+    width: 100%;
+    margin: 10px 0;
+}
+
+#main_container .page_wrap {
+    margin-top: 0px;
+}
+
+#container .page_wrap {
+    margin-bottom: 0px;
+}
+
+.page_nation {
+    display: inline-block;
+}
+
+.page_nation .none {
+    display: none;
+}
+
+.page_nation a {
+    display: block;
+    float: left;
+    width: auto;
+    height: 40px;
+    line-height: 42px;
+    text-align: center;
+    background-color: #fff;
+    font-size: 16px;
+    color: #999999;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.page_nation a img {
+    width: 16px;
+}
+
+.page_nation a.active {
+    text-decoration: underline;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.main_textbox {
+    border-top: 2px dashed #ccc;
+    padding-top: 10px;
+}
+
+
+/* NTF 상세정보 페이지 */
+
+#container .nft_subpage {
+    width: 1400px;
+    margin: 0 auto;
+}
+
+#container .nft_subpage .nft_left {
+    float: left;
+    width: 30%;
+    height: 565px;
+    position: relative;
+}
+
+#container .nft_subpage .nft_left img {
+    position: absolute;
+    border: 1px solid #dddddd;
+    box-shadow: 5px 5px 10px 3px #dddddd;
+    width: 400px;
+    bottom: 5px;
+    left: 0;
+    box-sizing: border-box;
+}
+
+#container .nft_subpage .nft_right {
+    float: right;
+    width: 65%;
+    height: 565px;
+    position: relative;
+}
+
+#container .nft_subpage .nft_right .nft_right_box {
+    width: 100%;
+    height: 565px;
+    /* border: 2px solid #ccc; */
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    /* padding: 20px; */
+}
+
+#container .nft_subpage .nft_right h2 {
+    font-size: 30px;
+    margin-bottom: 40px;
+    word-break: keep-all;
+    line-height: 1.2em;
+}
+
+#container .nft_subpage .nft_right .nft_rigth_info {
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #ccc;
+    padding: 20px 0;
+}
+
+#container .nft_subpage .nft_right .nft_list {
+    float: left;
+}
+
+#container .nft_subpage .nft_right .nft_list li {
+    position: relative;
+    padding: 15px 0;
+    width: 100%;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+#container .nft_subpage .nft_right .nft_list li:first-child {
+    margin-top: 0;
+}
+
+#container .nft_subpage .nft_right .nft_list li::before {
+    display: block;
+    content: "";
+    clear: both;
+    width: 5px;
+    height: 5px;
+    background-color: #004685;
+    position: absolute;
+    top: 50%;
+    left: -18px;
+    transform: translateY(-50%);
+}
+
+#container .nft_subpage .nft_right .nft_list li span:first-child {
+    display: inline-block;
+    width: 110px;
+    font-weight: bold;
+}
+
+#container .nft_subpage .nft_right .nft_list li span:last-child {
+    padding-left: 10px;
+}
+
+#container .nft_subpage .nft_right .nft_search_btn {
+    position: absolute;
+    right: 0;
+    top: 27px;
+}
+
+.id_copy {
+    display: inline-block;
+    width: 85px;
+    height: 35px;
+    line-height: 32px;
+    padding: 0 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #666;
+    color: #666;
+    box-sizing: border-box;
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    right: -70px;
+    transform: translateY(-50%);
+}
+
+.id_copy:hover {
+    border: 2px solid #333;
+    color: #333;
+    line-height: 30px;
+}
+
+#container .nft_subpage .nft_right .nft_search_btn a {
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    line-height: 32px;
+    color: #004685;
+    font-size: 18px;
+    background-color: #ffffff;
+    border: 1px solid #004685;
+    box-sizing: border-box;
+}
+
+#container .nft_subpage .nft_right .nft_search_btn a:hover {
+    border: 2px solid #004685;
+    line-height: 30px;
+}
+
+#container .nft_subpage .nft_right .nft_notice {
+    position: absolute;
+    bottom: 95px;
+    width: 100%;
+}
+
+#container .nft_subpage .nft_right .video_notice {
+    bottom: 110px;
+}
+
+#container .nft_subpage .nft_right .nft_notice p {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #eeeeee;
+    box-sizing: border-box;
+    font-size: 18px;
+    word-break: keep-all;
+    line-height: 1.5em;
+}
+
+#container .nft_subpage .nft_right .nft_button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+#container .nft_subpage .nft_right .nft_button>li {
+    float: right;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    line-height: 50px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#container .nft_subpage .nft_right .nft_button>li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #ffffff;
+    background-color: #004685;
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+#container .nft_subpage .nft_right .nft_button>li a img {
+    width: 20px;
+    margin-bottom: 2px;
+}
+
+#container .nft_subpage .nft_right .nft_button>li a:hover {
+    box-shadow: none;
+}
+
+#container .nft_subpage .nft_right .share_button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.share_button .share_box {
+    border: 2px solid #ccc;
+    height: 30px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.share_button .share_box li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+}
+
+.share_button .share_box li:last-child {
+    margin-right: 0;
+}
+
+
+/* NFT 전체 현황 페이지 */
+
+.nft_position_top {
+    width: 100%;
+    height: 180px;
+    margin-bottom: 20px;
+}
+
+.nft_position_top ul li {
+    float: left;
+    width: calc(25% - 8px);
+    height: 180px;
+    margin-right: 10px;
+    border: 1px solid #dddddd;
+    box-shadow: 3px 3px 5px 1px #dddddd;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.nft_position_top ul li:last-child {
+    margin-right: 0;
+}
+
+.nft_position_top ul li p:first-child {
+    font-size: 22px;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.nft_position_top ul li p:last-child {
+    font-size: 40px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.nft_position_middle {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.nft_position_middle>ul>li {
+    float: left;
+    width: calc(50% - 6px);
+    height: auto;
+    margin-right: 10px;
+    border: 1px solid #dddddd;
+    box-shadow: 3px 3px 5px 1px #dddddd;
+    box-sizing: border-box;
+}
+
+.nft_position_middle>ul>li:last-child {
+    margin-right: 0;
+}
+
+.nft_position_middle>ul>li .nft_position_title {
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    padding: 25px 0;
+    height: 20px;
+    text-align: center;
+}
+
+.nft_position_middle>ul>li .nft_position_title p {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.nft_position_middle>ul>li .nft_position_title a {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nft_position_middle>ul>li .nft_position_title a:hover img {
+    transform: rotate(180deg);
+    transition: 0.5s;
+}
+
+.nft_position_middle>ul>li .nft_position_content {
+    padding: 10px;
+}
+
+.nft_position_middle>ul>li .nft_position_content>div {
+    position: relative;
+    width: 90%;
+    height: 130px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-top: 3px solid #004685;
+}
+
+.nft_position_bottom {
+    width: 100%;
+}
+
+.nft_position_bottom>ul>li {
+    float: left;
+    width: calc(50% - 6px);
+    height: auto;
+    margin-right: 10px;
+    border: 1px solid #dddddd;
+    box-shadow: 3px 3px 5px 1px #dddddd;
+    box-sizing: border-box;
+}
+
+.nft_position_bottom>ul>li:last-child {
+    margin-right: 0;
+}
+
+.nft_position_bottom>ul>li .nft_position_title {
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    padding: 25px 0;
+    height: 20px;
+    text-align: center;
+}
+
+.nft_position_bottom>ul>li .nft_position_title p {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 18px;
+}
+
+.nft_position_bottom>ul>li .nft_position_title a {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.nft_position_bottom>ul>li .nft_position_title a:hover img {
+    transform: rotate(180deg);
+    transition: 0.5s;
+}
+
+.nft_position_bottom>ul>li .nft_position_content {
+    padding: 10px;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div {
+    position: relative;
+    /* width: 90%; */
+    height: auto;
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    /* border-top: 3px solid #004685; */
+    box-sizing: border-box;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div p {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    position: relative;
+    color: #004685;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div p a {
+    color: #004685;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div p a::after {
+    display: block;
+    content: "";
+    clear: both;
+    width: 100%;
+    height: 2px;
+    background-color: #004685;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div p a:hover {
+    color: #0d7ae0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div p a:hover::after {
+    background-color: #0d7ae0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content>div>span {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_block li {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_block li:last-child {
+    margin-bottom: 0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_block li span:last-child {
+    display: block;
+    width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nft_position_bottom>ul>li .nft_position_content li span:first-child {
+    display: block;
+    float: left;
+    width: 200px;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li {
+    font-size: 18px;
+    margin: 20px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li>p {
+    margin-bottom: 13.34px;
+    font-weight: bold;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li>p:last-child {
+    display: block;
+    width: 600px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li>p a {
+    color: #004685;
+    position: relative;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li>p a::after {
+    display: block;
+    content: "";
+    clear: both;
+    width: 100%;
+    height: 2px;
+    background-color: #004685;
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li>p a:hover {
+    color: #0d7ae0;
+}
+
+.nft_position_bottom>ul>li .nft_position_content .nft_position_transaction li>p a:hover::after {
+    background-color: #0d7ae0;
+}
+
+.example_gra {
+    text-align: center;
+}
+
+
+/* 블록, 트랜잭션 페이지 */
+
+.sub_tab_box {
+    /* box-shadow: 1px 1px 3px #ccc; */
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+#container .tabBtn {
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 15px 15px 0 0;
+}
+
+#container .tabBtn>li {
+    float: left;
+    width: 50%;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 22px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #eee;
+}
+
+#container .tabBtn>li:first-child {
+    border-radius: 15px 0 0 0;
+    box-shadow: inset 2px 2px 5px #ccc;
+    border: 2px solid #aaa;
+    border-top: none;
+    border-left: none;
+    box-sizing: border-box;
+}
+
+#container .tabBtn>li:last-child {
+    border-radius: 0 15px 0 0;
+    box-shadow: inset -2px 2px 5px #ccc;
+    border: 2px solid #aaa;
+    border-top: none;
+    border-right: none;
+    box-sizing: border-box;
+}
+
+#container .tabBtn>li.active:first-child {
+    border-radius: 15px 0 0 0;
+    box-shadow: inset -2px 2px 5px #ccc;
+    border: 2px solid #aaa;
+    border-right: none;
+    font-weight: bold;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-bottom: none;
+    box-shadow: none;
+    line-height: 77px;
+}
+
+#container .tabBtn>li.active:nth-child(2) {
+    border-radius: 0 15px 0 0;
+    box-shadow: inset 2px 2px 5px #ccc;
+    border: 2px solid #aaa;
+    border-left: none;
+    font-weight: bold;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-bottom: none;
+    box-shadow: none;
+    line-height: 77px;
+}
+
+#container .tabBtn>li>a {
+    display: block;
+    color: #666666;
+}
+
+#container .tabBtn>li.active a {
+    color: #333333;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.block_tran_sub_title {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    background-color: #eeeeee;
+    font-size: 18px;
+    line-height: 40px;
+    padding: 0 10px;
+    /* word-spacing: -1px; */
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    word-break: keep-all;
+}
+
+.block_tran_sub_title span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+/* 테이블 */
+
+.tblwrap_basic table {
+    width: 100%;
+    font-size: 18px;
+    position: relative;
+    border-top: 4px solid #004685;
+}
+
+.more_table table {
+    margin-top: 20px;
+}
+
+.tblwrap_basic table th {
+    background-color: #eeeeee;
+}
+
+.tblwrap_basic th,
+.tblwrap_basic td {
+    height: 50px;
+    padding-left: 1%;
+    border: 1px solid #ccc;
+    text-align: left;
+    position: relative;
+}
+
+.block_tran_list {
+    position: relative;
+    border: 2px solid #aaa;
+    border-top: none;
+    box-sizing: border-box;
+    border-radius: 0 0 15px 15px;
+}
+
+.block_tran_list>p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.block_tran_list .block_tran_list_box {
+    padding: 20px;
+    box-sizing: border-box;
+    border-top: none;
+}
+
+.block_tran_list .list_link {
+    text-decoration: underline;
+}
+
+.block_tran_list .list_link a:hover {
+    color: #004685;
+    font-weight: bold;
+}
+
+.block_tran_list .list_search {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    width: 100px;
+    height: 30px;
+    background-color: #004685;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.block_tran_list .list_search a {
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.block_tran_list .block_tran_list_box .more_btn {
+    display: inline-block;
+    width: auto;
+    height: 35px;
+    background-color: #ffffff;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 5px;
+    color: #004685;
+    border: 1px solid #004685;
+    margin-left: 20px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.block_tran_list .more_table {
+    display: none;
+}
+
+.block_tran_list .another_list_search {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: auto;
+    height: 35px;
+    padding: 0 10px;
+    background-color: #ffffff;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 5px;
+    color: #004685;
+    border: 1px solid #004685;
+    box-sizing: border-box;
+}
+
+.transaction_list .block_tran_list_box .more_btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: auto;
+    height: 35px;
+    padding: 0 10px;
+    background-color: #ffffff;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 5px;
+    color: #004685;
+    margin-left: 20px;
+    border: 1px solid #004685;
+    box-sizing: border-box;
+}
+
+.block_tran_list .another_list_search:hover,
+.block_tran_list .block_tran_list_box .more_btn:hover {
+    border: 2px solid #004685;
+    line-height: 30px;
+}
+
+
+/* 에러페이지 */
+
+.error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: block;
+    width: 800px;
+    height: 500px;
+    border-top: 4px solid #004685;
+    border-bottom: 4px solid #004685;
+    box-sizing: border-box;
+    padding: 50px 0;
+}
+
+.error_box {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.error_box p:first-child {
+    font-size: 100px;
+    color: #004685;
+    letter-spacing: 10px;
+    text-align: center;
+}
+
+.error_box h3 {
+    font-size: 26px;
+    font-weight: normal;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.error_box span {
+    display: block;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.error_box a {
+    margin: 40px auto 0;
+    display: block;
+    width: 200px;
+    height: 40px;
+    border-radius: 0px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #004685;
+    color: #004685;
+    transition: 0.5s;
+}
+
+.error_box a:hover {
+    background-color: #004685;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+
+/* 소개페이지 */
+
+.introduce_page_container {
+    margin-bottom: 0 !important;
+}
+
+.introduce_page_container .content {
+    padding: 0 !important;
+}
+
+.introduce_page_container .content>div {
+    border-bottom: 2px dashed #ccc;
+}
+
+.introduce_page_container .content>div:last-child {
+    border: none;
+}
+
+.introduce_background_story {
+    width: 100%;
+    height: auto;
+    padding: 40px 0 80px;
+}
+
+.introduce_title {
+    color: #333333;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 60px;
+    position: relative;
+}
+
+.introduce_title::after {
+    display: block;
+    content: "";
+    clear: both;
+    width: 40px;
+    height: 2px;
+    background-color: #a8aaae;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.introduce_background_story p {
+    font-size: 18px;
+    color: #333333;
+    line-height: 1.6em;
+    text-align: center;
+}
+
+.introduce_background_story p.introduce_bottom {
+    margin-bottom: 30px;
+}
+
+.skill_sub_info {
+    width: 800px;
+    height: 340px;
+    float: right;
+    position: relative;
+}
+
+.introduce_skill .skill_container ul {
+    word-break: keep-all;
+    width: 100%;
+    height: auto;
+    padding-left: 40px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.introduce_skill .skill_container li {
+    font-size: 18px;
+    margin-bottom: 30px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.introduce_skill .skill_container li:first-child {
+    padding-left: 0;
+    font-weight: bold;
+}
+
+.introduce_skill .skill_container li:last-child {
+    margin-bottom: 0;
+}
+
+.introduce_skill .skill_container li::after {
+    display: block;
+    content: "";
+    clear: both;
+    width: 5px;
+    height: 5px;
+    /* border: 2px solid #004685; */
+    border-radius: 100%;
+    background-color: #004685;
+    position: absolute;
+    left: 0;
+    top: 16px;
+}
+
+.introduce_skill .skill_container li:first-child::after {
+    display: none;
+}
+
+.skill_info {
+    padding: 10px 15px;
+    background-color: #eeeeee;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    word-break: keep-all;
+    width: 100%;
+}
+
+.skill_img {
+    float: left;
+    width: 600px;
+}
+
+.introduce_extensibility {
+    width: 100%;
+    padding: 80px 0 40px;
+}
+
+.introduce_extensibility .extensibility_box .left_extensibility {
+    float: left;
+    width: 100%;
+    word-break: keep-all;
+}
+
+.introduce_extensibility .extensibility_box p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.introduce_extensibility .extensibility_box .right_extensibility {
+    float: left;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.introduce_extensibility .extensibility_box .right_extensibility img {
+    width: 800px;
+}
+
+.introduce_skill {
+    position: relative;
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding: 80px 0;
+    box-sizing: border-box;
+}
+
+.introduce_skill>.circle {
+    position: absolute;
+    left: -160px;
+    top: 30px;
+    width: 367px;
+    height: 367px;
+    background-color: #004685;
+    border-radius: 50%;
+}
+
+.introduce_skill .subTitle {
+    display: block;
+    color: #333;
+    font-size: 32px;
+    width: 100%;
+    float: left;
+    text-align: center;
+}
+
+#real>div {
+    display: none;
+    line-height: 2;
+}
+
+#real>.skill1 {
+    display: block;
+}
+
+.introduce_skill .skill_title {
+    margin-top: 80px;
+}
+
+.skill_container {
+    margin-top: 40px;
+}
+
+.rightCircle>div {
+    display: none;
+    position: absolute;
+    top: 370px;
+    right: -200px;
+    transform: rotate(90deg);
+    transition: 1.6s;
+}
+
+.rightCircle>div:first-child {
+    display: block;
+    transform: rotate(-150deg);
+}
+
+.rightCircle>div img {
+    width: 600px;
+}
+
+.realGood>div {
+    position: absolute;
+    top: 50%;
+    right: 280px;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.realGood>.good1 {
+    right: 380px;
+    opacity: 1;
+}
+
+.menuCircle {
+    position: absolute;
+    top: 152px;
+    right: 0px;
+    width: 400px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: -3px 0px 10px #000;
+}
+
+.innerCircle {
+    width: 380px;
+    height: 380px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.skill_list_btn {
+    width: 100%;
+}
+
+.skill_list_btn li {
+    float: left;
+    width: calc(20% -40px);
+    border-radius: 10px;
+    color: #666;
+    font-size: 20px;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    margin-right: 37px;
+}
+
+.skill_list_btn li:last-child {
+    margin-right: 0;
+}
+
+.skill_list_btn li a {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.skill_list_btn li a:hover {
+    font-weight: bold;
+    color: #004685;
+    border: 1px solid #004685;
+}
+
+.skill_list_btn li.active a {
+    font-weight: bold;
+    color: #004685;
+    border: 2px solid #004685;
+}
+
+
+/* .skill_list_btn li::after {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: #004685;
+    position: absolute;
+    bottom: -10px;
+    left: -2px;
+    transition: 0.5s;
+}
+
+.skill_list_btn li:hover::after {
+    width: calc(100%);
+}
+
+.skill_list_btn li.active::after {
+    width: 100%;
+} */
+
+
+/* .skill_list_btn li.active a {
+    color: #004685;
+    font-weight: bold;
+    font-size: 24px;
+} */
+
+.skill_list_btn li a {
+    color: #666;
+}
+
+
+/* 약관팝업 */
+
+.terms_box {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.terms_title {
+    font-size: 26px;
+    padding: 30px 20px;
+    border-bottom: 1px solid #d4d4d4;
+    font-weight: bold;
+}
+
+.terms {
+    padding: 20px;
+}
+
+.terms .terms_contents p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.terms .terms_contents>li {
+    margin: 25px 0;
+}
+
+.terms .terms_contents .terms_contents_one>li {
+    font-size: 14px;
+    margin: 10px 0;
+    line-height: 1.5em;
+}
+
+.terms .terms_contents .terms_contents_two {
+    margin-bottom: 15px;
+}
+
+.terms .terms_contents .terms_contents_two>li {
+    font-size: 12px;
+    padding: 2px 0;
+}
+
+.terms_close_btn a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    height: 50px;
+    background-color: #666;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 14px;
+    line-height: 50px;
+}
+
+
+/* 약관팝업 */
+
+@media all and (min-width:2400px) {
+    .mainbanner {
+        background-size: 100% 100%;
+    }
+}
+
+@media all and (max-width:1823px) {
+    .introduce_skill>.circle {
+        display: none;
+    }
+}
+
+@media all and (max-width:1400px) {
+    .rightCircle>div {
+        top: -400px;
+        right: -300px !important;
+    }
+
+    .nav_title {
+        width: 100%;
+        background-position: unset;
+    }
+}
+
+@media all and (max-width:1200px) {
+    .rightCircle>div {
+        right: -9999px !important;
+    }
+}
+
+
+/* 로딩창 */
+
+@keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-o-keyframes rotate-loading {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes loading-text-opacity {
+    0% {
+        opacity: 0
+    }
+
+    20% {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+@-moz-keyframes loading-text-opacity {
+    0% {
+        opacity: 0
+    }
+
+    20% {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes loading-text-opacity {
+    0% {
+        opacity: 0
+    }
+
+    20% {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+@-o-keyframes loading-text-opacity {
+    0% {
+        opacity: 0
+    }
+
+    20% {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
+}
+
+.loadging_back {
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 110;
+}
+
+.loading-container,
+.loading {
+    height: 170px;
+    position: relative;
+    width: 170px;
+    border-radius: 100%;
+    z-index: 1000;
+}
+
+.loading-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    margin: 40px auto;
+}
+
+.loading {
+    border: 5px solid transparent;
+    border-color: transparent #004685 transparent #004685;
+    -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+    -moz-transform-origin: 50% 50%;
+    -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+    -o-transform-origin: 50% 50%;
+    -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+    -webkit-transform-origin: 50% 50%;
+    animation: rotate-loading 1.5s linear 0s infinite normal;
+    transform-origin: 50% 50%;
+}
+
+.loading-container:hover .loading,
+.loading-container .loading {
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+#loading-text {
+    -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+    -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+    -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+    animation: loading-text-opacity 2s linear 0s infinite normal;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    /* text-transform: uppercase; */
+    top: 50%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+}
+
+.empty_area {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.id_copy_2 {
+    display: inline-block;
+    width: 85px;
+    height: 35px;
+    line-height: 32px;
+    padding: 0 10px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #666;
+    color: #666;
+    box-sizing: border-box;
+    font-size: 18px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.id_copy_2:hover {
+    border: 2px solid #333;
+    color: #333;
+    line-height: 30px;
+}
+
+.tooltip_max_width {
+    width: 100% !important;
+    font-weight: normal !important;
+    padding-left: 0 !important;
+}
+
+.prevBlockLink:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #004685;
+}
+
+
+/* 이용가이드 배너(06.28) */
+
+.introduce_guide {
+    width: 100%;
+    height: auto;
+    padding: 80px 0;
+    box-sizing: border-box;
+}
+
+.guide_area {
+    width: 100%;
+    height: 480px;
+}
+
+.guide_box {
+    width: 400%;
+}
+
+.guide_box li {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+
+.guide_popup_box {
+    width: 900px;
+    height: auto;
+    padding: 30px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    margin: 0 5px;
+}
+
+.guide_banner {
+    width: 500%;
+    height: auto;
+}
+
+.guide_banner>li {
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+.guide_area {
+    display: block;
+    width: 615px;
+    height: 100%;
+    padding: 20px 60px;
+    margin: 0 auto;
+    border: 1px solid #eeeeee;
+}
+
+.guide_area p {
+    text-align: center;
+    color: #004685;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    word-break: keep-all;
+    line-height: 1.3em;
+}
+
+.guide_area img {
+    margin: 0 auto;
+    width: 615px;
+}
+
+.guide_arrow>li {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.guide_arrow>.g_leftBtn {
+    left: 20px;
+}
+
+.guide_arrow>.g_rightBtn {
+    right: 20px;
+}
+
+.guide_page {
+    /* position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); */
+    width: 780px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.guide_page>li {
+    float: left;
+    width: calc(20% - 10px);
+    margin: 0 5px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.guide_page>li::after {
+    display: block;
+    content: "";
+    clear: both;
+    width: 70px;
+    height: 1px;
+    background-color: #cccccc;
+    position: absolute;
+    left: 116px;
+    top: 37%;
+    transform: translateY(-50%);
+}
+
+.guide_page>li:last-child::after {
+    display: none;
+}
+
+.guide_page>li>a {
+    display: block;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #98a7b3;
+    border-radius: 50%;
+    color: #98a7b3;
+    text-align: center;
+    line-height: 48px;
+    margin: 0 auto;
+}
+
+.guide_page>.active>a {
+    background: #004685;
+    color: #ffffff;
+}
+
+.guide_page span {
+    cursor: pointer;
+    color: #98a7b3;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.guide_page>.active>span {
+    color: #004685;
+}

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dz.nft.nipa.transaction.mapper.TransactionMapper">
+	
+	<select id="getTransCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+	</select>
+	
+	<select id="getFirstTransNum" resultType="int">
+		SELECT t.id
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		ORDER BY t.id desc
+		LIMIT 1
+	</select>
+	
+	<select id="getNftIdByNftNum" resultType="String">
+		SELECT t.nft_id
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND nft_num=#{nftNum}
+	</select>
+	
+	<select id="getRecentTrList" resultType="dz.nft.nipa.dto.TransactionDto">
+		SELECT 
+			t.id,
+			TO_CHAR(t.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			t.txhash,
+			t.timestamp,
+			t.blockid
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		ORDER BY t.id DESC
+		LIMIT 9
+	</select>
+	
+	<select id="getTrDataByBlocknum" resultType="dz.nft.nipa.dto.TransactionDto">
+		SELECT 
+			t.id,
+			TO_CHAR(t.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			t.txhash,
+			t.timestamp,
+			t.blockid
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND t.blockid=#{blocknum}
+	</select>
+	
+	<select id="getTrDataById" resultType="dz.nft.nipa.dto.TransactionDto">
+		SELECT 
+			t.id,
+			t.blockid,
+			t.txhash,
+			TO_CHAR(t.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			CASE
+				WHEN t.chaincodename ='interval_random' 
+				THEN 'CHECK_LIVENESS' 
+				WHEN t.chaincodename ='token_erc721' 
+				THEN 'INIT_TOKEN'
+				ELSE 'SAVE_IPFS_HASH'
+			END AS chaincodename,
+			t.write_set,
+			CASE
+				WHEN t.fcn ='NFT_CREATE' 
+				THEN 'CREATE_NFT' 
+				WHEN t.fcn ='Read_NFT' 
+				THEN 'READ_NFT'
+				WHEN t.fcn ='Burn_NFT' 
+				THEN 'DELETE_NFT'
+				ELSE t.fcn
+			END AS fcn,
+			t.nft_id,
+			t.title,
+			t.timestamp,
+			nd.nft_num,
+			nd.detail_num,
+			t.nft_status
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN 
+		(
+			SELECT nft_id, nft_num, detail_num
+			FROM nft_data
+		)nd
+		ON nd.nft_id = t.nft_id
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND t.id=#{trId}
+	</select>
+	
+	<select id="getTotalReadCnt" resultType="int">
+		SELECT COUNT(*) 
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		JOIN nft_data nd
+		ON t.nft_id = nd.nft_id
+		WHERE c.name='digitalzonenipanft'
+		AND t.fcn='Read_NFT'
+		AND nd.hide_yn = 'N'
+		AND nd.del_yn = 'N'
+	</select>
+	
+	<select id="getTotalTrList" resultType="dz.nft.nipa.dto.TransactionDto">
+		SELECT 
+			t1.id,
+			t1.blockid,
+			t1.txhash,
+			TO_CHAR(t1.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			CASE
+				WHEN t1.chaincodename ='interval_random' 
+				THEN 'CHECK_LIVENESS' 
+				WHEN t1.chaincodename ='token_erc721' 
+				THEN 'INIT_TOKEN'
+				ELSE 'SAVE_IPFS_HASH'
+			END AS chaincodename,
+			t1.write_set,
+			CASE
+				WHEN t1.fcn ='NFT_CREATE' 
+				THEN 'CREATE_NFT' 
+				WHEN t1.fcn ='Read_NFT' 
+				THEN 'READ_NFT'
+				ELSE t1.fcn
+			END AS fcn,
+			t1.nft_id,
+			t1.title,
+			t1.timestamp,
+			CAST(COALESCE(NULLIF(t1.nft_num,''),'0') AS INT) AS nft_num,
+			t1.nft_status
+		FROM transactions_nipanft t1
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t1.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t1.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		ORDER BY t1.id DESC
+		LIMIT 10 OFFSET (#{pageNum}-1)*10
+	</select>
+	
+	<select id="getTestResult4SearchHash" resultType="int">
+		SELECT COUNT(*) 
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND t.txhash = #{searchWord}
+	</select>
+	
+	<select id="getTrNumByHash" resultType="int">
+		SELECT t.id 
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = t.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND t.txhash = #{searchWord}
+	</select>
+	
+	<select id="confirmReadRecord" resultType="int">
+		SELECT COUNT(t.*)
+		FROM transactions_nipanft t
+		LEFT JOIN (
+				SELECT ib.*
+				FROM blocks ib
+				LEFT JOIN channel c 
+				ON c.channel_genesis_hash = ib.channel_genesis_hash
+				WHERE c.name='digitalzonenipanft'
+			)b
+		ON t.blockid = b.blocknum
+		WHERE t.nft_id = #{nftId}
+		AND t.fcn='Read_NFT'
+	</select>
+	
+</mapper>

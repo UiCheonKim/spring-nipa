@@ -1,0 +1,483 @@
+/* 폰트 */
+
+
+/* @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css); */
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    src: url('../font/NotoSansKR-Medium.otf');
+}
+
+@font-face {
+    font-family: 'malgun';
+    src: url('../font/malgun.ttf')
+}
+
+
+/* 모든 요소의 바깥여백, 안쪽 여백 제거하기 */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+p,
+form,
+fieldset,
+button,
+input {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* a의 글자색 밑줄 */
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+
+/* li 장식제거 */
+
+li {
+    list-style: none;
+}
+
+
+/* 글자크기, 글씨체, 기본 글자색, 줄간격, 자간 */
+
+body {
+    font-size: 16px;
+    color: #333;
+    line-height: 1;
+    font-family: 'Noto Sans KR', 'malgun', sans-serif;
+    letter-spacing: 0px;
+}
+
+
+/* vertical  img button input select */
+
+img,
+button,
+input,
+select {
+    vertical-align: middle;
+}
+
+
+/* label button 커서모양 */
+
+label,
+button {
+    cursor: pointer;
+    border: none;
+}
+
+
+/* hr */
+
+hr {
+    display: none;
+}
+
+
+/* 기울기 address, em, i */
+
+address,
+em,
+i {
+    font-style: normal;
+}
+
+
+/* img, iframe,fieldset 테두리 */
+
+img,
+iframe,
+fieldset {
+    border: 0;
+}
+
+
+/* table 이중선 */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* .blind section 제목이 필수 사항이지만,
+ 화면에서는 사라지고, 사이트 목차로는 읽혀야됨 */
+
+.blind {
+    position: absolute;
+    top: -9999px;
+}
+
+
+/* .clearFix float된 자식을 가지는 부모의 높이 찾아주기 */
+
+.clearFix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+/* 센터 1400 */
+
+.content_center {
+    width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.no_position_content_center {
+    width: 1400px;
+    margin: 0 auto;
+}
+
+.content_half_center {
+    width: 700px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+/* bold */
+
+.bold {
+    font-weight: bold;
+}
+
+
+/* blue */
+
+.blue {
+    color: #004685;
+}
+
+
+/* header 영역---------------------------------------------------------------------------------- */
+
+header {
+    width: 100%;
+    height: 75px;
+    background-color: #004685;
+    box-sizing: border-box;
+}
+
+header .header_title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 70px;
+    float: left;
+}
+
+header .log_out {
+    font-size: 18px;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    float: right;
+    padding: 10px;
+    margin-top: 18px;
+}
+
+header .log_out:hover {
+    background-color: #ffffff;
+    color: #004685;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+
+/* container 영역---------------------------------------------------------------------------------- */
+
+#container {
+    width: 100%;
+    min-height: calc(100vh - 245px);
+    margin: 20px auto;
+    position: relative;
+}
+
+#main_container {
+    width: 100%;
+    min-height: calc(100vh - 495px);
+    margin: 20px auto;
+}
+
+#container .content {
+    padding: 20px 0;
+}
+
+.sub_title {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    padding-left: 33px;
+}
+
+.sub_title::before {
+    display: block;
+    content: "";
+    clear: both;
+    width: 25px;
+    height: 25px;
+    background: url(../images/title_.png) center center no-repeat;
+    position: absolute;
+    left: 0;
+    top: 55%;
+    transform: translateY(-50%);
+}
+
+.sub_title p {
+    float: left;
+}
+
+.sub_title span {
+    font-size: 16px;
+    font-weight: normal;
+    float: left;
+    margin-left: 15px;
+    padding-top: 4px;
+}
+
+
+/* 센터 1400 */
+
+.content_center {
+    width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+/* 테이블 */
+
+.tblwrap_basic table {
+    width: 100%;
+    font-size: 16px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.tblwrap_basic table th {
+    background-color: #eeeeee;
+}
+
+.tblwrap_basic th,
+.tblwrap_basic td {
+    height: 50px;
+    padding-left: 1%;
+    border: 1px solid #ccc;
+    text-align: left;
+    position: relative;
+}
+
+.tblwrap_basic_center th,
+.tblwrap_basic_center td {
+    text-align: center;
+    padding-left: 0px;
+}
+
+
+/* 탭 */
+
+#container .tabBtn {
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    margin: 10px auto -3px;
+    background-color: #eee;
+    box-sizing: border-box;
+    border-bottom: none;
+}
+
+#container .tabBtn>li {
+    float: left;
+    width: 50%;
+    height: 60px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: 2px solid #004685;
+}
+
+#container .tabBtn>li>a {
+    display: block;
+    color: #333;
+}
+
+#container .tabBtn>li.active {
+    font-weight: bold;
+    background-color: #004685;
+    border: 2px solid #004685;
+    border-bottom: none;
+}
+
+#container .tabBtn>li.active a {
+    color: #ffffff;
+}
+
+.tabList>div {
+    width: 1400px;
+    height: auto;
+    display: none;
+    border-radius: 5px;
+    padding: 0px 10px 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.tabList .tabList_title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 10px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    border-bottom: 4px solid #004685;
+}
+
+.tabList>.tab1 {
+    display: block;
+}
+
+.tabList>.tab2,
+.tabList>.tab3 {
+    display: none;
+}
+
+
+/* 팝업 시작 */
+
+#popup {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup_contents {
+    position: relative;
+    width: 300px;
+    height: 180px;
+    padding: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+.popup_title {
+    border-bottom: 1px solid #333;
+    width: 100%;
+    height: 50px;
+    font-size: 25px;
+}
+
+.popup_title>span {
+    float: left;
+    font-size: 22px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.popup_title .close {
+    float: right;
+    margin-right: 10px;
+    font-size: 1.5em;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.popup_title .close img {
+    width: 22px;
+}
+
+.popup_box>p {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    line-height: 1.5em;
+}
+
+.popup_box>span {
+    display: block;
+    font-size: 18px;
+    color: #004685;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.5em;
+    padding: 10px;
+}
+
+.popup_add_btn {
+    position: absolute;
+    width: 200px;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.popup_add_btn a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: #666;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+}
+
+.popup_add_btn_two {
+    position: absolute;
+    width: 210px;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.popup_add_btn_two a {
+    display: block;
+    float: left;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    background-color: #666;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+}
