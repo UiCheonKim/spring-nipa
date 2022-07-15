@@ -89,6 +89,60 @@
             </div>
         </div>
     </div>
+
+    <div id="mainpopup">
+        <div class="popup_contents guide_content">
+            <div class="popup_title guide_title clearFix">
+                <span>&lt;NIPA 블록체인 보고서 원본증명(NFT) 체험 사이트&gt; 이용 가이드</span>
+                <button type="button" class="close"> <span>×</span></button>
+            </div>
+            <ul class="guide_page">
+                <li class="active"><a href="#">01</a><span>원본 콘텐츠 열기</span></li>
+                <li><a href="#">02</a><span>NFT ID 복사</span></li>
+                <li><a href="#">03</a><span>사이트 이동</span></li>
+                <li><a href="#">04</a><span>NFT ID 검색</span></li>
+                <li><a href="#">05</a><span>원본 확인</span></li>
+            </ul>
+            <div class="guide_popup_box">
+                <ul class="guide_banner">
+                    <li class="gb1">
+                        <div class="guide_area">
+                            <p>1. ‘블록체인 기술검증(PoC) 지원사업 사례집’ 파일을 엽니다.</p>
+                            <img src="${pageContext.request.contextPath}/resources/images/guide_1.png" alt="">
+                        </div>
+                    </li>
+                    <li class="gb2">
+                        <div class="guide_area">
+                            <p>2. PDF 첫 페이지 좌측 하단의 NFT ID를 드래그하여 복사합니다.</p>
+                            <img src="${pageContext.request.contextPath}/resources/images/guide_2.png" alt="">
+                        </div>
+                    </li>
+                    <li class="gb3">
+                        <div class="guide_area">
+                            <p>3. 좌측 하단 문구를 클릭하여 사이트로 이동합니다.</p>
+                            <img src="${pageContext.request.contextPath}/resources/images/guide_3.png" alt="">
+                        </div>
+                    </li>
+                    <li class="gb4">
+                        <div class="guide_area">
+                            <p>4. 우측 상단 검색창에서 NFT ID를 입력하여 검색합니다.</p>
+                            <img src="${pageContext.request.contextPath}/resources/images/guide_4.png" alt="">
+                        </div>
+                    </li>
+                    <li class="gb5">
+                        <div class="guide_area">
+                            <p>5. 블록체인에 저장된 원본 NFT임을 확인합니다.</p>
+                            <img src="${pageContext.request.contextPath}/resources/images/guide_5.png" alt="">
+                        </div>
+                    </li>
+                </ul>
+                <ul class="guide_arrow">
+                    <li class="g_leftBtn"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/arrow_left_B.png" alt=""></a></li>
+                    <li class="g_rightBtn"><a href="#"><img src="${pageContext.request.contextPath}/resources/images/arrow_right_B.png" alt=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 	
 	<div id="loading" class="loadging_back" style="display: none;">
 		<div class="loading-container">
