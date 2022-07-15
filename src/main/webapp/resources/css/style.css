@@ -597,6 +597,7 @@
     font-size: 18px;
     word-break: keep-all;
     line-height: 1.5em;
+    letter-spacing: -0.3px;
 }
 
 #container .nft_subpage .nft_right .nft_button {
