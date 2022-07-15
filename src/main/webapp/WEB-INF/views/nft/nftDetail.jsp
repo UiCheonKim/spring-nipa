@@ -205,7 +205,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
                             		</c:when>
                             		<c:otherwise>
                             			<p>
-		                                    본 NFT의 원본 게시글은 NIPA 홈페이지 → 지식마당 → NIPA발간자료 → 블록체인 기술검증(PoC) 지원사업 사례집에서 확인하실 수 있습니다.
+		                                    본 NFT의 원본 게시글은 <span class="blue bold">NIPA 홈페이지 → 지식마당 → NIPA발간자료 → 2020년 이전 → 산업백서 및 연차보고서</span>에서 <span class="blue bold">‘블록체인 기술검증 지원사업 사례집(NFT ID 적용)’</span>을 검색하여 확인하실 수 있습니다.
 		                                </p>
                             		</c:otherwise>
                             	</c:choose>
