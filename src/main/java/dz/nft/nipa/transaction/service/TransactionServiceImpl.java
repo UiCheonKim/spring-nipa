@@ -141,7 +141,7 @@ public class TransactionServiceImpl {
 	}
 
 	public HashMap<String, Object> readNftContents(String nftId) {
-		//String nftHash = new SendNftId2BlockchainApi().sendData(nftId).get("nftUri").toString();
+		String nftHash = new SendNftId2BlockchainApi().sendData(nftId).get("nftUri").toString();	// 호출함
 		//String nftUri = new Base64DecodingUtil().base64Decoding(nftHash);
 		/**
 		 * 블록체인에서 콘텐츠 사이트 연결 URI를 정상적으로 리턴하지 못함.
