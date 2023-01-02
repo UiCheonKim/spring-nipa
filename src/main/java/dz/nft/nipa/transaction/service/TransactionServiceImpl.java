@@ -147,9 +147,23 @@ public class TransactionServiceImpl {
 		 * 블록체인에서 콘텐츠 사이트 연결 URI를 정상적으로 리턴하지 못함.
 		 * (응답값 자체를 BASE64 Decode 하지 못함. 오류 발생.
 		 * https://www.nipa.kr 로 임시 설정
+		 * 단, youtube 링크의 경우 아래와 같이 하드코딩
 		 */
-
 		String nftUri = "https://www.nipa.kr";
+		String upperCaseNftId = (nftId == null) ? "" : nftId.toLowerCase();
+		if ("1a64491ad8845f521ab54d62e639777c15cc9057".equals(upperCaseNftId)) { nftUri = "https://youtu.be/-UVyiZl8wxI?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("2f8a2c63a848223dc610d68ae2d912177d9939f8".equals(upperCaseNftId)) { nftUri = "https://youtu.be/4sr9QGw_0iE?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("c5304fbb5680ca11ad430122f1375cc6c8fc0cf0".equals(upperCaseNftId)) { nftUri = "https://youtu.be/yaUAe-65IAA?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("64284a6478a4bfc57bdb17dfdf65218e4de310f3".equals(upperCaseNftId)) { nftUri = "https://youtu.be/RKhOsD4UHbA?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("d1fac823dbf33a1309f1e9d4a7d2bbcc83d2b0ea".equals(upperCaseNftId)) { nftUri = "https://youtu.be/L0JJwvwT0S8?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("6e47dcc4d5a62da19c611a37784225d6540fc3f6".equals(upperCaseNftId)) { nftUri = "https://youtu.be/t1wI3qKxrV8?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("74bbd804396bacf76fad5330064373e5962445fd".equals(upperCaseNftId)) { nftUri = "https://youtu.be/rsECgf3yLA4?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("2d37fd0bfb20aa04f46828b860a48eba9a81e2f0".equals(upperCaseNftId)) { nftUri = "https://youtu.be/TU2XparxVEo?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("a387ce69b4647285d9690704641aac211386fcf2".equals(upperCaseNftId)) { nftUri = "https://youtu.be/yVvJlpuf43E?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("54b04a9f6cb58ca32c001d2d120402b67f183e5a".equals(upperCaseNftId)) { nftUri = "https://youtu.be/YAu_gOchsa0?list=PLh0nQbUlbT1pz2wjvVt_u8jdLpuXEhlPG"; }
+		if ("e8efbbc84138896eda8ac829c5cd7d94fa9f14db".equals(upperCaseNftId)) { nftUri = "https://youtu.be/DVjMsZovfyI"; }
+		if ("268c5db5b62a9a5b8e449e54f36a93638350412f".equals(upperCaseNftId)) { nftUri = "https://youtu.be/IrfrU0_Tiug"; }
+
 		//logger.info("Read_NFT 호출 성공");
 		//logger.info("returnUri : "+nftUri);
 		HashMap<String, Object> map = new HashMap<String, Object>();
