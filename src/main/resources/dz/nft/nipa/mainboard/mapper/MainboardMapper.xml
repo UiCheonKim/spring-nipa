@@ -34,90 +34,58 @@
 	</select>
 	
 	<select id="getAllNftListByDataType" resultType="map">
-		SELECT 
-			nd.nft_num,
-			nd.user_num,
-			nd.nft_title,
-			nd.nft_publisher,
-			nd.nft_owner,
-			nd.nft_original_date,
-			ndd.detail_num,
-			ndd.type_num,
-			ndd.detail_name,
-			ndi.img_num,
-			nd.nft_id,
-			COALESCE(
-				(
-					SELECT COUNT(t2.fcn) AS nft_cnt
-					FROM transactions_nipanft t2
-					WHERE t2.fcn = 'Read_NFT'
-					AND t2.nft_id = nd.nft_id
-				), 0) AS nft_cnt
-		FROM nft_data nd
-		JOIN nft_data_detail ndd 
-		ON nd.detail_num = ndd.detail_num
-		JOIN nft_data_img ndi
-		ON ndi.nft_num = nd.nft_num
-		LEFT JOIN 
-			(
-				SELECT CAST(t1.nft_num AS INT), t1.nft_id, t1.nft_status
-				FROM transactions_nipanft t1
-				LEFT JOIN channel c1 
-				ON c1.channel_genesis_hash = t1.channel_genesis_hash
-				WHERE c1.name='digitalzonenipanft'
-				AND t1.nft_status = 'NFT_CREATE'
-			)tr
-		ON tr.nft_id = nd.nft_id
-		WHERE tr.nft_status = 'NFT_CREATE'
-		AND nd.detail_num=#{detailNum}
-		AND ndd.type_num=#{typeNum}
-		AND nd.del_yn = 'N'
-		AND nd.hide_yn = 'N'
-		ORDER BY 1 desc
+		SELECT  ntflist.nft_num,
+						ntflist.user_num,
+						ntflist.nft_title,
+						ntflist.nft_publisher,
+						ntflist.nft_owner,
+						ntflist.nft_original_date,
+						ndd.detail_num,
+						ndd.type_num,
+						ndd.detail_name,
+						ndi.img_num,
+						ntflist.nft_id,
+						ntflist.nft_cnt
+		FROM    ntflist
+
+							JOIN    nft_data_detail ndd
+											ON    ntflist.detail_num = ndd.detail_num
+
+							JOIN    nft_data_img ndi
+											ON    ntflist.nft_num = ndi.nft_num
+
+		WHERE   ntflist.detail_num = #{detailNum}
+			AND   ndd.type_num = #{typeNum}
+		ORDER BY
+			ntflist.nft_num DESC;
 	</select><!-- 수정 완료 -->
 	
 	<select id="getNftListByDateType" resultType="map">
-		SELECT 
-			nd.nft_num,
-			nd.user_num,
-			nd.nft_title,
-			nd.nft_publisher,
-			nd.nft_owner,
-			nd.nft_original_date,
-			ndd.detail_num,
-			ndd.type_num,
-			ndd.detail_name,
-			ndi.img_num,
-			nd.nft_id,
-			COALESCE(
-				(
-					SELECT COUNT(t2.fcn) AS nft_cnt
-					FROM transactions_nipanft t2
-					WHERE t2.fcn = 'Read_NFT'
-					AND t2.nft_id = nd.nft_id
-				), 0) AS nft_cnt
-		FROM nft_data nd
-		JOIN nft_data_detail ndd 
-		ON nd.detail_num = ndd.detail_num
-		JOIN nft_data_img ndi
-		ON ndi.nft_num = nd.nft_num
-		LEFT JOIN 
-			(
-				SELECT CAST(t1.nft_num AS INT), t1.nft_id, t1.nft_status
-				FROM transactions_nipanft t1
-				LEFT JOIN channel c1 
-				ON c1.channel_genesis_hash = t1.channel_genesis_hash
-				WHERE c1.name='digitalzonenipanft'
-				AND t1.nft_status = 'NFT_CREATE'
-			)tr
-		ON tr.nft_id = nd.nft_id
-		WHERE tr.nft_status = 'NFT_CREATE'
-		AND nd.detail_num=#{detailNum}
-		AND ndd.type_num=#{typeNum}
-		AND nd.nft_original_date LIKE CONCAT(#{dateType},'%')
-		AND nd.del_yn = 'N'
-		AND nd.hide_yn = 'N'
-		ORDER BY 1 DESC
+		SELECT  ntflist.nft_num,
+						ntflist.user_num,
+						ntflist.nft_title,
+						ntflist.nft_publisher,
+						ntflist.nft_owner,
+						ntflist.nft_original_date,
+						ndd.detail_num,
+						ndd.type_num,
+						ndd.detail_name,
+						ndi.img_num,
+						ntflist.nft_id,
+						ntflist.nft_cnt
+		FROM    ntflist
+
+							JOIN    nft_data_detail ndd
+											ON    ntflist.detail_num = ndd.detail_num
+
+							JOIN    nft_data_img ndi
+											ON    ntflist.nft_num = ndi.nft_num
+
+		WHERE   ntflist.detail_num = #{detailNum}
+			AND   ndd.type_num = #{typeNum}
+			AND   ntflist.nft_original_date LIKE CONCAT(#{dateType},'%')
+		ORDER BY
+			ntflist.nft_num DESC;
 	</select>
 	
 	<select id="getNftDataBynftNum" resultType="map">
