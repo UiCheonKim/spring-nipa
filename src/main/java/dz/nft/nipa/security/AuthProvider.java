@@ -124,25 +124,9 @@ public class AuthProvider implements AuthenticationProvider{
 			logger.info("비밀번호가 틀렸습니다.");
 			throw new BadCredentialsException("ID 혹은 비밀번호를 확인해주세요");
 		}
-		
-		
-		if (dto != null && dto.getUserPw().equals(userPw)) {
-			// 로그인 성공 시 토큰 발행
-			userToken = adminService.getUserTokenById(userId);
-			// 로그인 성공 시 실패 횟수 초기화
-			adminService.resetLogFailCntByUserNum(dto.getUserNum());
-		}
-		
-		
-		if (userToken == null) {
-			// 토큰 발급 오류 - 블록체인
-			logger.info("토큰을 발행하는데 실패하였습니다.");
-			throw new BadCredentialsException("ID 혹은 비밀번호를 확인해주세요");
-		}
-		
-		
+
 		grantedAuthorityList.add(new SimpleGrantedAuthority(dto.getUserRole()));
-		return new MyAuthentication(userId, userPw, grantedAuthorityList, dto, userToken);
+		return new MyAuthentication(userId, userPw, grantedAuthorityList, dto);
 		
 	}
 	

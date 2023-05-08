@@ -18,19 +18,18 @@ public class Base64EncodeingUtil {
 	public String send2BlockChainApi(String nftUrl) throws IOException {
 		// 서버 배포시 수정해야함
 		
-		/*
 		// 개발용 코드
 		String saveFilePath = "C:/testTextFile"; // txt파일이 저장될 경로
 		Files.createDirectories(Paths.get(saveFilePath)); // 폴더 생성
 		// String fileName = nftUrl.substring(nftUrl.length()-9, nftUrl.length());
-		*/
+
 		
-		
+/*
 		// 배포용 코드
 		String saveFilePath = "/testTextFile"; // txt파일이 저장될 경로
 		Files.createDirectories(Paths.get(saveFilePath)); // 폴더 생성
 		// String fileName = nftUrl.substring(nftUrl.length()-9, nftUrl.length());
-		
+*/
 		
 		// 파일 객체 생성
 		// File file = new File(saveFilePath+"/"+fileName+".txt"); // 파일을 매번 새로 만들어야 할 경우 - ex) log

@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import dz.nft.nipa.security.MyAuthentication;
 import dz.nft.nipa.transaction.service.TransactionServiceImpl;
 import dz.nft.nipa.utils.MessageRedirectUtil;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -88,16 +90,17 @@ public class AdminController {
 		} else {
 			// session token 값 추출
 			MyAuthentication my = (MyAuthentication) principal;
-			String token = my.getUserToken();
 			// userNum 가져오기
-			dto.setUserNum(my.getUserDto().getUserNum());		
+			dto.setUserNum(my.getUserDto().getUserNum());
 			
 			// pk 세팅
 			int createNftKey = adminServ.createNftKey();
 			dto.setNftNum(createNftKey);
-			
-			adminServ.insertNftData(dto, token);
-			adminServ.makeThumbnailImg(dto.getNftNum(), file);
+			log.trace("pk 세팅 = {}", createNftKey);
+
+//			adminServ.makeThumbnailImg(dto.getNftNum(), file); // DB에 이미지 관련 데이터 저장
+			adminServ.insertNftData(dto, file); // DB에 데이터 저장 및 트랜잭션 발생
+//			adminServ.makeThumbnailImg(dto.getNftNum(), file);
 			
 			new MessageRedirectUtil().redirect("NFT 발급에 성공하였습니다.", "/admin/nftList");
 		}
@@ -107,6 +110,7 @@ public class AdminController {
 	@PostMapping("/testTitle")
 	@ResponseBody
 	public int testTitle(String nftTitle) {
+		log.trace("testTitle : " + nftTitle);
 		return adminServ.testTitle(nftTitle);
 	}
 	
@@ -151,7 +155,7 @@ public class AdminController {
 		
 		// session token 값 추출
 		MyAuthentication my = (MyAuthentication) principal;
-		String token = my.getUserToken();
+//		String token = my.getUserToken();
 		String nftId = mainServ.getNftId4Admin(nftNum);
 		
 		int confirmReadRecord = tranServ.confirmReadRecord(nftId);
@@ -159,7 +163,7 @@ public class AdminController {
 		if (confirmReadRecord >= 1) {
 			new MessageRedirectUtil().redirect("열람 이력이 있는 NFT 는 삭제가 불가능 합니다.", "/admin/nftList");
 		} else {
-			mainServ.updatedelYn(nftNum, nftId, token);
+			mainServ.updatedelYn(nftNum, nftId);
 			new MessageRedirectUtil().redirect("nft 삭제가 완료되었습니다.", "/admin/nftList");
 		}
 		

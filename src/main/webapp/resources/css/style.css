@@ -1495,7 +1495,7 @@
 
 .skill_list_btn li {
     float: left;
-    width: calc(20% -40px);
+    width: calc(20% - 40px);
     border-radius: 10px;
     color: #666;
     font-size: 20px;

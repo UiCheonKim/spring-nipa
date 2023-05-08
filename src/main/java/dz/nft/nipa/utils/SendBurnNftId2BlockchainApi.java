@@ -20,7 +20,7 @@ public class SendBurnNftId2BlockchainApi {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SendNftId2BlockchainApi.class);
 	
-	public void sendDeleteData(String nftId, String token) {
+	public void sendDeleteData(String nftId) {
 		
 		HashMap<String, Object> requestMap = new HashMap<String, Object>();
 		requestMap.put("nft_id", nftId);
@@ -33,9 +33,10 @@ public class SendBurnNftId2BlockchainApi {
 		RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toJSONString());
 		
 		// url안의 주소는 호출하고자 하는 API의 주소 및 포트번호
-		Request request = new Request.Builder().addHeader("Authorization", "Bearer " + token)
-				.url("http://121.78.145.25:4000/NFT_Burn").post(body).build(); // SK_배포용
+//		Request request = new Request.Builder().addHeader("Authorization", "Bearer " + token)
+//				.url("http://121.78.145.25:4000/NFT_Burn").post(body).build(); // SK_배포용
 		// Request request = new Request.Builder().url("http://211.232.75.182:4000/NFT_Get").post(body).build(); // LG_test용
+		Request request = new Request.Builder().url("http://121.78.145.25:4000/NFT_Burn").post(body).build(); // SK_배포용
         
         HashMap<String, Object> responseMap = new HashMap<String, Object>();
         ObjectMapper mapper = new ObjectMapper();

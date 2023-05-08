@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authProvider);
+		auth.authenticationProvider(authProvider); // 커스텀한 AuthProvider 등록
 	}
 
 	@Override

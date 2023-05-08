@@ -367,6 +367,13 @@
 	                        <input type="text" name="nftTitle" id="nftTitle" placeholder="제목을 입력해주세요" onblur="testTitle()">
 	                        <div id="titleAlertArea"></div>
 	                    </li>
+						<li>
+							<div class="nft_modify_title">
+								<p>NFT ID</p>
+								<span>(선택)</span>
+							</div>
+							<input type="text" name="nftId" id="nftId" placeholder="유효한 NFT ID를 입력하세요">
+						</li>
 	                    <li>
 	                        <div class="nft_modify_title">
 	                            <p>NFT 항목 선택</p>
