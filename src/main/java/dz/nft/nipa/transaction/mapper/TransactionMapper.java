@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import dz.nft.nipa.dto.TransactionDto;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface TransactionMapper {
-	
+	void save(@Param("nftNum") String nftNum, @Param("ipfsNum") String ipfsNum);
 	public int getTransCnt(); // 트랜잭션 개수 가져옴
 	public Integer getFirstTransNum();
 	

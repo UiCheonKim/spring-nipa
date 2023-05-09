@@ -105,12 +105,11 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.createNftKey();
 	}
 
-	public void insertNftData(DataNftDto dto, MultipartFile file) throws IOException {
+	public void insertNftData(DataNftDto dto) throws IOException {
 		// 이미지를 TXT 파일로 변환 후 인코딩
-		// TXT 파일 생성 후 인코딩
+		// TXT 파일 생성
 		Base64EncodeingUtil encoding = new Base64EncodeingUtil();
-		String fileStr = encoding.send2BlockChainApi(dto.getNftUri());
-		log.trace("fileStr = {}", fileStr);
+		MultipartFile file = encoding.send2BlockChainApi(dto.getNftUri());
 
 		// request_date 값 세팅
 		String todayUnix = new UnixTimeUtil().makeUnixTime();
@@ -118,38 +117,43 @@ public class AdminServiceImpl implements AdminService {
 		// 블록체인 nft_create api로 보낼 값 세팅
 		HashMap<String, Object> requestMap = new HashMap<>();
 		// new HashMap<String, Object>();에서 <String, Object> 를 <>로 변경 (자바 1.7 이상부터 가능)
-//		requestMap.put("timestamp", todayUnix);
-//		requestMap.put("minter", "digitalzone");
-//		requestMap.put("URI", dto.getNftUri());
-//		requestMap.put("owner", "NIPA");
-//		requestMap.put("fcn", "Create_NFT");
-//		requestMap.put("title", dto.getNftTitle());
-//		requestMap.put("category", dto.getDetailNum());
-//		requestMap.put("nft_num", dto.getNftNum());
-		requestMap.put("file", fileStr);
-
+		requestMap.put("nftID", dto.getNftId());
+		requestMap.put("nftTimeStamp", todayUnix);
+		requestMap.put("tokenURI", dto.getNftUri());
+		requestMap.put("title", dto.getNftTitle());
+		requestMap.put("category", dto.getDetailNum());
 
 		// 블록체인 nft_create api로 데이터 전송
-//		new SendBase64File2BlockchainApi().sendData(requestMap);
-		new SendFileIPFSBlockchainApi().sendData(file);
+		new SendBase64File2BlockchainApi().sendData(requestMap);
+		String ipfsCid = new SendFileIPFSBlockchainApi().sendData(file);// ipfs txt 파일 저장
+		log.trace("db 추가");
+		tranMapper.save(dto.getNftId(), ipfsCid);
 
+/*
 		String nftId = null;
 		int num = 0;
 		do {
 			num++;
+			log.debug("dto.getNftNum() = {}", dto.getNftNum());
 			nftId = tranMapper.getNftIdByNftNum(Integer.toString(dto.getNftNum()));
+			log.debug("nftId = {}", nftId);
 			dto.setNftId(nftId);
 			if (nftId!=null) {
 				break;
 			}
 		} while(nftId == null || num <= 500);
 		// log.debug("Create_NFT nftId 호출 횟수 - "+num);
+*/
+
+		log.trace("nftId = {}", dto.getNftId());
+		log.trace("ipfsCid = {}", ipfsCid);
+
 		
-		if (nftId !=null) {
+/*		if (nftId !=null) {
 			adminMapper.insertNftData(dto);
 		} else {
 			log.debug("NFT 발급 중 NFT_ID를 가져오는데 실패 하였습니다."+num);
-		}
+		}*/
 		
 	}
 
@@ -188,7 +192,7 @@ public class AdminServiceImpl implements AdminService {
 			dto.setImgOriginalName(oriFileName);
 			
 			// 저장 완료된 이미지 경로 insert
-			adminMapper.insertThumbnailImg(dto);
+			adminMapper.insertThumbnailImg(dto); // 이미지 경로 디비에 저장
 		}
 
 	}

@@ -36,7 +36,7 @@ public class SendBase64File2BlockchainApi {
 //				.url("http://121.78.145.25:4000/NFT_Create").post(body).build(); // SK_배포용
 		//Request request = new Request.Builder().addHeader("Authorization", "Bearer " + token)
 		//		.url("http://211.232.75.182:4000/NFT_Create").post(body).build(); // LG_test용
-		Request request = new Request.Builder().url(SessionConst.DOCUCHAIN_URL).post(body).build(); // 이더리움 용
+		Request request = new Request.Builder().url(SessionConst.DOCUCHAIN_URL + "/registerNFT").post(body).build(); // 이더리움 용
         
         HashMap<String, Object> resultMap;
         ObjectMapper mapper = new ObjectMapper();
@@ -47,18 +47,15 @@ public class SendBase64File2BlockchainApi {
 			// 외부 API로 부터 반환받는 값
 	        String resultData = response.body().string();
 	        resultMap = (HashMap<String, Object>) mapper.readValue(resultData, Map.class);
+
+			log.trace("resultMap = {}", resultMap);
 	        
 	        if (resultMap != null && resultMap.get("code").toString().equals("100")) {
 	        	// log.info("Create_NFT API Result : "+resultMap.get("success").toString());
 				new MessageRedirectUtil().redirect("NFT 발급에 성공하였습니다.", "/admin/nftList");
 			} else {
-				if (!resultMap.get("success").toString().equals("true")) {
-					log.info("Create_NFT API Result : false");
-					throw new IOException();
-				}else {
-					log.info("Create_NFT API - 리턴값 없음");
-					throw new IOException();
-				}
+				log.info("Create_NFT API - 리턴값 없음");
+				throw new IOException();
 			}
 	        
 		} catch (IOException e) {

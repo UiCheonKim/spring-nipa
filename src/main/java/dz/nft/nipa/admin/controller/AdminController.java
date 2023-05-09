@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,8 +99,12 @@ public class AdminController {
 			dto.setNftNum(createNftKey);
 			log.trace("pk 세팅 = {}", createNftKey);
 
+			if (dto.getNftId() == null) {
+				dto.setNftId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
+			}
+
 //			adminServ.makeThumbnailImg(dto.getNftNum(), file); // DB에 이미지 관련 데이터 저장
-			adminServ.insertNftData(dto, file); // DB에 데이터 저장 및 트랜잭션 발생
+			adminServ.insertNftData(dto); // DB에 데이터 저장 및 트랜잭션 발생
 //			adminServ.makeThumbnailImg(dto.getNftNum(), file);
 			
 			new MessageRedirectUtil().redirect("NFT 발급에 성공하였습니다.", "/admin/nftList");

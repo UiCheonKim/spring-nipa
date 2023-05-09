@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dz.nft.nipa.transaction.mapper.TransactionMapper">
-	
+
+	<insert id="save" parameterType="string">
+		INSERT INTO nft_ipfs (nft_num, ipfs_num)
+		VALUES (#{nftNum}, #{ipfsNum})
+	</insert>
+
+
 	<select id="getTransCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM transactions_nipanft t

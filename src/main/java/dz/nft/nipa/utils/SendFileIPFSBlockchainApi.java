@@ -16,7 +16,7 @@ public class SendFileIPFSBlockchainApi {
 	
 	private static final Logger log = LoggerFactory.getLogger(SendFileIPFSBlockchainApi.class);
 	
-	public void sendData(MultipartFile file) throws IOException {
+	public String sendData(MultipartFile file) throws IOException {
 
 		OkHttpClient client = new OkHttpClient();
 
@@ -49,8 +49,7 @@ public class SendFileIPFSBlockchainApi {
 	        resultMap = (HashMap<String, Object>) mapper.readValue(resultData, Map.class);
 			log.info("resultMap = {}", resultMap);
 
-
-
+/*
 	        if (resultMap != null && resultMap.get("code").toString().equals("100")) {
 	        	// log.info("Create_NFT API Result : "+resultMap.get("success").toString());
 				String ipfsCid = resultMap.get("message").toString();
@@ -65,13 +64,25 @@ public class SendFileIPFSBlockchainApi {
 					throw new IOException();
 				}
 			}
-	        
+*/
+			if (resultMap != null && resultMap.get("code").toString().equals("100")) {
+				// log.info("Create_NFT API Result : "+resultMap.get("success").toString());
+				String ipfsCid = resultMap.get("message").toString();
+				log.info("ipfsCid = {}", ipfsCid);
+				return ipfsCid;
+//				new MessageRedirectUtil().redirect("NFT 발급에 성공하였습니다.", "/admin/nftList");
+			} else {
+				log.info("Create_NFT API - 리턴값 없음");
+				throw new IOException();
+			}
+
+
 		} catch (IOException e) {
 			// e.printStackTrace();
 			log.info("Create_NFT API - 응답 없음");
 			new MessageRedirectUtil().redirect("NFT 발급 중 예상하지 못한 오류가 발생하였습니다.", "/admin/input");
 		}
-		
+		return null;
 	}
 	
 	
