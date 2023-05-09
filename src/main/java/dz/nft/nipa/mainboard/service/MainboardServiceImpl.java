@@ -104,7 +104,7 @@ public class MainboardServiceImpl {
 	}
 
 	public void updatedelYn(int nftNum, String nftId) {
-		new SendBurnNftId2BlockchainApi().sendDeleteData(nftId);
+//		new SendBurnNftId2BlockchainApi().sendDeleteData(nftId);
 		mainMapper.updatedelYn(nftNum);
 	}
 

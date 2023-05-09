@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import dz.nft.nipa.SessionConst;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,8 @@ public class SendNftId2BlockchainApi {
 	public HashMap<String, Object> sendData(String nftId) {
 		
 		HashMap<String, Object> requestMap = new HashMap<String, Object>();
-		requestMap.put("nft_id", nftId);
-		requestMap.put("timestamp", new UnixTimeUtil().makeUnixTime());
+		requestMap.put("nftID", nftId);
+//		requestMap.put("timestamp", new UnixTimeUtil().makeUnixTime());
 		
 		JSONObject json = new JSONObject(requestMap);
 		OkHttpClient client = new OkHttpClient();
@@ -33,8 +34,9 @@ public class SendNftId2BlockchainApi {
 		RequestBody body = RequestBody.create(MediaType.parse("application/json"), json.toJSONString());
 		
 		// url안의 주소는 호출하고자 하는 API의 주소 및 포트번호
-		Request request = new Request.Builder().url("http://121.78.145.25:4000/NFT_Get").post(body).build(); // SK_배포용
+//		Request request = new Request.Builder().url("http://121.78.145.25:4000/NFT_Get").post(body).build(); // SK_배포용
 		// Request request = new Request.Builder().url("http://211.232.75.182:4000/NFT_Get").post(body).build(); // LG_test용
+		Request request = new Request.Builder().url(SessionConst.DOCUCHAIN_URL + "/readNFT").post(body).build(); // 이더리움 용
         
         HashMap<String, Object> responseMap = new HashMap<String, Object>();
         HashMap<String, Object> resultMap = null;
@@ -46,20 +48,19 @@ public class SendNftId2BlockchainApi {
 			// 외부 API로 부터 반환받는 값
 	        String resultData = response.body().string();
 	        responseMap = (HashMap<String, Object>) mapper.readValue(resultData, Map.class);
+			logger.trace("responseMap = {}", responseMap);
 	        
-	        if (responseMap != null && responseMap.get("success").toString().equals("true")) {
+	        if (responseMap != null && responseMap.get("code").toString().equals("100")) {
 	        	// logger.info("Read_NFT API Result : "+responseMap.get("success").toString());
 	        	resultMap = new HashMap<String, Object>();
-	        	resultMap.put("nftUri", responseMap.get("content").toString());
-			} else {
-				if (!responseMap.get("success").toString().equals("true")) {
-					logger.info("Read_NFT API Result : false");
-					throw new IOException();
-				}else {
-					logger.info("Read_NFT API - 리턴값 없음");
-					throw new IOException();
-				}
+//	        	resultMap.put("nftUri", responseMap.get("content").toString());
+	        	resultMap.put("nftUri", "https://www.nipa.kr/");
+
+			}else {
+				logger.info("Read_NFT API - 리턴값 없음");
+				throw new IOException();
 			}
+
 	        
 		} catch (IOException e) {
 			// e.printStackTrace();
