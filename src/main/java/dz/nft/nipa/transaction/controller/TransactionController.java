@@ -1,5 +1,6 @@
 package dz.nft.nipa.transaction.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import dz.nft.nipa.dto.EthBlockDto;
@@ -41,9 +42,10 @@ public class TransactionController {
 			return "redirect:./error";
 		}
 		EthBlockDto dto1 = new EthBlockDto();
-		dto1.setHash("0x0");
-		dto1.setMinerHash("0x1");
-		dto1.setParentHash("0x2");
+		String tmp = "0x0";
+		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+		dto1.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
+		dto1.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));
 		dto1.setTimestamp("0x3");
 
 		model.addAttribute("data", dto);

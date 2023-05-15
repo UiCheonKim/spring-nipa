@@ -54,19 +54,18 @@
 				
 				for(let i = 1; i < 6; i++){
 					const refBlA_ = document.querySelector('#refBlA_'+i);
-					refBlA_.setAttribute("href","${pageContext.request.contextPath}/blockDetail?blNum="+obj[i-1].blDto.id);
-					// refBlA_.innerText = '블록 번호 : '+obj[i-1].blDto.blocknum;
-                    refBlA_.innerText = '블록 번호 : 코기1';
-					
+					refBlA_.setAttribute("href","${pageContext.request.contextPath}/blockDetail"+obj[i-1].blDto.id);
+					refBlA_.innerText = '블록 번호 : '+obj[i-1].blDto.blockNumber;
+                    // refBlA_.innerText = '블록 번호 : 코기1';
 					const refSp1_ = document.querySelector('#refSp1_'+i);
-					// refSp1_.innerText = ' : '+obj[i-1].blDto.blockhash;
-                    refSp1_.innerText = ' : 코기2';
+					refSp1_.innerText = ' : 0x'+obj[i-1].blDto.hash;
+                    // refSp1_.innerText = ' : 코기2';
 					const refSp2_ = document.querySelector('#refSp2_'+i);
-					// refSp2_.innerText = ' : '+obj[i-1].blDto.datahash;
-                    refSp2_.innerText= ' : 코기3';
+					refSp2_.innerText = ' : '+obj[i-1].blDto.minerHash;
+                    // refSp2_.innerText= ' : 코기3';
 					const refSp3_ = document.querySelector('#refSp3_'+i);
-					// refSp3_.innerText = ' : '+obj[i-1].blDto.txcount;
-                    refSp3_.innerText = ' : 코기4';
+					refSp3_.innerText = ' : '+obj[i-1].blDto.parentHash;
+                    // refSp3_.innerText = ' : 코기4';
 
 					const refSpTime_ = document.querySelector('#refSpTime_'+i);
 					// refSpTime_.innerText = obj[i-1].timeDiff+' 초 전';
@@ -81,6 +80,7 @@
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send();
 	}
+
 	
 	function updateTrData(){
 		
@@ -218,7 +218,8 @@
                             </div>
                             <div class="nft_position_content">
                                 <p class="example_gra">
-                                    <iframe src="https://nipanft.docuchain.kr:3000/d-solo/qQe2JeP7k/new-dashboard?orgId=1&refresh=5s&theme=light&panelId=2" width="100%" height="100%" frameborder="0"></iframe>
+<%--                                    <iframe src="https://nipanft.docuchain.kr:3000/d-solo/qQe2JeP7k/new-dashboard?orgId=1&refresh=5s&theme=light&panelId=2" width="100%" height="100%" frameborder="0"></iframe>--%>
+                                    iframe1
                                 </p>
                             </div>
                         </li>
@@ -228,7 +229,8 @@
                             </div>
                             <div class="nft_position_content">
                                 <p class="example_gra">
-                                    <iframe src="https://nipanft.docuchain.kr:3000/d-solo/qQe2JeP7k/new-dashboard?orgId=1&refresh=5s&theme=light&panelId=4" width="100%" height="100%" frameborder="0"></iframe>
+<%--                                    <iframe src="https://nipanft.docuchain.kr:3000/d-solo/qQe2JeP7k/new-dashboard?orgId=1&refresh=5s&theme=light&panelId=4" width="100%" height="100%" frameborder="0"></iframe>--%>
+                                    iframe2
                                 </p>
                             </div>
                         </li>
@@ -246,7 +248,7 @@
                             	<c:forEach items="${recentBlList}" var="blList">
                             		<c:set var="blnum" value="${blnum+1}"/>
 									<div class="nft_position_block">
-                                        <p><a href="${pageContext.request.contextPath}/blockDetail?blNum=${blList.blDto.hash}" id="refBlA_${blnum}">블록 번호 : ${blList.blDto.hash}</a></p>
+                                        <p><a href="${pageContext.request.contextPath}/blockDetail?blNum=${blList.blDto.hash}" id="refBlA_${blnum}">블록 번호 : ${blList.blDto.blockNumber}</a></p>
 								        <span id="refSpTime_${blnum}">${blList.timeDiff} 초 전</span>
 								        <ul>
 								            <li><span>블록해시</span><span id="refSp1_${blnum}">: ${blList.blDto.hash}</span></li>

@@ -1,13 +1,16 @@
 package dz.nft.nipa.block.service;
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 
 import dz.nft.nipa.dto.EthBlockDto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,12 +46,14 @@ public class BlockServiceImpl {
 		ArrayList<EthBlockDto> dtoList = blockMapper.getEthRecentBlList();
 //		for (BlockDto blockDto : dtoList) {
 		for (EthBlockDto blockDto : dtoList) {
-			
+
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("blDto", blockDto);
 //			String createdt = blockDto.getCreatedt();
 			String createdt = blockDto.getTimestamp();
-			log.trace("createdt = {}", createdt);
+			log.trace("생성 시간 = {}", createdt);
+			log.trace("블록 번호 = {}", blockDto.getBlockNumber());
+			log.trace("블록 해시 = {}", blockDto.getHash());
 			
 			Date today = new Date ();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -84,13 +84,15 @@
 			b.hash,
 			b.miner_hash,
 			TO_CHAR(b.timestamp + interval '9 hour', 'yyyy-MM-dd HH24:MI:SS') AS timestamp,
-			b.parent_hash
+			b.parent_hash,
+			p.block_number
 		FROM blocks b
+		JOIN pending_block_operations p ON b.hash = p.block_hash
 		ORDER BY b.timestamp DESC
 		LIMIT 5
 	</select>
 	
-	<select id="getBlDataById" resultType="dz.nft.nipa.dto.BlockDto">
+<!--	<select id="getBlDataById" resultType="dz.nft.nipa.dto.BlockDto">
 		SELECT 
 			b.id,
 			b.blocknum,
@@ -111,6 +113,32 @@
 			)t
 		ON t.blockid = b.blocknum
 		LEFT JOIN channel c 
+		ON c.channel_genesis_hash = b.channel_genesis_hash
+		WHERE c.name='digitalzonenipanft'
+		AND b.id=#{blNum}
+	</select>-->
+
+	<select id="getEthBlDataById" resultType="dz.nft.nipa.dto.EthBlockDto">
+		SELECT
+			b.id,
+			b.blocknum,
+			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+			b.blockhash,
+			b.datahash,
+			b.prehash,
+			b.blksize,
+			b.txcount
+		FROM blocks b
+		LEFT JOIN (
+			SELECT it.blockid
+			FROM transactions_nipanft it
+					 LEFT JOIN channel c
+							   ON c.channel_genesis_hash = it.channel_genesis_hash
+			WHERE c.name='digitalzonenipanft'
+			GROUP BY it.blockid
+		)t
+		ON t.blockid = b.blocknum
+		LEFT JOIN channel c
 		ON c.channel_genesis_hash = b.channel_genesis_hash
 		WHERE c.name='digitalzonenipanft'
 		AND b.id=#{blNum}
