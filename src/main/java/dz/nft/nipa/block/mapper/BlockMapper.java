@@ -15,6 +15,7 @@ public interface BlockMapper {
 	public Integer getEthFirstBlockNum();
 	public ArrayList<BlockDto> getRecentBlList();
 	public ArrayList<EthBlockDto> getEthRecentBlList();
+	public int getEthTransactionCount(int blockNumber);
 	public BlockDto getBlDataById(int blNum);
 	public BlockDto getBlDataByBlocknum(int blocknum);
 	public ArrayList<BlockDto> getTotalBlList(int pageNum);

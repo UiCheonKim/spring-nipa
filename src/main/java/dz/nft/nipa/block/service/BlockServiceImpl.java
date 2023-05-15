@@ -52,8 +52,12 @@ public class BlockServiceImpl {
 //			String createdt = blockDto.getCreatedt();
 			String createdt = blockDto.getTimestamp();
 			log.trace("생성 시간 = {}", createdt);
-			log.trace("블록 번호 = {}", blockDto.getBlockNumber());
+			log.trace("블록 번호 = {}", blockDto.getNumber());
 			log.trace("블록 해시 = {}", blockDto.getHash());
+			int ethTransactionCount = blockMapper.getEthTransactionCount(Integer.parseInt(blockDto.getNumber()));
+			log.trace("트랜잭션 갯수 = {}", ethTransactionCount);
+
+			map.put("txCnt", ethTransactionCount);
 			
 			Date today = new Date ();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -67,6 +71,8 @@ public class BlockServiceImpl {
 			long todayMill = today.getTime();
 			long createdtMill = formatCreatedt.getTime();
 			long diff = (todayMill-createdtMill)/1000;
+
+			log.trace("시간 차이 = {}", diff);
 
 			map.put("timeDiff", diff);
 			resulteList.add(map);

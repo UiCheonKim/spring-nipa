@@ -46,9 +46,9 @@
 	</select>
 
 	<select id="getEthFirstBlockNum" resultType="int">
-		SELECT b.block_number
-		FROM pending_block_operations b
-		ORDER BY b.block_number desc
+		SELECT b.number
+		FROM blocks b
+		ORDER BY b.number desc
 		LIMIT 1
 	</select>
 	
@@ -85,11 +85,15 @@
 			b.miner_hash,
 			TO_CHAR(b.timestamp + interval '9 hour', 'yyyy-MM-dd HH24:MI:SS') AS timestamp,
 			b.parent_hash,
-			p.block_number
+			b.number
 		FROM blocks b
-		JOIN pending_block_operations p ON b.hash = p.block_hash
 		ORDER BY b.timestamp DESC
 		LIMIT 5
+	</select>
+
+	<select id="getEthTransactionCount" resultType="int">
+		SELECT COUNT(*) FROM transactions
+		WHERE block_number = #{blockNumber}
 	</select>
 	
 <!--	<select id="getBlDataById" resultType="dz.nft.nipa.dto.BlockDto">

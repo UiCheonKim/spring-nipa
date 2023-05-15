@@ -49,8 +49,8 @@ public class BlockController {
 		}
 
 		EthTransactionDto dto1 = new EthTransactionDto();
-		dto1.setHash("1x0");
-		dto1.setGasUsed("1x1");
+		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+		dto1.setBlockNumber("1x1");
 		dto1.setInsertedDt("1x2");
 
 		model.addAttribute("data", dto);

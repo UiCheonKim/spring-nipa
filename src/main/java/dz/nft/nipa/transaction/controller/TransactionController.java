@@ -33,16 +33,18 @@ public class TransactionController {
 			return "redirect:./error";
 		}
 //		TransactionDto dto = tranServ.getTrDataById(trNum);
+
+		String tmp = "0x0";
 		EthTransactionDto dto = new EthTransactionDto();
-		dto.setHash("1x0");
-		dto.setGasUsed("1x1");
+		dto.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+		dto.setBlockNumber("1x1");
 		dto.setInsertedDt("1x2");
 
 		if (dto == null) {
 			return "redirect:./error";
 		}
 		EthBlockDto dto1 = new EthBlockDto();
-		String tmp = "0x0";
+
 		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
 		dto1.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
 		dto1.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));

@@ -9,16 +9,16 @@ public class EthBlockDto {
 	private String minerHash;
 	private String parentHash;
 	private String timestamp;
-	private String blockNumber;
+	private String number;
 
 	public void setHash(byte[] hash) {
-		this.hash = Hex.encodeHexString(hash);
+		this.hash = "0x" + Hex.encodeHexString(hash);
 	}
 	public void setMinerHash(byte[] minerHash) {
-		this.minerHash = Hex.encodeHexString(minerHash);
+		this.minerHash = "0x" + Hex.encodeHexString(minerHash);
 	}
 	public void setParentHash(byte[] parentHash) {
-		this.parentHash = Hex.encodeHexString(parentHash);
+		this.parentHash = "0x" + Hex.encodeHexString(parentHash);
 	}
 
 }

@@ -51,8 +51,7 @@
 	</select>
 
 	<select id="getEthFirstTransNum" resultType="int">
-		SELECT count(*)
-		FROM transactions
+		SELECT COUNT(DISTINCT hash) FROM transactions
 	</select>
 	
 	<select id="getNftIdByNftNum" resultType="String">
@@ -98,11 +97,11 @@
 	<select id="getEthRecentTrList" resultType="dz.nft.nipa.dto.EthTransactionDto">
 		SELECT
 			TO_CHAR(t.inserted_at, 'yyyy-MM-dd HH24:MI:SS') AS insertedDt,
-			t.hash,
-			t.gas_used
+			t.block_number,
+			t.hash
 		FROM transactions t
 		ORDER BY t.inserted_at DESC
-			LIMIT 9
+		LIMIT 9
 	</select>
 	
 	<select id="getTrDataByBlocknum" resultType="dz.nft.nipa.dto.TransactionDto">
