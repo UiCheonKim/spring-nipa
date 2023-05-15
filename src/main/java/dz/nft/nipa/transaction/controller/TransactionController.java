@@ -2,6 +2,8 @@ package dz.nft.nipa.transaction.controller;
 
 import java.util.ArrayList;
 
+import dz.nft.nipa.dto.EthBlockDto;
+import dz.nft.nipa.dto.EthTransactionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +31,24 @@ public class TransactionController {
 		if (trNum == 0) {
 			return "redirect:./error";
 		}
-		TransactionDto dto = tranServ.getTrDataById(trNum);
+//		TransactionDto dto = tranServ.getTrDataById(trNum);
+		EthTransactionDto dto = new EthTransactionDto();
+		dto.setHash("1x0");
+		dto.setGasUsed("1x1");
+		dto.setInsertedDt("1x2");
+
 		if (dto == null) {
 			return "redirect:./error";
 		}
+		EthBlockDto dto1 = new EthBlockDto();
+		dto1.setHash("0x0");
+		dto1.setMinerHash("0x1");
+		dto1.setParentHash("0x2");
+		dto1.setTimestamp("0x3");
+
 		model.addAttribute("data", dto);
-		model.addAttribute("blData", blockServ.getBlDataByBlocknum(dto.getBlockid()));
+//		model.addAttribute("blData", blockServ.getBlDataByBlocknum(dto.getBlockid()));
+		model.addAttribute("blData", dto1);
 		return "/transaction/transactionDetail";
 	}
 	

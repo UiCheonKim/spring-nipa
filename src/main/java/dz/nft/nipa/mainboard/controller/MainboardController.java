@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dz.nft.nipa.dto.EthTransactionDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -209,12 +210,13 @@ public class MainboardController {
 	@RequestMapping("/getNftPageUpdateBlData")
 	@ResponseBody
 	public ArrayList<HashMap<String, Object>> getNftPageUpdateBlData(){
+		log.debug("getNftPageUpdateBlData");
 		return blockServ.getRecentBlList();
 	}
 
 	@RequestMapping("/getNftPageUpdateTrData")
 	@ResponseBody
-	public ArrayList<TransactionDto> getNftPageUpdateTrData(){
+	public ArrayList<EthTransactionDto> getNftPageUpdateTrData(){
 		return tranServ.getRecentTrList();
 	}
 

@@ -14,9 +14,13 @@
 <script type="text/javascript" defer>
 
 	function startInterval(){
-		var firstInterval = setInterval(updateUpperNav, 10000);
-		var secondInterval = setInterval(updateBlData, 10000);
-		var thirdInterval = setInterval(updateTrData, 10000);
+		// var firstInterval = setInterval(updateUpperNav, 10000);
+		// var secondInterval = setInterval(updateBlData, 10000);
+		// var thirdInterval = setInterval(updateTrData, 10000);
+        var firstInterval = setInterval(updateUpperNav, 5000);
+        var secondInterval = setInterval(updateBlData, 5000);
+        var thirdInterval = setInterval(updateTrData, 5000);
+
 	}
 	
 	function updateUpperNav(){
@@ -43,7 +47,6 @@
 	}
 	
 	function updateBlData(){
-		
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function(){
 			if(xmlhttp.readyState==4 && xmlhttp.status == 200){
@@ -52,17 +55,22 @@
 				for(let i = 1; i < 6; i++){
 					const refBlA_ = document.querySelector('#refBlA_'+i);
 					refBlA_.setAttribute("href","${pageContext.request.contextPath}/blockDetail?blNum="+obj[i-1].blDto.id);
-					refBlA_.innerText = '블록 번호 : '+obj[i-1].blDto.blocknum;
+					// refBlA_.innerText = '블록 번호 : '+obj[i-1].blDto.blocknum;
+                    refBlA_.innerText = '블록 번호 : 코기1';
 					
 					const refSp1_ = document.querySelector('#refSp1_'+i);
-					refSp1_.innerText = ' : '+obj[i-1].blDto.blockhash;
+					// refSp1_.innerText = ' : '+obj[i-1].blDto.blockhash;
+                    refSp1_.innerText = ' : 코기2';
 					const refSp2_ = document.querySelector('#refSp2_'+i);
-					refSp2_.innerText = ' : '+obj[i-1].blDto.datahash;
+					// refSp2_.innerText = ' : '+obj[i-1].blDto.datahash;
+                    refSp2_.innerText= ' : 코기3';
 					const refSp3_ = document.querySelector('#refSp3_'+i);
-					refSp3_.innerText = ' : '+obj[i-1].blDto.txcount;
-					
+					// refSp3_.innerText = ' : '+obj[i-1].blDto.txcount;
+                    refSp3_.innerText = ' : 코기4';
+
 					const refSpTime_ = document.querySelector('#refSpTime_'+i);
-					refSpTime_.innerText = obj[i-1].timeDiff+' 초 전';
+					// refSpTime_.innerText = obj[i-1].timeDiff+' 초 전';
+                    refSpTime_.innerText = '코기5 초 전';
 					
 					
 				}
@@ -85,11 +93,13 @@
 					
 					const refTrA1_ = document.querySelector('#refTrA1_'+i);
 					refTrA1_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].id);
-					refTrA1_.innerText = obj[i-1].id;
+					// refTrA1_.innerText = obj[i-1].id;
+                    refTrA1_.innerText = "웰시코기1";
 					
 					const refTrA2_ = document.querySelector('#refTrA2_'+i);
 					refTrA2_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].id);
-					refTrA2_.innerText = obj[i-1].txhash;
+					// refTrA2_.innerText = obj[i-1].txhash;
+                    refTrA2_.innerText = "웰시코기2";
 					
 				}
 			}
@@ -236,12 +246,12 @@
                             	<c:forEach items="${recentBlList}" var="blList">
                             		<c:set var="blnum" value="${blnum+1}"/>
 									<div class="nft_position_block">
-								        <p><a href="${pageContext.request.contextPath}/blockDetail?blNum=${blList.blDto.id}" id="refBlA_${blnum}">블록 번호 : ${blList.blDto.blocknum}</a></p>
+                                        <p><a href="${pageContext.request.contextPath}/blockDetail?blNum=${blList.blDto.hash}" id="refBlA_${blnum}">블록 번호 : ${blList.blDto.hash}</a></p>
 								        <span id="refSpTime_${blnum}">${blList.timeDiff} 초 전</span>
 								        <ul>
-								            <li><span>블록해시</span><span id="refSp1_${blnum}">: ${blList.blDto.blockhash}</span></li>
-								            <li><span>데이터 해시</span><span id="refSp2_${blnum}">: ${blList.blDto.datahash}</span></li>
-								            <li><span>블록에 담긴 트랜잭션 수</span><span id="refSp3_${blnum}">: ${blList.blDto.txcount}</span></li>
+								            <li><span>블록해시</span><span id="refSp1_${blnum}">: ${blList.blDto.hash}</span></li>
+								            <li><span>데이터 해시</span><span id="refSp2_${blnum}">: ${blList.blDto.hash}</span></li>
+								            <li><span>블록에 담긴 트랜잭션 수</span><span id="refSp3_${blnum}">: ${blList.blDto.minerHash}</span></li>
 								        </ul>
 								    </div>
 								</c:forEach>
@@ -258,8 +268,8 @@
                                 	<c:forEach items="${recentTrList}" var="trList">
                                 		<c:set var="trnum" value="${trnum+1}"/>
                                 		<li>
-	                                        <p>트랜잭션 번호 : <a href="${pageContext.request.contextPath}/tranDetail?trNum=${trList.id}" id="refTrA1_${trnum}">${trList.id}</a></p>
-	                                        <p>트랜잭션 해시 : <a href="${pageContext.request.contextPath}/tranDetail?trNum=${trList.id}" id="refTrA2_${trnum}">${trList.txhash}</a></p>
+	                                        <p>트랜잭션 번호 : <a href="${pageContext.request.contextPath}/tranDetail?trNum=${trList.hash}" id="refTrA1_${trnum}">${trList.hash}</a></p>
+	                                        <p>트랜잭션 해시 : <a href="${pageContext.request.contextPath}/tranDetail?trNum=${trList.hash}" id="refTrA2_${trnum}">${trList.hash}</a></p>
 	                                    </li>
                                 	</c:forEach>
                                 </ul>

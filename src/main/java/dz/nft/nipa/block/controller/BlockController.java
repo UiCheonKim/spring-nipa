@@ -2,6 +2,9 @@ package dz.nft.nipa.block.controller;
 
 import java.util.ArrayList;
 
+import dz.nft.nipa.dto.EthBlockDto;
+import dz.nft.nipa.dto.EthTransactionDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import dz.nft.nipa.transaction.service.TransactionServiceImpl;
 import dz.nft.nipa.utils.MessageRedirectUtil;
 
 @Controller
+@Slf4j
 public class BlockController {
 	
 	@Autowired
@@ -27,15 +31,28 @@ public class BlockController {
 	
 	@GetMapping("/blockDetail")
 	public String blockDetail(Model model, @RequestParam(defaultValue = "0") int blNum) {
+		log.debug("blockDetail==========================================");
 		if (blNum == 0) {
 			return "redirect:./error";
 		}
-		BlockDto dto = blockServ.getBlDataById(blNum);
+//		BlockDto dto = blockServ.getBlDataById(blNum);
+		EthBlockDto dto = new EthBlockDto();
+		dto.setHash("0x0");
+		dto.setMinerHash("0x1");
+		dto.setParentHash("0x2");
+		dto.setTimestamp("0x3");
 		if (dto == null) {
 			return "redirect:./error";
 		}
+
+		EthTransactionDto dto1 = new EthTransactionDto();
+		dto1.setHash("1x0");
+		dto1.setGasUsed("1x1");
+		dto1.setInsertedDt("1x2");
+
 		model.addAttribute("data", dto);
-		model.addAttribute("trList", tranServ.getTrDataByBlocknum(dto.getBlocknum()));
+//		model.addAttribute("trList", tranServ.getTrDataByBlocknum(dto.getBlocknum()));
+		model.addAttribute("trList", dto1);
 		return "/block/blockDetail";
 	}
 	

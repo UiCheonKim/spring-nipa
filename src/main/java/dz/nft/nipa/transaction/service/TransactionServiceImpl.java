@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import dz.nft.nipa.dto.EthTransactionDto;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,9 @@ public class TransactionServiceImpl {
 	} // 트랜잭션 개수 가져오는 메서드
 	
 	public int getFirstTransNum() {
-		Integer dataNum = tranMapper.getFirstTransNum();
+//		Integer dataNum = tranMapper.getFirstTransNum();
+		Integer dataNum = tranMapper.getEthFirstTransNum();
+		logger.trace("dataNum = {}", dataNum);
 		int resultNum = 0;
 		if (dataNum != null) {
 			resultNum = (int)dataNum;
@@ -40,8 +43,8 @@ public class TransactionServiceImpl {
 		return resultNum;
 	}
 	
-	public ArrayList<TransactionDto> getRecentTrList() {
-		return tranMapper.getRecentTrList();
+	public ArrayList<EthTransactionDto> getRecentTrList() {
+		return tranMapper.getEthRecentTrList();
 	}
 
 	public ArrayList<TransactionDto> getTrDataByBlocknum(int blocknum) {
@@ -133,7 +136,7 @@ public class TransactionServiceImpl {
 	}
 	
 	public int getTotalReadCnt() {
-		return tranMapper.getTotalReadCnt();
+		return tranMapper.getEthTotalReadCnt();
 	}
 
 	public ArrayList<TransactionDto> getTotalTrList(int pageNum) {

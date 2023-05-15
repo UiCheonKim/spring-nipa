@@ -42,6 +42,11 @@
 		ORDER BY t.id desc
 		LIMIT 1
 	</select>
+
+	<select id="getEthFirstTransNum" resultType="int">
+		SELECT count(*)
+		FROM transactions
+	</select>
 	
 	<select id="getNftIdByNftNum" resultType="String">
 		SELECT t.nft_id
@@ -81,6 +86,16 @@
 		WHERE c.name='digitalzonenipanft'
 		ORDER BY t.id DESC
 		LIMIT 9
+	</select>
+
+	<select id="getEthRecentTrList" resultType="dz.nft.nipa.dto.EthTransactionDto">
+		SELECT
+			TO_CHAR(t.inserted_at, 'yyyy-MM-dd HH24:MI:SS') AS insertedDt,
+			t.hash,
+			t.gas_used
+		FROM transactions t
+		ORDER BY t.inserted_at DESC
+			LIMIT 9
 	</select>
 	
 	<select id="getTrDataByBlocknum" resultType="dz.nft.nipa.dto.TransactionDto">
@@ -174,6 +189,12 @@
 		AND t.fcn='Read_NFT'
 		AND nd.hide_yn = 'N'
 		AND nd.del_yn = 'N'
+	</select>
+
+	<select id="getEthTotalReadCnt" resultType="int">
+		SELECT count(*)
+		FROM information_schema.tables
+		WHERE table_name = 'transaction'
 	</select>
 	
 	<select id="getTotalTrList" resultType="dz.nft.nipa.dto.TransactionDto">
