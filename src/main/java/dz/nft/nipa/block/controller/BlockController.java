@@ -71,7 +71,7 @@ public class BlockController {
 		}
 		
 		model.addAttribute("beginPage", beginPage);
-	    model.addAttribute("endPage", endPage);
+		model.addAttribute("endPage", endPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPageCount", totalPageCount);
 		model.addAttribute("list", list);

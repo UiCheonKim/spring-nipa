@@ -2,22 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dz.nft.nipa.block.mapper.BlockMapper">
-	
+
+	<!-- 기존 코드 -->
+<!--	<select id="getBlockCnt" resultType="int">-->
+<!--		SELECT COUNT(*)-->
+<!--		FROM blocks b-->
+<!--		LEFT JOIN (-->
+<!--				SELECT it.blockid-->
+<!--				FROM transactions_nipanft it-->
+<!--				LEFT JOIN channel c-->
+<!--				ON c.channel_genesis_hash = it.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--				GROUP BY it.blockid-->
+<!--			)t-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c-->
+<!--		ON c.channel_genesis_hash = b.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--	</select>-->
+
 	<select id="getBlockCnt" resultType="int">
 		SELECT COUNT(*)
-		FROM blocks b
-		LEFT JOIN (
-				SELECT it.blockid
-				FROM transactions_nipanft it
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = it.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-				GROUP BY it.blockid
-			)t
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = b.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
+		FROM blocks
 	</select>
 	
 	<select id="getFirstBlockNum" resultType="int">
@@ -134,31 +140,44 @@
 		WHERE c.name='digitalzonenipanft'
 		AND b.blocknum=#{blocknum}
 	</select>
-	
+
+	<!-- 기존 코드 -->
+<!--	<select id="getTotalBlList" resultType="dz.nft.nipa.dto.BlockDto">-->
+<!--		SELECT-->
+<!--			b.id,-->
+<!--			b.blocknum,-->
+<!--			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,-->
+<!--			b.blockhash,-->
+<!--			b.datahash,-->
+<!--			b.blksize,-->
+<!--			b.txcount-->
+<!--		FROM blocks b-->
+<!--		LEFT JOIN (-->
+<!--				SELECT it.blockid-->
+<!--				FROM transactions_nipanft it-->
+<!--				LEFT JOIN channel c-->
+<!--				ON c.channel_genesis_hash = it.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--				GROUP BY it.blockid-->
+<!--			)t-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c-->
+<!--		ON c.channel_genesis_hash = b.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		ORDER BY b.blocknum DESC-->
+<!--		LIMIT 10 OFFSET (#{pageNum}-1)*10-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
 	<select id="getTotalBlList" resultType="dz.nft.nipa.dto.BlockDto">
-		SELECT 
-			b.id,
-			b.blocknum,
-			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
-			b.blockhash,
-			b.datahash,
-			b.blksize,
-			b.txcount
-		FROM blocks b
-		LEFT JOIN (
-				SELECT it.blockid
-				FROM transactions_nipanft it
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = it.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-				GROUP BY it.blockid
-			)t
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = b.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		ORDER BY b.blocknum DESC
-		LIMIT 10 OFFSET (#{pageNum}-1)*10
+		SELECT
+		 	number as blocknum,
+			TO_CHAR(inserted_at, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
+		 	hash as blockhash,
+		 	size as blksize
+		FROM blocks
+		ORDER BY number DESC
+			LIMIT 10 OFFSET (#{pageNum}-1)*10
 	</select>
 	
 	<select id="getTestResult4SearchHash" resultType="int">

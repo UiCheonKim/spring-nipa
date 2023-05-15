@@ -3,6 +3,24 @@
 
 <mapper namespace="dz.nft.nipa.transaction.mapper.TransactionMapper">
 
+	<!-- 기존 코드 -->
+<!--	<select id="getTransCnt" resultType="int">-->
+<!--		SELECT COUNT(*)-->
+<!--		FROM transactions_nipanft t-->
+<!--		LEFT JOIN (-->
+<!--				SELECT ib.*-->
+<!--				FROM blocks ib-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = ib.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--			)b-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = t.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--	</select>-->
+
+
 	<insert id="save" parameterType="string">
 		INSERT INTO nft_ipfs (nft_num, ipfs_num)
 		VALUES (#{nftNum}, #{ipfsNum})
@@ -11,18 +29,7 @@
 
 	<select id="getTransCnt" resultType="int">
 		SELECT COUNT(*)
-		FROM transactions_nipanft t
-		LEFT JOIN (
-				SELECT ib.*
-				FROM blocks ib
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = ib.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-			)b
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = t.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
+		FROM transactions
 	</select>
 	
 	<select id="getFirstTransNum" resultType="int">
@@ -196,47 +203,58 @@
 		FROM information_schema.tables
 		WHERE table_name = 'transaction'
 	</select>
-	
+
+	<!-- 기존 코드 -->
+<!--	<select id="getTotalTrList" resultType="dz.nft.nipa.dto.TransactionDto">-->
+<!--		SELECT -->
+<!--			t1.id,-->
+<!--			t1.blockid,-->
+<!--			t1.txhash,-->
+<!--			TO_CHAR(t1.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,-->
+<!--			CASE-->
+<!--				WHEN t1.chaincodename ='interval_random' -->
+<!--				THEN 'CHECK_LIVENESS' -->
+<!--				WHEN t1.chaincodename ='token_erc721' -->
+<!--				THEN 'INIT_TOKEN'-->
+<!--				ELSE 'SAVE_IPFS_HASH'-->
+<!--			END AS chaincodename,-->
+<!--			t1.write_set,-->
+<!--			CASE-->
+<!--				WHEN t1.fcn ='NFT_CREATE' -->
+<!--				THEN 'CREATE_NFT' -->
+<!--				WHEN t1.fcn ='Read_NFT' -->
+<!--				THEN 'READ_NFT'-->
+<!--				ELSE t1.fcn-->
+<!--			END AS fcn,-->
+<!--			t1.nft_id,-->
+<!--			t1.title,-->
+<!--			t1.timestamp,-->
+<!--			CAST(COALESCE(NULLIF(t1.nft_num,''),'0') AS INT) AS nft_num,-->
+<!--			t1.nft_status-->
+<!--		FROM transactions_nipanft t1-->
+<!--		LEFT JOIN (-->
+<!--				SELECT ib.*-->
+<!--				FROM blocks ib-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = ib.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--			)b-->
+<!--		ON t1.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = t1.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		ORDER BY t1.id DESC-->
+<!--		LIMIT 10 OFFSET (#{pageNum}-1)*10-->
+<!--	</select>-->
+
 	<select id="getTotalTrList" resultType="dz.nft.nipa.dto.TransactionDto">
-		SELECT 
-			t1.id,
-			t1.blockid,
-			t1.txhash,
-			TO_CHAR(t1.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
-			CASE
-				WHEN t1.chaincodename ='interval_random' 
-				THEN 'CHECK_LIVENESS' 
-				WHEN t1.chaincodename ='token_erc721' 
-				THEN 'INIT_TOKEN'
-				ELSE 'SAVE_IPFS_HASH'
-			END AS chaincodename,
-			t1.write_set,
-			CASE
-				WHEN t1.fcn ='NFT_CREATE' 
-				THEN 'CREATE_NFT' 
-				WHEN t1.fcn ='Read_NFT' 
-				THEN 'READ_NFT'
-				ELSE t1.fcn
-			END AS fcn,
-			t1.nft_id,
-			t1.title,
-			t1.timestamp,
-			CAST(COALESCE(NULLIF(t1.nft_num,''),'0') AS INT) AS nft_num,
-			t1.nft_status
-		FROM transactions_nipanft t1
-		LEFT JOIN (
-				SELECT ib.*
-				FROM blocks ib
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = ib.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-			)b
-		ON t1.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = t1.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		ORDER BY t1.id DESC
-		LIMIT 10 OFFSET (#{pageNum}-1)*10
+		SELECT
+			block_number AS id,
+			hash AS txhash,
+			TO_CHAR(inserted_at, 'yyyy-MM-dd HH24:MI:SS') AS createdt
+		FROM transactions
+		ORDER BY block_number DESC
+			LIMIT 10 OFFSET (#{pageNum}-1)*10
 	</select>
 	
 	<select id="getTestResult4SearchHash" resultType="int">
