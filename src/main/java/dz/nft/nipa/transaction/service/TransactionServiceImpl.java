@@ -136,6 +136,7 @@ public class TransactionServiceImpl {
 	}
 	
 	public int getTotalReadCnt() {
+		logger.trace("조회 수 = {}", tranMapper.getEthTotalReadCnt());
 		return tranMapper.getEthTotalReadCnt();
 	}
 
