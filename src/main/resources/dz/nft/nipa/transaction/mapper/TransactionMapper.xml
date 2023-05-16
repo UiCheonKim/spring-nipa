@@ -225,9 +225,9 @@
 	</select>
 
 	<select id="getEthTotalReadCnt" resultType="int">
-		SELECT count(*)
-		FROM information_schema.tables
-		WHERE table_name = 'transaction'
+		SELECT COUNT(*)
+		FROM transactions
+		WHERE encode(input::bytea, 'hex') LIKE '%fd216f3%'
 	</select>
 
 	<!-- 기존 코드 -->
