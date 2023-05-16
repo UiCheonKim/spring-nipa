@@ -54,16 +54,16 @@
 					const td3 = document.createElement("td");
 					
 					const a1 = document.createElement("a");
-					a1.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.id);
-					a1.innerText = data.id;
+					a1.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.blockNumber);
+					a1.innerText = data.blockNumber;
 					td1.appendChild(a1);
 					td1.setAttribute("class", "list_link");
 					
-					td2.innerText = data.createdt;
+					td2.innerText = data.insertedAt;
 					
 					const a2 = document.createElement("a");
-					a2.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.id);
-					a2.innerText = data.txhash;
+					a2.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.blockNumber);
+					a2.innerText = data.hash;
 					td3.appendChild(a2);
 					td3.setAttribute("class", "list_link");
 					
@@ -157,11 +157,11 @@
                                     <c:forEach items="${list}" var="list">
                                     	<tr>
 	                                        <td class="list_link">
-	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.id}">${list.id}</a>
+	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.blockNumber}">${list.blockNumber}</a>
 	                                        </td>
-	                                        <td>${list.createdt}</td>
+	                                        <td>${list.insertedAt}</td>
 	                                        <td class="list_link">
-	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.id}">${list.txhash}</a>
+	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.blockNumber}">${list.hash}</a>
 	                                        </td>
 	                                    </tr>
                                     </c:forEach>

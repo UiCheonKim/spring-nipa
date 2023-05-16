@@ -18,7 +18,7 @@ public interface TransactionMapper {
 	public ArrayList<TransactionDto> getRecentTrList();
 	public ArrayList<EthTransactionDto> getEthRecentTrList();
 	public ArrayList<TransactionDto> getTrDataByBlocknum(int blocknum);
-	public TransactionDto getTrDataById(int trId);
+	public EthTransactionDto getTrDataById(int trId);
 	public int getTotalReadCnt();
 	public int getEthTotalReadCnt();
 

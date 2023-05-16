@@ -32,13 +32,13 @@ public class TransactionController {
 		if (trNum == 0) {
 			return "redirect:./error";
 		}
-//		TransactionDto dto = tranServ.getTrDataById(trNum);
+		EthTransactionDto dto = tranServ.getTrDataById(trNum);
 
 		String tmp = "0x0";
-		EthTransactionDto dto = new EthTransactionDto();
-		dto.setHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto.setBlockNumber("1x1");
-		dto.setInsertedDt("1x2");
+		// 뭔지 몰라서 주석 처리함
+//		dto.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto.setBlockNumber(Integer.parseInt("1x1"));
+//		dto.setInsertedDt("1x2");
 
 		if (dto == null) {
 			return "redirect:./error";
@@ -51,8 +51,7 @@ public class TransactionController {
 		dto1.setTimestamp("0x3");
 
 		model.addAttribute("data", dto);
-//		model.addAttribute("blData", blockServ.getBlDataByBlocknum(dto.getBlockid()));
-		model.addAttribute("blData", dto1);
+    model.addAttribute("blData", blockServ.getBlDataByBlocknum(dto.getBlockNumber()));
 		return "/transaction/transactionDetail";
 	}
 	

@@ -6,8 +6,8 @@ import org.apache.commons.codec.binary.Hex;
 @Data
 public class EthTransactionDto {
 	private String hash;
-	private String blockNumber;
-	private String insertedDt;
+	private int blockNumber;
+	private String insertedAt;
 
 	public void setHash(byte[] hash) {
 		this.hash = "0x" + Hex.encodeHexString(hash);

@@ -43,7 +43,8 @@
         <div class="content_center">
             <div class="tooltip" style="top: 677px; left: 233px;">
                 <p class="tooltiptext tooltiptext_bottom">
-                    <span>“자세히 보기” 버튼 클릭 시 블록에 담긴 트랜잭션 목록을 하단에 표출합니다.</span>
+<%--                    스팬이 안없어짐 이슈--%>
+<%--                    <span>“자세히 보기” 버튼 클릭 시 블록에 담긴 트랜잭션 목록을 하단에 표출합니다.</span>--%>
                 </p>
             </div>
         </div>
@@ -81,21 +82,22 @@
                                 <tbody>
                                     <tr>
                                         <th>블록 번호</th>
-                                        <td>${data.blocknum}</td>
+                                        <td>${data.number}</td>
                                     </tr>
                                     <tr>
                                         <th>블록 생성 시각</th>
-                                        <td>${data.createdt}</td>
+                                        <td>${data.insertedAt}</td>
                                     </tr>
                                     <tr>
                                         <th>블록 해시</th>
                                         <td>
-                                        	<span id="need2Copy">${data.blockhash}</span>
+                                        	<span id="need2Copy">${data.hash}</span>
                                         	<a class="id_copy_2" onclick="copyBlID()">
                                         		복사
                                         		<div class="tooltip" style="top: -76px; left: 50%; transform: translateX(-50%);">
                                                     <p class="tooltiptext tooltiptext_bottom tooltiptext_block_sub_page">
-                                                        <span>“복사” 버튼 클릭 시 “블록 해시”를 클립보드에 복사합니다.<br>복사된 “블록 해시”는 상단의 검색창에서 활용할 수 있습니다.</span>
+<%--                                                        스팬 주석 처리 사라지지 않은 이슈...--%>
+<%--                                                        <span>“복사” 버튼 클릭 시 “블록 해시”를 클립보드에 복사합니다.<br>복사된 “블록 해시”는 상단의 검색창에서 활용할 수 있습니다.</span>--%>
                                                     </p>
                                                 </div>
                                         	</a>
@@ -105,22 +107,22 @@
                                         <th>이전 블록 해시</th>
                                         <td>
                                         	<span id="need2Copy">
-                                        		<c:if test="${data.id == 1}">
+                                        		<c:if test="${data.number == 1}">
                                         			이전 블록 데이터가 존재하지 않습니다.
                                         		</c:if>
-                                        		<c:if test="${data.id != 1}">
-                                        			<a class="prevBlockLink" href="${pageContext.request.contextPath}/prevBlock?h=${data.prehash}">${data.prehash}</a>
+                                        		<c:if test="${data.number != 1}">
+                                        			<a class="prevBlockLink" href="${pageContext.request.contextPath}/prevBlock?h=${data.parentHash}">${data.parentHash}</a>
                                         		</c:if>
                                         	</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>블록 크기</th>
-                                        <td>${data.blksize} KB</td>
+                                        <td>${data.size} KB</td>
                                     </tr>
                                     <tr>
                                         <th>블록에 담긴 트랜잭션 수</th>
-                                        <td>${data.txcount}<a class="more_btn block_more_btn">자세히 보기</a></td>
+                                        <td>${data.txCount}<a class="more_btn block_more_btn">자세히 보기</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -145,10 +147,10 @@
                                     </tr>
                                     <c:forEach items="${trList}" var="list">
                                     	<tr>
-	                                        <td>${list.id}</td>
-	                                        <td>${list.createdt}</td>
-	                                        <td>${list.txhash}
-	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.id}" class="another_list_search">트랜잭션 상세정보 조회하기</a>
+	                                        <td>${list.blockNumber}</td>
+	                                        <td>${list.insertedAt}</td>
+	                                        <td>${list.hash}
+	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.blockNumber}" class="another_list_search">트랜잭션 상세정보 조회하기</a>
 	                                        </td>
 	                                    </tr>
                                     </c:forEach>

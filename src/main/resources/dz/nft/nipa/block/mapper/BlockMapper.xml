@@ -21,6 +21,7 @@
 <!--		WHERE c.name='digitalzonenipanft'-->
 <!--	</select>-->
 
+<!--	수정 코드-->
 	<select id="getBlockCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM blocks
@@ -95,7 +96,8 @@
 		SELECT COUNT(*) FROM transactions
 		WHERE block_number = #{blockNumber}
 	</select>
-	
+
+	<!-- 기존 코드 -->
 <!--	<select id="getBlDataById" resultType="dz.nft.nipa.dto.BlockDto">
 		SELECT 
 			b.id,
@@ -122,6 +124,18 @@
 		AND b.id=#{blNum}
 	</select>-->
 
+	<!-- 수정 코드 -->
+	<select id="getBlDataById" resultType="dz.nft.nipa.dto.EthBlockDto">
+		SELECT
+			b.number,
+			TO_CHAR(b.inserted_at + interval '9 hours', 'yyyy-MM-dd HH24:MI:SS') AS insertedAt,
+			b.hash,
+			b.parent_hash,
+			b.size
+		FROM blocks b
+		WHERE b.number = #{blNum}
+	</select>
+
 	<select id="getEthBlDataById" resultType="dz.nft.nipa.dto.EthBlockDto">
 		SELECT
 			b.id,
@@ -147,30 +161,42 @@
 		WHERE c.name='digitalzonenipanft'
 		AND b.id=#{blNum}
 	</select>
-	
-	<select id="getBlDataByBlocknum" resultType="dz.nft.nipa.dto.BlockDto">
-		SELECT 
-			b.id,
-			b.blocknum,
-			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
-			b.blockhash,
-			b.datahash,
-			b.blksize,
-			b.txcount
+
+	<!-- 기존 코드 -->
+<!--	<select id="getBlDataByBlocknum" resultType="dz.nft.nipa.dto.BlockDto">-->
+<!--		SELECT -->
+<!--			b.id,-->
+<!--			b.blocknum,-->
+<!--			TO_CHAR(b.createdt, 'yyyy-MM-dd HH24:MI:SS') AS createdt,-->
+<!--			b.blockhash,-->
+<!--			b.datahash,-->
+<!--			b.blksize,-->
+<!--			b.txcount-->
+<!--		FROM blocks b-->
+<!--		LEFT JOIN (-->
+<!--				SELECT it.blockid-->
+<!--				FROM transactions_nipanft it-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = it.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--				GROUP BY it.blockid-->
+<!--			)t-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = b.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		AND b.blocknum=#{blocknum}-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
+	<select id="getBlDataByBlocknum" resultType="dz.nft.nipa.dto.EthBlockDto">
+		SELECT
+			b.number,
+			TO_CHAR(b.inserted_at + interval '9 hours', 'yyyy-MM-dd HH24:MI:SS') AS insertedAt,
+			b.hash,
+			b.size
 		FROM blocks b
-		LEFT JOIN (
-				SELECT it.blockid
-				FROM transactions_nipanft it
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = it.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-				GROUP BY it.blockid
-			)t
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = b.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		AND b.blocknum=#{blocknum}
+		WHERE b.number=#{blocknum}
 	</select>
 
 	<!-- 기존 코드 -->
@@ -201,13 +227,13 @@
 <!--	</select>-->
 
 	<!-- 수정 코드 -->
-	<select id="getTotalBlList" resultType="dz.nft.nipa.dto.BlockDto">
+	<select id="getTotalBlList" resultType="dz.nft.nipa.dto.EthBlockDto">
 		SELECT
-		 	number as blocknum,
-			TO_CHAR(inserted_at, 'yyyy-MM-dd HH24:MI:SS') AS createdt,
-		 	hash as blockhash,
-		 	size as blksize
-		FROM blocks
+		 	b.number,
+			TO_CHAR(b.inserted_at + interval '9 hours', 'yyyy-MM-dd HH24:MI:SS') AS insertedAt,
+			b.hash,
+			b.size
+		FROM blocks b
 		ORDER BY number DESC
 			LIMIT 10 OFFSET (#{pageNum}-1)*10
 	</select>
@@ -247,5 +273,4 @@
 		WHERE c.name='digitalzonenipanft'
 		AND b.blockhash = #{searchWord}
 	</select>
-	
 </mapper>

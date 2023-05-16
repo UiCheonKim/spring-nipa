@@ -36,26 +36,27 @@ public class BlockController {
 		if (blNum == 0) {
 			return "redirect:./error";
 		}
-//		BlockDto dto = blockServ.getBlDataById(blNum);
 
-		EthBlockDto dto = new EthBlockDto();
-		String tmp = "0x0";
-		dto.setHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto.setTimestamp("0x3");
+		EthBlockDto dto = blockServ.getBlDataById(blNum);
+
+		// EthBlockDto dto = new EthBlockDto();
+//		String tmp = "0x0";
+//		dto.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto.setTimestamp("0x3");
 		if (dto == null) {
 			return "redirect:./error";
 		}
 
-		EthTransactionDto dto1 = new EthTransactionDto();
-		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto1.setBlockNumber("1x1");
-		dto1.setInsertedDt("1x2");
+//		EthTransactionDto dto1 = new EthTransactionDto();
+//		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto1.setBlockNumber(Integer.parseInt("1x1"));
+//		dto1.setInsertedDt("1x2");
 
 		model.addAttribute("data", dto);
-//		model.addAttribute("trList", tranServ.getTrDataByBlocknum(dto.getBlocknum()));
-		model.addAttribute("trList", dto1);
+    model.addAttribute("trList", tranServ.getTrDataByBlocknum(Integer.parseInt(dto.getNumber())));
+		// model.addAttribute("trList", dto1);
 		return "/block/blockDetail";
 	}
 	

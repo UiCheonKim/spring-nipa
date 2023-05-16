@@ -16,8 +16,8 @@ public interface BlockMapper {
 	public ArrayList<BlockDto> getRecentBlList();
 	public ArrayList<EthBlockDto> getEthRecentBlList();
 	public int getEthTransactionCount(int blockNumber);
-	public BlockDto getBlDataById(int blNum);
-	public BlockDto getBlDataByBlocknum(int blocknum);
+	public EthBlockDto getBlDataById(int blNum);
+	public EthBlockDto getBlDataByBlocknum(int blocknum);
 	public ArrayList<BlockDto> getTotalBlList(int pageNum);
 	
 	public int getTestResult4SearchHash(String searchWord);

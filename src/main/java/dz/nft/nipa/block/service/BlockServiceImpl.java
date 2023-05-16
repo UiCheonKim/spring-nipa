@@ -81,11 +81,23 @@ public class BlockServiceImpl {
 		return resulteList;
 	}
 
-	public BlockDto getBlDataById(int blNum) {
-		return blockMapper.getBlDataById(blNum);
+	// 기존 코드
+//	public EthBlockDto getBlDataById(int blNum) {
+//		EthBlockDto ethBlockDto = blockMapper.getBlDataById(blNum);
+//		int ethTransactionCount = blockMapper.getEthTransactionCount(blNum);
+//
+//		return blockMapper.getBlDataById(blNum);
+//	}
+
+	// 수정 코드 - NFT 상세 이력 - NFT 블록 상세 조회
+	public EthBlockDto getBlDataById(int blNum) {
+		EthBlockDto ethBlockDto = blockMapper.getBlDataById(blNum);
+		ethBlockDto.setTxCount(blockMapper.getEthTransactionCount(blNum));
+
+		return ethBlockDto;
 	}
 	
-	public BlockDto getBlDataByBlocknum(int blocknum) {
+	public EthBlockDto getBlDataByBlocknum(int blocknum) {
 		return blockMapper.getBlDataByBlocknum(blocknum);
 	}
 

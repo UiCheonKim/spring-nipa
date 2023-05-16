@@ -51,86 +51,86 @@ public class TransactionServiceImpl {
 		return tranMapper.getTrDataByBlocknum(blocknum);
 	}
 
-	public TransactionDto getTrDataById(int trId) {
-		
-		TransactionDto dto = tranMapper.getTrDataById(trId);
+	public EthTransactionDto getTrDataById(int trId) {
+
+		EthTransactionDto dto = tranMapper.getTrDataById(trId);
 		if (dto == null) {
 			return null;
 		}
 		
-		String ws = dto.getWriteSet();
-		
-		if (dto.getChaincodename().equals("CHECK_LIVENESS") || dto.getChaincodename().equals("INIT_TOKEN")) {
-			dto.setWriteSet(null);
-			
-		} else if (dto.getFcn().equals("CREATE_NFT")) {
-			
-			Object[] test = ws.split("},");
-			String str = test[2].toString();
-			String subStr = str.substring(7, str.length()-12);
-			ObjectMapper mapper = new ObjectMapper();
-			HashMap<String, Object> map = null;
-			HashMap<String, Object> valueMap = null;
-			Map<String, Object> baseMap = new LinkedHashMap<String, Object>();
-			Map<String, Object> midMap = new LinkedHashMap<String, Object>();
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			
-			try {
-				map = mapper.readValue(subStr, HashMap.class);
-				midMap.put("key", map.get("key"));
-				midMap.put("is_delete", map.get("is_delete"));
-				valueMap = mapper.readValue(map.get("value").toString(), HashMap.class);
-				baseMap.put("nft_id", valueMap.get("nft_id"));
-				baseMap.put("owner", valueMap.get("owner"));
-				baseMap.put("timestamp", valueMap.get("timestamp"));
-				baseMap.put("tokenuri", valueMap.get("tokenuri"));
-				baseMap.put("minter", valueMap.get("minter"));
-				baseMap.put("fcn", "CREATE_NFT");
-				baseMap.put("title", valueMap.get("title"));
-				midMap.put("value", baseMap);
-				
-			} catch (JsonProcessingException e) {
-				logger.info("CREATE_NFT로 변환 오류");
-				return null;
-			}
-			resultMap.put("set", midMap);
-			String custom = JSONObject.toJSONString(resultMap);
-			dto.setWriteSet(CustomWriteSetDataText(custom));
-			
-		} else if (dto.getFcn().equals("READ_NFT")) {
-			
-			Object[] test = ws.split("},");
-			String str = test[2].toString();
-			String subStr = str.substring(7, str.length()-12);
-			ObjectMapper mapper = new ObjectMapper();
-			HashMap<String, Object> map = null;
-			HashMap<String, Object> valueMap = null;
-			Map<String, Object> baseMap = new LinkedHashMap<String, Object>();
-			Map<String, Object> midMap = new LinkedHashMap<String, Object>();
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			
-			try {
-				map = mapper.readValue(subStr, HashMap.class);
-				midMap.put("key", map.get("key"));
-				midMap.put("is_delete", map.get("is_delete"));
-				valueMap = mapper.readValue(map.get("value").toString(), HashMap.class);
-				baseMap.put("nft_read_id", valueMap.get("nft_read_id"));
-				baseMap.put("timestamp", valueMap.get("timestamp"));
-				baseMap.put("fcn", "READ_NFT");
-				baseMap.put("nft_id", valueMap.get("nft_id"));
-				midMap.put("value", baseMap);
-				
-			} catch (JsonProcessingException e) {
-				logger.info("READ_NFT 변환 오류");
-				return null;
-			}
-			resultMap.put("set", midMap);
-			String custom = JSONObject.toJSONString(resultMap);
-			dto.setWriteSet(CustomWriteSetDataText(custom));
-			
-		} else {
-			dto.setWriteSet(null);
-		}
+		// String ws = dto.getWriteSet();
+//
+//		if (dto.getChaincodename().equals("CHECK_LIVENESS") || dto.getChaincodename().equals("INIT_TOKEN")) {
+//			dto.setWriteSet(null);
+//
+//		} else if (dto.getFcn().equals("CREATE_NFT")) {
+//
+//			Object[] test = ws.split("},");
+//			String str = test[2].toString();
+//			String subStr = str.substring(7, str.length()-12);
+//			ObjectMapper mapper = new ObjectMapper();
+//			HashMap<String, Object> map = null;
+//			HashMap<String, Object> valueMap = null;
+//			Map<String, Object> baseMap = new LinkedHashMap<String, Object>();
+//			Map<String, Object> midMap = new LinkedHashMap<String, Object>();
+//			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//
+//			try {
+//				map = mapper.readValue(subStr, HashMap.class);
+//				midMap.put("key", map.get("key"));
+//				midMap.put("is_delete", map.get("is_delete"));
+//				valueMap = mapper.readValue(map.get("value").toString(), HashMap.class);
+//				baseMap.put("nft_id", valueMap.get("nft_id"));
+//				baseMap.put("owner", valueMap.get("owner"));
+//				baseMap.put("timestamp", valueMap.get("timestamp"));
+//				baseMap.put("tokenuri", valueMap.get("tokenuri"));
+//				baseMap.put("minter", valueMap.get("minter"));
+//				baseMap.put("fcn", "CREATE_NFT");
+//				baseMap.put("title", valueMap.get("title"));
+//				midMap.put("value", baseMap);
+//
+//			} catch (JsonProcessingException e) {
+//				logger.info("CREATE_NFT로 변환 오류");
+//				return null;
+//			}
+//			resultMap.put("set", midMap);
+//			String custom = JSONObject.toJSONString(resultMap);
+//			dto.setWriteSet(CustomWriteSetDataText(custom));
+//
+//		} else if (dto.getFcn().equals("READ_NFT")) {
+//
+//			Object[] test = ws.split("},");
+//			String str = test[2].toString();
+//			String subStr = str.substring(7, str.length()-12);
+//			ObjectMapper mapper = new ObjectMapper();
+//			HashMap<String, Object> map = null;
+//			HashMap<String, Object> valueMap = null;
+//			Map<String, Object> baseMap = new LinkedHashMap<String, Object>();
+//			Map<String, Object> midMap = new LinkedHashMap<String, Object>();
+//			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+//
+//			try {
+//				map = mapper.readValue(subStr, HashMap.class);
+//				midMap.put("key", map.get("key"));
+//				midMap.put("is_delete", map.get("is_delete"));
+//				valueMap = mapper.readValue(map.get("value").toString(), HashMap.class);
+//				baseMap.put("nft_read_id", valueMap.get("nft_read_id"));
+//				baseMap.put("timestamp", valueMap.get("timestamp"));
+//				baseMap.put("fcn", "READ_NFT");
+//				baseMap.put("nft_id", valueMap.get("nft_id"));
+//				midMap.put("value", baseMap);
+//
+//			} catch (JsonProcessingException e) {
+//				logger.info("READ_NFT 변환 오류");
+//				return null;
+//			}
+//			resultMap.put("set", midMap);
+//			String custom = JSONObject.toJSONString(resultMap);
+//			dto.setWriteSet(CustomWriteSetDataText(custom));
+//
+//		} else {
+//			dto.setWriteSet(null);
+//		}
 		
 		return dto;
 	}

@@ -58,20 +58,20 @@
 					const td4 = document.createElement("td");
 					
 					const a1 = document.createElement("a");
-					a1.setAttribute("href", "${pageContext.request.contextPath}/blockDetail?blNum="+data.id);
-					a1.innerText = data.blocknum;
+					a1.setAttribute("href", "${pageContext.request.contextPath}/blockDetail?blNum="+data.inumberd);
+					a1.innerText = data.number;
 					td1.appendChild(a1);
 					td1.setAttribute("class", "list_link");
 					
-					td2.innerText = data.createdt;
+					td2.innerText = data.insertedAt;
 					
 					const a2 = document.createElement("a");
-					a2.setAttribute("href", "${pageContext.request.contextPath}/blockDetail?blNum="+data.id);
-					a2.innerText = data.blockhash;
+					a2.setAttribute("href", "${pageContext.request.contextPath}/blockDetail?blNum="+data.number);
+					a2.innerText = data.hash;
 					td3.appendChild(a2);
 					td3.setAttribute("class", "list_link");
 					
-					td4.innerText = data.blksize+" KB";
+					td4.innerText = data.size+" KB";
 					
 					tb.appendChild(tr);
 					tr.appendChild(td1);
@@ -164,10 +164,10 @@
                                     </tr>
                                     <c:forEach items="${list}" var="list">
                                     	<tr>
-	                                        <td class="list_link"><a href="${pageContext.request.contextPath}/blockDetail?blNum=${list.id}">${list.blocknum}</a></td>
-	                                        <td>${list.createdt}</td>
-	                                        <td class="list_link"><a href="${pageContext.request.contextPath}/blockDetail?blNum=${list.id}">${list.blockhash}</a></td>
-	                                        <td>${list.blksize} KB</td>
+	                                        <td class="list_link"><a href="${pageContext.request.contextPath}/blockDetail?blNum=${list.number}">${list.number}</a></td>
+	                                        <td>${list.insertedAt}</td>
+	                                        <td class="list_link"><a href="${pageContext.request.contextPath}/blockDetail?blNum=${list.number}">${list.hash}</a></td>
+	                                        <td>${list.size} KB</td>
 	                                    </tr>
                                     </c:forEach>
                                 </tbody>

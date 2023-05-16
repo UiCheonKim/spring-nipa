@@ -57,13 +57,14 @@
                     <span>“블록 상세정보 조회하기” 클릭 시 해당 트랜잭션이 담긴 블록의 상세정보 페이지로 이동합니다.</span>
                 </p>
             </div>
-            <c:if test="${data.nftNum!=0 && (data.fcn eq 'CREATE_NFT' || data.fcn eq 'READ_NFT')}">
-	            <div class="tooltip" style="top: 774px; left: 790px;">
-	                <p class="tooltiptext tooltiptext_top tooltiptext_tran_sub_page_3">
-	                    <span>“NFT 상세정보 조회하기” 클릭 시 해당 NFT의 상세정보 페이지로 이동합니다.</span>
-	                </p>
-	            </div>
-	        </c:if>
+<%--            nftNum이 없다...--%>
+<%--            <c:if test="${data.nftNum!=0 && (data.fcn eq 'CREATE_NFT' || data.fcn eq 'READ_NFT')}">--%>
+<%--	            <div class="tooltip" style="top: 774px; left: 790px;">--%>
+<%--	                <p class="tooltiptext tooltiptext_top tooltiptext_tran_sub_page_3">--%>
+<%--	                    <span>“NFT 상세정보 조회하기” 클릭 시 해당 NFT의 상세정보 페이지로 이동합니다.</span>--%>
+<%--	                </p>--%>
+<%--	            </div>--%>
+<%--	        </c:if>--%>
         </div>
     </div>
     
@@ -101,16 +102,16 @@
                                 <tbody>
                                     <tr>
                                         <th>트랜잭션 번호</th>
-                                        <td>${data.id}</td>
+                                        <td>${data.blockNumber}</td>
                                     </tr>
                                     <tr>
                                         <th>트랜잭션 생성 시각</th>
-                                        <td>${data.createdt}</td>
+                                        <td>${data.insertedAt}</td>
                                     </tr>
                                     <tr>
                                         <th>트랜잭션 해시</th>
                                         <td>
-                                        	<span id="need2Copy">${data.txhash}</span>
+                                        	<span id="need2Copy">${data.hash}</span>
                                         	<a class="id_copy_2" onclick="copyTrID()">
                                         		복사
                                         		<div class="tooltip" style="top: -74px; left: 50%; transform: translateX(-50%);">
@@ -123,44 +124,46 @@
                                     </tr>
                                     <tr>
                                         <th>트랜잭션이 담긴 블록 번호</th>
-                                        <td>${blData.blocknum}
-                                        	<a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.id}" class="more_btn">블록 상세정보 조회하기</a>
+                                        <td>${blData.number}
+                                        	<a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.number}" class="more_btn">블록 상세정보 조회하기</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th>트랜잭션 명</th>
-                                        <c:choose>
-                                        	<c:when test="${!empty data.fcn}">
-                                        		<td>${data.fcn}</td>
-                                        	</c:when>
-                                        	<c:otherwise>
-                                        		<td>${data.chaincodename}</td>
-                                        	</c:otherwise>
-                                        </c:choose>
+<%--                                        체인코드 관련 코드 주석 처리--%>
+<%--                                        <c:choose>--%>
+<%--                                        	<c:when test="${!empty data.fcn}">--%>
+<%--                                        		<td>${data.fcn}</td>--%>
+<%--                                        	</c:when>--%>
+<%--                                        	<c:otherwise>--%>
+<%--                                        		<td>${data.chaincodename}</td>--%>
+<%--                                        	</c:otherwise>--%>
+<%--                                        </c:choose>--%>
                                     </tr>
-                                    <c:if test="${data.nftNum!=0 && (data.fcn eq 'CREATE_NFT' || data.fcn eq 'READ_NFT')}">
-	                                    <tr>
-	                                        <th>NFT ID</th>
-                                       		<td>${fn:toUpperCase(data.nftId)}
-                                       			<a href="${pageContext.request.contextPath}/nftDetail?nftNum=${data.nftNum}" class="more_btn popup_btn">NFT 상세정보 조회하기</a>
-                                       		</td>
-	                                    </tr>
-                                    </c:if>
-                                    <c:if test="${!empty data.writeSet}">
-                                    	<tr>
-	                                        <th>
-	                                        	트랜잭션 데이터
-	                                        	<div class="tooltip" style="top: 59%; left: -21px;">
-	                                                <p class="tooltiptext tooltiptext_top tooltiptext_tran_sub_page_4">
-	                                                    <span>트랜잭션이 가지고 있는 데이터입니다. 트랜잭션 명에 따라 가지고 있는 데이터는 다를 수 있습니다.</span>
-	                                                </p>
-	                                            </div>
-	                                        </th>
-	                                        <td>
-	                                            <pre style="height: auto; width: 920px; overflow-x: scroll; line-height: 20px;">${data.writeSet}</pre>
-	                                        </td>
-	                                    </tr>
-                                    </c:if>
+<%--                                    nftNum 관련 컬럼 없음 주석 처리--%>
+<%--                                    <c:if test="${data.nftNum!=0 && (data.fcn eq 'CREATE_NFT' || data.fcn eq 'READ_NFT')}">--%>
+<%--	                                    <tr>--%>
+<%--	                                        <th>NFT ID</th>--%>
+<%--                                       		<td>${fn:toUpperCase(data.nftId)}--%>
+<%--                                       			<a href="${pageContext.request.contextPath}/nftDetail?nftNum=${data.nftNum}" class="more_btn popup_btn">NFT 상세정보 조회하기</a>--%>
+<%--                                       		</td>--%>
+<%--	                                    </tr>--%>
+<%--                                    </c:if>--%>
+<%--                                    <c:if test="${!empty data.writeSet}">--%>
+<%--                                    	<tr>--%>
+<%--	                                        <th>--%>
+<%--	                                        	트랜잭션 데이터--%>
+<%--	                                        	<div class="tooltip" style="top: 59%; left: -21px;">--%>
+<%--	                                                <p class="tooltiptext tooltiptext_top tooltiptext_tran_sub_page_4">--%>
+<%--	                                                    <span>트랜잭션이 가지고 있는 데이터입니다. 트랜잭션 명에 따라 가지고 있는 데이터는 다를 수 있습니다.</span>--%>
+<%--	                                                </p>--%>
+<%--	                                            </div>--%>
+<%--	                                        </th>--%>
+<%--	                                        <td>--%>
+<%--	                                            <pre style="height: auto; width: 920px; overflow-x: scroll; line-height: 20px;">${data.writeSet}</pre>--%>
+<%--	                                        </td>--%>
+<%--	                                    </tr>--%>
+<%--                                    </c:if>--%>
                                 </tbody>
                             </table>
                         </div>
