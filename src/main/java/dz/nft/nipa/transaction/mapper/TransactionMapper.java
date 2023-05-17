@@ -17,8 +17,8 @@ public interface TransactionMapper {
 	public String getNftIdByNftNum(String nftNum);
 	public ArrayList<TransactionDto> getRecentTrList();
 	public ArrayList<EthTransactionDto> getEthRecentTrList();
-	public ArrayList<TransactionDto> getTrDataByBlocknum(int blocknum);
-	public EthTransactionDto getTrDataById(int trId);
+	public ArrayList<TransactionDto> getTrDataByBlocknum(int blNum);
+	public EthTransactionDto getTrDataById(String trId);
 	public int getTotalReadCnt();
 	public int getEthTotalReadCnt();
 

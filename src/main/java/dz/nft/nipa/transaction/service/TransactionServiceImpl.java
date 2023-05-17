@@ -47,11 +47,11 @@ public class TransactionServiceImpl {
 		return tranMapper.getEthRecentTrList();
 	}
 
-	public ArrayList<TransactionDto> getTrDataByBlocknum(int blocknum) {
-		return tranMapper.getTrDataByBlocknum(blocknum);
+	public ArrayList<TransactionDto> getTrDataByBlocknum(int blNum) {
+		return tranMapper.getTrDataByBlocknum(blNum);
 	}
 
-	public EthTransactionDto getTrDataById(int trId) {
+	public EthTransactionDto getTrDataById(String trId) {
 
 		EthTransactionDto dto = tranMapper.getTrDataById(trId);
 		if (dto == null) {

@@ -150,7 +150,7 @@
 	                                        <td>${list.blockNumber}</td>
 	                                        <td>${list.insertedAt}</td>
 	                                        <td>${list.hash}
-	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.blockNumber}" class="another_list_search">트랜잭션 상세정보 조회하기</a>
+	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.hash}" class="another_list_search">트랜잭션 상세정보 조회하기</a>
 	                                        </td>
 	                                    </tr>
                                     </c:forEach>

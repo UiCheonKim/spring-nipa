@@ -246,7 +246,7 @@
                             	<c:forEach items="${recentBlList}" var="blList">
                             		<c:set var="blnum" value="${blnum+1}"/>
 									<div class="nft_position_block">
-                                        <p><a href="${pageContext.request.contextPath}/blockDetail?blNum=${blList.blDto.hash}" id="refBlA_${blnum}">블록 번호 : ${blList.blDto.number}</a></p>
+                                        <p><a href="${pageContext.request.contextPath}/blockDetail?blNum=${blList.blDto.number}" id="refBlA_${blnum}">블록 번호 : ${blList.blDto.number}</a></p>
 								        <span id="refSpTime_${blnum}">${blList.timeDiff} 초 전</span>
 								        <ul>
 								            <li><span>블록해시</span><span id="refSp1_${blnum}">: ${blList.blDto.hash}</span></li>

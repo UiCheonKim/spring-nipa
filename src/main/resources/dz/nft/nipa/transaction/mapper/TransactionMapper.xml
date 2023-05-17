@@ -200,7 +200,7 @@
 -- 			nd.detail_num,
 -- 			t.nft_status
 		FROM transactions t
-		WHERE t.block_number = #{trId}
+		WHERE encode(t.hash, 'hex') = substring(#{trId} FROM 3)
 	</select>
 	
 	<select id="getTotalReadCnt" resultType="int">

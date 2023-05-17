@@ -28,8 +28,8 @@ public class TransactionController {
 	private BlockServiceImpl blockServ;
 	
 	@GetMapping("/tranDetail")
-	public String tranDetail(Model model, @RequestParam(defaultValue = "0") int trNum) {
-		if (trNum == 0) {
+	public String tranDetail(Model model, @RequestParam(defaultValue = "0") String trNum) {
+		if (trNum == null) {
 			return "redirect:./error";
 		}
 		EthTransactionDto dto = tranServ.getTrDataById(trNum);

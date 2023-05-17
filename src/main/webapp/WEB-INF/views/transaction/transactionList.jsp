@@ -157,11 +157,11 @@
                                     <c:forEach items="${list}" var="list">
                                     	<tr>
 	                                        <td class="list_link">
-	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.blockNumber}">${list.blockNumber}</a>
+	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.hash}">${list.blockNumber}</a>
 	                                        </td>
 	                                        <td>${list.insertedAt}</td>
 	                                        <td class="list_link">
-	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.blockNumber}">${list.hash}</a>
+	                                        	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${list.hash}">${list.hash}</a>
 	                                        </td>
 	                                    </tr>
                                     </c:forEach>
