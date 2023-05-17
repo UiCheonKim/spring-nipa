@@ -866,6 +866,10 @@
     margin-bottom: 0;
 }
 
+.nft_position_bottom>ul>li .nft_position_content .nft_position_block li span:first-child  {
+    font-weight: bold;
+}
+
 .nft_position_bottom>ul>li .nft_position_content .nft_position_block li span:last-child {
     display: block;
     width: 400px;

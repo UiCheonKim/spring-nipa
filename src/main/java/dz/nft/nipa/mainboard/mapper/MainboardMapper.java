@@ -19,8 +19,12 @@ public interface MainboardMapper {
 	
 	public String getImgLocation(int imgNum);
 	public ArrayList<HashMap<String, Object>> getAllNftListByDataType(@Param("typeNum") int typeNum, @Param("detailNum") int detailNum);
+	public String getEthCnt(String nftIdHex);
+
 	public ArrayList<HashMap<String, Object>> getNftListByDateType(@Param("typeNum") int typeNum, @Param("detailNum") int detailNum, @Param("dateType") String dateType);
+	public String getEthNftNumToId(int nftNum);
 	public HashMap<String, Object> getNftDataBynftNum(int nftNum);
+	public HashMap<String, Object> getEthNftDataBynftNum(@Param("nftNum") int nftNum, @Param("nftIdHex") String nftIdHex);
 	public void updateReadCnt(int nftNum);
 	public int getNftDataCnt();
 	

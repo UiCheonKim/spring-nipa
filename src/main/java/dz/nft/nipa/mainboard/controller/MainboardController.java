@@ -80,6 +80,7 @@ public class MainboardController {
 	public String firstTab(Model model, String dateType, int typeNum) {
 		if (dateType.equals("ALL")) {
 			log.info("전체 호출");
+			log.info("typeNum = {}", typeNum);
 			model.addAttribute("dataList", mainServ.getAllNftListByDataType(typeNum));
 		}else {
 			log.info("전체 아닌 호출");
@@ -92,17 +93,28 @@ public class MainboardController {
 	@RequestMapping("/nftDetail")
 	public String nftDetail(Model model, int nftNum, @RequestParam(required = false) String sYn, HttpSession session) {
 
+		log.trace("nfNum = {}", nftNum);
+		String nftIdHex = utf8ToHex(mainServ.getEthNftNumToId(nftNum));
+		log.trace("nftIdHex = {}", nftIdHex);
+
 		// nft data 테이블 readCnt증가 쿼리 - 필요 없는 것 확정되면 지우기
 		// mainServ.updateReadCnt(nftNum);
 		HashMap<String, Object> nftUriMap = null;
-		HashMap<String, Object> nftDataMap = mainServ.getNftDataBynftNum(nftNum);
+//		HashMap<String, Object> nftDataMap = mainServ.getNftDataBynftNum(nftNum);
+
+		HashMap<String, Object> nftDataMap = mainServ.getEthNftDataBynftNum(nftNum, nftIdHex);
 
 		if (nftDataMap == null) {
 			return "redirect:./error";
 		}
 
 		if (session.getAttribute("nftUri") == null || session.getAttribute("nftNum") == null) {
-			nftUriMap = tranServ.readNftContents(nftDataMap.get("nft_id").toString());
+			log.trace("111111");
+			nftUriMap = tranServ.readNftContents(nftDataMap.get("nft_id").toString().toUpperCase());
+			// HashMap인 nftDataMap에 있는 값 하나씩 전체 로그 출력
+			for (String key : nftDataMap.keySet()) {
+				log.trace("key = {}, value = {}", key, nftDataMap.get(key));
+			}
 			session.setAttribute("nftNum", nftNum);
 			session.setAttribute("nftUri", nftUriMap.get("data"));
 			model.addAttribute("uri", nftUriMap.get("data"));
@@ -110,7 +122,12 @@ public class MainboardController {
 			nftDataMap.put("nft_cnt", cnt);
 
 		} else if (Integer.parseInt(session.getAttribute("nftNum").toString()) != nftNum) {
-			nftUriMap = tranServ.readNftContents(nftDataMap.get("nft_id").toString());
+			log.trace("222222");
+			nftUriMap = tranServ.readNftContents(nftDataMap.get("nft_id").toString().toUpperCase());
+			// HashMap인 nftDataMap에 있는 값 하나씩 전체 로그 출력
+			for (String key : nftDataMap.keySet()) {
+				log.trace("key = {}, value = {}", key, nftDataMap.get(key));
+			}
 			session.setAttribute("nftNum", nftNum);
 			session.setAttribute("nftUri", nftUriMap.get("data"));
 			model.addAttribute("uri", nftUriMap.get("data"));
@@ -118,6 +135,8 @@ public class MainboardController {
 			nftDataMap.put("nft_cnt", cnt);
 
 		}
+
+		log.trace("조회수 = {}", nftDataMap.get("nft_cnt"));
 
 		model.addAttribute("sYn", sYn);
 		model.addAttribute("uri", session.getAttribute("nftUri"));
@@ -304,6 +323,17 @@ public class MainboardController {
 			return "redirect:./";
 		}
 		return "redirect:./nftDetail?nftNum="+dto.getNftNum()+"&sYn=Y";
+	}
+
+	private String utf8ToHex(String utf8) {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < utf8.length(); i++) {
+			char c = utf8.charAt(i);
+			String hexString = Integer.toHexString(c);
+			sb.append(hexString);
+		}
+		return sb.toString();
 	}
 
 
