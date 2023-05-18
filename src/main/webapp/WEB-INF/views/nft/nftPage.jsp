@@ -54,7 +54,8 @@
 				
 				for(let i = 1; i < 6; i++){
 					const refBlA_ = document.querySelector('#refBlA_'+i);
-					refBlA_.setAttribute("href","${pageContext.request.contextPath}/blockDetail"+obj[i-1].blDto.id);
+					<%--refBlA_.setAttribute("href","${pageContext.request.contextPath}/blockDetail"+obj[i-1].blDto.id);--%>
+                    refBlA_.setAttribute("href","${pageContext.request.contextPath}/blockDetail?blNum="+ obj[i-1].blDto.number);
 					refBlA_.innerText = '블록 번호 : '+obj[i-1].blDto.number;
                     // refBlA_.innerText = '블록 번호 : 코기1';
 					const refSp1_ = document.querySelector('#refSp1_'+i);
