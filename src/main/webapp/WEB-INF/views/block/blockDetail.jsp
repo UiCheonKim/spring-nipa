@@ -43,8 +43,7 @@
         <div class="content_center">
             <div class="tooltip" style="top: 677px; left: 233px;">
                 <p class="tooltiptext tooltiptext_bottom">
-<%--                    스팬이 안없어짐 이슈--%>
-<%--                    <span>“자세히 보기” 버튼 클릭 시 블록에 담긴 트랜잭션 목록을 하단에 표출합니다.</span>--%>
+                    <span>“자세히 보기” 버튼 클릭 시 블록에 담긴 트랜잭션 목록을 하단에 표출합니다.</span>
                 </p>
             </div>
         </div>
@@ -97,7 +96,7 @@
                                         		<div class="tooltip" style="top: -76px; left: 50%; transform: translateX(-50%);">
                                                     <p class="tooltiptext tooltiptext_bottom tooltiptext_block_sub_page">
 <%--                                                        스팬 주석 처리 사라지지 않은 이슈...--%>
-<%--                                                        <span>“복사” 버튼 클릭 시 “블록 해시”를 클립보드에 복사합니다.<br>복사된 “블록 해시”는 상단의 검색창에서 활용할 수 있습니다.</span>--%>
+                                                        <span>“복사” 버튼 클릭 시 “블록 해시”를 클립보드에 복사합니다.<br>복사된 “블록 해시”는 상단의 검색창에서 활용할 수 있습니다.</span>
                                                     </p>
                                                 </div>
                                         	</a>
@@ -111,8 +110,9 @@
                                         			이전 블록 데이터가 존재하지 않습니다.
                                         		</c:if>
                                         		<c:if test="${data.number != 1}">
-                                        			<a class="prevBlockLink" href="${pageContext.request.contextPath}/prevBlock?h=${data.parentHash}">${data.parentHash}</a>
-                                        		</c:if>
+<%--                                        			<a class="prevBlockLink" href="${pageContext.request.contextPath}/prevBlock?h=${data.parentHash}">${data.parentHash}</a>--%>
+                                                    <a class="prevBlockLink" href="${pageContext.request.contextPath}/prevBlock?h=${data.parentHash}">${data.parentHash}</a>
+                                                </c:if>
                                         	</span>
                                         </td>
                                     </tr>

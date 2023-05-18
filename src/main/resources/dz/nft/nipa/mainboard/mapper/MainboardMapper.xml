@@ -137,6 +137,50 @@
 		AND nd.hide_yn = 'N'
 	</select>
 
+	<!-- 기존 코드 -->
+<!--	<select id="getEthNftDataBynftNum" resultType="map">-->
+<!--		SELECT-->
+<!--			nd.nft_num,-->
+<!--			nd.user_num,-->
+<!--			nd.nft_title,-->
+<!--			nd.nft_publisher,-->
+<!--			nd.nft_owner,-->
+<!--			nd.nft_original_date,-->
+<!--			ndd.detail_num,-->
+<!--			ndd.type_num,-->
+<!--			ndd.detail_name,-->
+<!--			ndd.detail_attach,-->
+<!--			ndi.img_num,-->
+<!--			nd.nft_id,-->
+<!--			TO_CHAR(bh.timestamp, 'YYYY.MM.DD') AS createdt,-->
+<!--			COALESCE(-->
+<!--					(-->
+<!--						SELECT COUNT(*)-->
+<!--						FROM transactions-->
+<!--						WHERE encode(input::bytea, 'hex') LIKE '%fd216f30%'-->
+<!--						  AND encode(input::bytea, 'hex') LIKE '%' || #{nftIdHex} || '%'-->
+<!--					), 0) AS nft_cnt-->
+<!--		FROM nft_data nd-->
+<!--				 JOIN nft_data_detail ndd-->
+<!--					  ON nd.detail_num = ndd.detail_num-->
+<!--				 JOIN nft_data_img ndi-->
+<!--					  ON ndi.nft_num = nd.nft_num-->
+<!--				 LEFT JOIN-->
+<!--			 (-->
+<!--				 SELECT b1.timestamp-->
+<!--				 FROM transactions t1-->
+<!--						  LEFT JOIN blocks b1-->
+<!--									ON b1.hash = t1.block_hash-->
+<!--				 WHERE encode(t1.input::bytea, 'hex') LIKE '%8e15ee89%'-->
+<!--				   AND encode(t1.input::bytea, 'hex') LIKE '%' || #{nftIdHex} || '%'-->
+<!--			 ) bh-->
+<!--			 ON bh.timestamp IS NOT NULL-->
+<!--		WHERE nd.nft_num=#{nftNum}-->
+<!--		  AND nd.del_yn = 'N'-->
+<!--		  AND nd.hide_yn = 'N'-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
 	<select id="getEthNftDataBynftNum" resultType="map">
 		SELECT
 			nd.nft_num,
@@ -151,32 +195,33 @@
 			ndd.detail_attach,
 			ndi.img_num,
 			nd.nft_id,
+			concat('0x', encode(bh.hash, 'hex')) AS hash,
 			TO_CHAR(bh.timestamp, 'YYYY.MM.DD') AS createdt,
 			COALESCE(
-					(
-						SELECT COUNT(*)
-						FROM transactions
-						WHERE encode(input::bytea, 'hex') LIKE '%fd216f30%'
-						  AND encode(input::bytea, 'hex') LIKE '%' || #{nftIdHex} || '%'
-					), 0) AS nft_cnt
+				(
+					SELECT COUNT(*)
+					FROM transactions
+					WHERE encode(input::bytea, 'hex') LIKE '%fd216f30%'
+						AND encode(input::bytea, 'hex') LIKE '%' || #{nftIdHex} || '%'
+				), 0) AS nft_cnt
 		FROM nft_data nd
-				 JOIN nft_data_detail ndd
-					  ON nd.detail_num = ndd.detail_num
-				 JOIN nft_data_img ndi
-					  ON ndi.nft_num = nd.nft_num
-				 LEFT JOIN
-			 (
-				 SELECT b1.timestamp
-				 FROM transactions t1
-						  LEFT JOIN blocks b1
-									ON b1.hash = t1.block_hash
-				 WHERE encode(t1.input::bytea, 'hex') LIKE '%8e15ee89%'
-				   AND encode(t1.input::bytea, 'hex') LIKE '%' || #{nftIdHex} || '%'
-			 ) bh
-			 ON bh.timestamp IS NOT NULL
+					 JOIN nft_data_detail ndd
+								ON nd.detail_num = ndd.detail_num
+					 JOIN nft_data_img ndi
+								ON ndi.nft_num = nd.nft_num
+					 LEFT JOIN
+				 (
+					 SELECT b1.timestamp, t1.hash
+					 FROM transactions t1
+									LEFT JOIN blocks b1
+														ON b1.hash = t1.block_hash
+					 WHERE encode(t1.input::bytea, 'hex') LIKE '%8e15ee89%'
+						 AND encode(t1.input::bytea, 'hex') LIKE '%' || #{nftIdHex} || '%'
+				 ) bh
+				 ON bh.timestamp IS NOT NULL
 		WHERE nd.nft_num=#{nftNum}
-		  AND nd.del_yn = 'N'
-		  AND nd.hide_yn = 'N'
+			AND nd.del_yn = 'N'
+			AND nd.hide_yn = 'N'
 	</select>
 	
 	<update id="updateReadCnt">

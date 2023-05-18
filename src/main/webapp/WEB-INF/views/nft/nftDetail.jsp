@@ -193,7 +193,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 									<li><span>조회수</span><span>: </span><span>${data.nft_cnt}</span></li>
                                 </ul>
                                 <div class="nft_search_btn">
-                                	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${data.id}" class="nft_list_search">NFT 발행 이력 조회하기</a>
+                                	<a href="${pageContext.request.contextPath}/tranDetail?trNum=${data.hash}" class="nft_list_search">NFT 발행 이력 조회하기</a>
                                 </div>
                             </div>
                             <div class="nft_notice">

@@ -128,18 +128,6 @@
                                         	<a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.number}" class="more_btn">블록 상세정보 조회하기</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>트랜잭션 명</th>
-<%--                                        체인코드 관련 코드 주석 처리--%>
-<%--                                        <c:choose>--%>
-<%--                                        	<c:when test="${!empty data.fcn}">--%>
-<%--                                        		<td>${data.fcn}</td>--%>
-<%--                                        	</c:when>--%>
-<%--                                        	<c:otherwise>--%>
-<%--                                        		<td>${data.chaincodename}</td>--%>
-<%--                                        	</c:otherwise>--%>
-<%--                                        </c:choose>--%>
-                                    </tr>
 <%--                                    nftNum 관련 컬럼 없음 주석 처리--%>
 <%--                                    <c:if test="${data.nftNum!=0 && (data.fcn eq 'CREATE_NFT' || data.fcn eq 'READ_NFT')}">--%>
 <%--	                                    <tr>--%>

@@ -255,22 +255,30 @@
 		WHERE c.name='digitalzonenipanft'
 		AND b.blockhash = #{searchWord}
 	</select>
-	
+
+	<!-- 기존 코드 -->
+<!--	<select id="getBlNumByHash" resultType="int">-->
+<!--		SELECT b.id-->
+<!--		FROM blocks b-->
+<!--		LEFT JOIN (-->
+<!--				SELECT it.blockid-->
+<!--				FROM transactions_nipanft it-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = it.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--				GROUP BY it.blockid-->
+<!--			)t-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = b.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		AND b.blockhash = #{searchWord}-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
 	<select id="getBlNumByHash" resultType="int">
-		SELECT b.id
+		SELECT b.number
 		FROM blocks b
-		LEFT JOIN (
-				SELECT it.blockid
-				FROM transactions_nipanft it
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = it.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-				GROUP BY it.blockid
-			)t
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = b.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		AND b.blockhash = #{searchWord}
+		WHERE encode(b.hash, 'hex') = substring(#{searchWord} FROM 3)
 	</select>
 </mapper>

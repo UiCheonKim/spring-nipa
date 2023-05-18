@@ -17,7 +17,7 @@
 <script type="text/javascript">
 	
 	function startInterval(){
-		var interval = setInterval(updateBlList, 10000);
+		var interval = setInterval(updateBlList, 5000);
 	}
 	
 	function updateBlList(){
