@@ -93,12 +93,13 @@
 				for(let i = 1; i < 10; i++){
 					
 					const refTrA1_ = document.querySelector('#refTrA1_'+i);
-					refTrA1_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].id);
+					<%--refTrA1_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].id);--%>
+                    refTrA1_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].hash);
 					refTrA1_.innerText = obj[i-1].blockNumber;
                     // refTrA1_.innerText = "웰시코기1";
 					
 					const refTrA2_ = document.querySelector('#refTrA2_'+i);
-					refTrA2_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].id);
+					refTrA2_.setAttribute("href","${pageContext.request.contextPath}/tranDetail?trNum="+obj[i-1].hash);
 					refTrA2_.innerText = obj[i-1].hash;
                     // refTrA2_.innerText = "웰시코기2";
 					
