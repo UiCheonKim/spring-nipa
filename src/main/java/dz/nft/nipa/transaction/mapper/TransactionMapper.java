@@ -2,6 +2,7 @@ package dz.nft.nipa.transaction.mapper;
 
 import java.util.ArrayList;
 
+import dz.nft.nipa.dto.DataNftDto;
 import dz.nft.nipa.dto.EthTransactionDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +15,8 @@ public interface TransactionMapper {
 	public int getTransCnt(); // 트랜잭션 개수 가져옴
 	public int getTransHashcnt(String transHash);
 	public String getTransHashInput(String transHash);
+	public DataNftDto getNFTData(String nftId);
+	public ArrayList<String> getNFTID();
 	public Integer getFirstTransNum();
 	public Integer getEthFirstTransNum();
 	public String getNftIdByNftNum(String nftNum);

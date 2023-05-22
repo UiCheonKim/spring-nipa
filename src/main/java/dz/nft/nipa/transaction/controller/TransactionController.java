@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import dz.nft.nipa.dto.EthBlockDto;
-import dz.nft.nipa.dto.EthTransactionDto;
-import dz.nft.nipa.dto.WriteSetDto;
+import dz.nft.nipa.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dz.nft.nipa.block.service.BlockServiceImpl;
-import dz.nft.nipa.dto.TransactionDto;
 import dz.nft.nipa.transaction.service.TransactionServiceImpl;
 
 @Controller
@@ -52,7 +49,17 @@ public class TransactionController {
 			log.trace("Register_NFT");
 			dto.setFcn("Register_NFT");
 		}
-		log.trace("EthTransactionDto.getFcn: {}", dto.getFcn());
+
+		DataNftDto nftData = new DataNftDto();
+		ArrayList<String> nftList = tranServ.getNFTID();
+		for(int i = 0; i < nftList.size(); i++) {
+			if (hexToUtf8(transHashInput.substring(2)).contains(nftList.get(i))) {
+				nftData = tranServ.getNFTData(nftList.get(i).toUpperCase());
+				break;
+			}
+		}
+
+		log.trace("nftData: {}", nftData);
 
 		WriteSetDto writeSetDto = new WriteSetDto();
 		writeSetDto.setName("문");
@@ -130,5 +137,16 @@ public class TransactionController {
 		int trNum = tranServ.getTrNumByHash(searchWord.trim());
 		return "redirect:./tranDetail?trNum="+trNum;
 	}
+
+	public static String hexToUtf8(String hex) {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < hex.length(); i += 2) {
+			String str = hex.substring(i, i + 2);
+			sb.append((char) Integer.parseInt(str, 16));
+		}
+		return sb.toString();
+	}
+
 	
 }

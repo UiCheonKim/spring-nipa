@@ -38,6 +38,16 @@
 		WHERE encode(hash::bytea, 'hex') = #{transHash}
 	</select>
 
+	<select id="getNFTID" resultType="String">
+		SELECT nft_id FROM nft_data;
+	</select>
+
+	<select id="getNFTData" resultType="dz.nft.nipa.dto.DataNftDto">
+		SELECT *
+		FROM nft_data
+		WHERE nft_id LIKE '%' || #{nftId} || '%'
+	</select>
+
 	<insert id="save" parameterType="string">
 		INSERT INTO nft_ipfs (nft_num, ipfs_num)
 		VALUES (#{nftNum}, #{ipfsNum})

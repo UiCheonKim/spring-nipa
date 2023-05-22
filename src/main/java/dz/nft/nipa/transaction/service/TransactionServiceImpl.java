@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import dz.nft.nipa.dto.DataNftDto;
 import dz.nft.nipa.dto.EthTransactionDto;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.slf4j.Logger;
@@ -36,6 +37,12 @@ public class TransactionServiceImpl {
 	}
 	public int getTransHashcnt(String transHash) {
 		return tranMapper.getTransHashcnt(transHash.substring(2));
+	}
+	public DataNftDto getNFTData(String nftId) {
+		return tranMapper.getNFTData(nftId);
+	}
+	public ArrayList<String> getNFTID() {
+		return tranMapper.getNFTID();
 	}
 
 	public int getFirstTransNum() {
