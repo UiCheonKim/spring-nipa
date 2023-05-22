@@ -99,13 +99,14 @@ public class AdminController {
 			dto.setNftNum(createNftKey);
 			log.trace("pk 세팅 = {}", createNftKey);
 
-			if (dto.getNftId() == null) {
+			// dto.getNftId() 값이 없으면 생성
+			if (dto.getNftId() == null || dto.getNftId().isEmpty() || dto.getNftId().isBlank()) {
 				dto.setNftId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
 			}
 
 //			adminServ.makeThumbnailImg(dto.getNftNum(), file); // DB에 이미지 관련 데이터 저장
 			adminServ.insertNftData(dto); // DB에 데이터 저장 및 트랜잭션 발생
-//			adminServ.makeThumbnailImg(dto.getNftNum(), file);
+			adminServ.makeThumbnailImg(dto.getNftNum(), file);
 			
 			new MessageRedirectUtil().redirect("NFT 발급에 성공하였습니다.", "/admin/nftList");
 		}
@@ -151,6 +152,7 @@ public class AdminController {
 	@PostMapping("/updateHideYn")
 	@ResponseBody
 	public void updateHideYn(int nftNum) {
+		log.trace("숨기기 nfNum = {}", nftNum);
 		mainServ.updateHideYn(nftNum);
 	}
 	
@@ -163,9 +165,10 @@ public class AdminController {
 //		String token = my.getUserToken();
 		String nftId = mainServ.getNftId4Admin(nftNum);
 		
-		int confirmReadRecord = tranServ.confirmReadRecord(nftId);
-		
-		if (confirmReadRecord >= 1) {
+//		int confirmReadRecord = tranServ.confirmReadRecord(nftId);
+
+		// nftId 가 null 이면 삭제
+		if (nftId == null || nftId.isEmpty() || nftId.isBlank()) {
 			new MessageRedirectUtil().redirect("열람 이력이 있는 NFT 는 삭제가 불가능 합니다.", "/admin/nftList");
 		} else {
 			mainServ.updatedelYn(nftNum, nftId);

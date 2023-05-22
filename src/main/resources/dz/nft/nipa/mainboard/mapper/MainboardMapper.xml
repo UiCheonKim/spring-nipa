@@ -189,6 +189,7 @@
 			nd.nft_publisher,
 			nd.nft_owner,
 			nd.nft_original_date,
+			nd.nft_uri,
 			ndd.detail_num,
 			ndd.type_num,
 			ndd.detail_name,

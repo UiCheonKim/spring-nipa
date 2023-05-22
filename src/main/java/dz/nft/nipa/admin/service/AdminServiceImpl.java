@@ -114,6 +114,8 @@ public class AdminServiceImpl implements AdminService {
 		// request_date 값 세팅
 		String todayUnix = new UnixTimeUtil().makeUnixTime();
 
+		log.trace("dto.getNftId() = {}", dto.getNftId());
+
 		// 블록체인 nft_create api로 보낼 값 세팅
 		HashMap<String, Object> requestMap = new HashMap<>();
 		// new HashMap<String, Object>();에서 <String, Object> 를 <>로 변경 (자바 1.7 이상부터 가능)
@@ -148,12 +150,12 @@ public class AdminServiceImpl implements AdminService {
 		log.trace("nftId = {}", dto.getNftId());
 		log.trace("ipfsCid = {}", ipfsCid);
 
-		
-/*		if (nftId !=null) {
+		// dto.getNftId() 값이 null이 아닐 경우에만 db에 저장
+		if (dto.getNftId() != null) {
 			adminMapper.insertNftData(dto);
 		} else {
-			log.debug("NFT 발급 중 NFT_ID를 가져오는데 실패 하였습니다."+num);
-		}*/
+			log.debug("NFT 발급 중 NFT_ID를 가져오는데 실패 하였습니다."+ dto.getNftId());
+		}
 		
 	}
 
@@ -166,9 +168,14 @@ public class AdminServiceImpl implements AdminService {
 			Date today = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String todayDateFormat = dateFormat.format(today);
+			log.trace("todayDateFormat = {}", todayDateFormat);
 			String todayUnix = new UnixTimeUtil().makeUnixTime();
+			log.trace("todayUnix = {}", todayUnix);
 			String oriFileName = file.getOriginalFilename();
+			log.trace("oriFileName = {}", oriFileName);
+			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
 			String hashedOriFileName = new HashStringUtil().getHashString(oriFileName);
+			log.trace("hashedOriFileName = {}", hashedOriFileName);
 			
 			// 서버 배포시 수정해야함
 			 String createImgFolderPath = "C:/nipa_upload/Nft_Img/" + todayDateFormat + "/"; // 개발용
@@ -177,7 +184,7 @@ public class AdminServiceImpl implements AdminService {
 			
 			// 저장할 이미지 이름 설정 및 저장
 			String createImgFileName = createImgFolderPath + "NFT_" + nftNum + "_" + todayUnix + "_" + hashedOriFileName;
-			file.transferTo(new File(createImgFileName));
+			file.transferTo(new File(createImgFileName + ext));
 
 			log.trace("createImgFileName = {}", createImgFileName);
 			

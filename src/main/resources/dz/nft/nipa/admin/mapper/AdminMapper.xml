@@ -34,6 +34,7 @@
 			user_num,
 			nft_title,
 			nft_id,
+		    nft_uri,
 			nft_publisher,
 			nft_owner,
 			nft_original_date
@@ -43,6 +44,7 @@
 			#{userNum},
 			#{nftTitle},
 			#{nftId},
+		    #{nftUri},
 			#{nftPublisher},
 			#{nftOwner},
 			#{nftOriginalDate}

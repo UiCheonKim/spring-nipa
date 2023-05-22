@@ -3,6 +3,7 @@ package dz.nft.nipa.mainboard.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,6 +98,16 @@ public class MainboardController {
 		String nftIdHex = utf8ToHex(mainServ.getEthNftNumToId(nftNum));
 		log.trace("nftIdHex = {}", nftIdHex);
 
+		// HttpSession session에 있는 attribute값 전체 로그 출력
+		// HttpSession에 있는 attribute 값 전체 로그 출력
+		Enumeration<String> attributeNames = session.getAttributeNames();
+		while (attributeNames.hasMoreElements()) {
+			String attributeName = attributeNames.nextElement();
+			Object attributeValue = session.getAttribute(attributeName);
+			System.out.println("Attribute Name: " + attributeName + ", Value: " + attributeValue);
+		}
+
+
 		// nft data 테이블 readCnt증가 쿼리 - 필요 없는 것 확정되면 지우기
 		// mainServ.updateReadCnt(nftNum);
 		HashMap<String, Object> nftUriMap = null;
@@ -116,8 +127,8 @@ public class MainboardController {
 				log.trace("key = {}, value = {}", key, nftDataMap.get(key));
 			}
 			session.setAttribute("nftNum", nftNum);
-			session.setAttribute("nftUri", nftUriMap.get("data"));
-			model.addAttribute("uri", nftUriMap.get("data"));
+			session.setAttribute("nftUri", nftDataMap.get("nft_uri"));
+			model.addAttribute("uri", nftDataMap.get("nft_uri"));
 			int cnt = Integer.parseInt(nftDataMap.get("nft_cnt").toString()) + 1;
 			nftDataMap.put("nft_cnt", cnt);
 
@@ -129,8 +140,8 @@ public class MainboardController {
 				log.trace("key = {}, value = {}", key, nftDataMap.get(key));
 			}
 			session.setAttribute("nftNum", nftNum);
-			session.setAttribute("nftUri", nftUriMap.get("data"));
-			model.addAttribute("uri", nftUriMap.get("data"));
+			session.setAttribute("nftUri", nftDataMap.get("nft_uri"));
+			model.addAttribute("uri", nftDataMap.get("nft_uri"));
 			int cnt = Integer.parseInt(nftDataMap.get("nft_cnt").toString()) + 1;
 			nftDataMap.put("nft_cnt", cnt);
 
@@ -187,7 +198,10 @@ public class MainboardController {
 		URL fileUrl = new URL(sb.toString());
 		// file URL을 생성하고
 
-		return new UrlResource(sb.toString());
+//		return new UrlResource(sb.toString());
+
+		// fileUrl 을 UrlResource로 변환하여 리턴
+		return new UrlResource(fileUrl);
 
 //		log.info("fileUrl = {}", fileUrl);
 //
