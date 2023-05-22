@@ -26,6 +26,18 @@
 		FROM transactions
 	</select>
 
+	<select id="getTransHashcnt" resultType="int">
+		SELECT COUNT(*)
+		FROM transactions
+		WHERE encode(hash::bytea, 'hex') = #{nftNum}
+	</select>
+
+	<select id="getTransHashInput" resultType="String">
+		SELECT input
+		FROM transactions
+		WHERE encode(hash::bytea, 'hex') = #{transHash}
+	</select>
+
 	<insert id="save" parameterType="string">
 		INSERT INTO nft_ipfs (nft_num, ipfs_num)
 		VALUES (#{nftNum}, #{ipfsNum})

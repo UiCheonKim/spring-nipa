@@ -3,8 +3,13 @@ package dz.nft.nipa.transaction.controller;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import dz.nft.nipa.dto.EthBlockDto;
 import dz.nft.nipa.dto.EthTransactionDto;
+import dz.nft.nipa.dto.WriteSetDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +24,7 @@ import dz.nft.nipa.dto.TransactionDto;
 import dz.nft.nipa.transaction.service.TransactionServiceImpl;
 
 @Controller
+@Slf4j
 public class TransactionController {
 	
 	@Autowired
@@ -32,7 +38,37 @@ public class TransactionController {
 		if (trNum == null) {
 			return "redirect:./error";
 		}
+		log.trace("tranDetail trNum: {}", trNum);
 		EthTransactionDto dto = tranServ.getTrDataById(trNum);
+
+		String transHashInput = tranServ.getTransHashInput(trNum);
+		log.trace("transHashInput: {}", transHashInput);
+
+		// trNum에 fd216f30이 포함되면 Read_NFT, 8e15ee89이 포함되면 Register_NFT
+		if (transHashInput.contains("fd216f30")) {
+			log.trace("Read_NFT");
+			dto.setFcn("Read_NFT");
+		} else if (transHashInput.contains("8e15ee89")) {
+			log.trace("Register_NFT");
+			dto.setFcn("Register_NFT");
+		}
+		log.trace("EthTransactionDto.getFcn: {}", dto.getFcn());
+
+		WriteSetDto writeSetDto = new WriteSetDto();
+		writeSetDto.setName("문");
+		writeSetDto.setNamename("정인");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonPost;
+		try {
+			jsonPost = objectMapper.writeValueAsString(writeSetDto);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+
+		dto.setWriteSet(jsonPost);
+
+
 
 		String tmp = "0x0";
 		// 뭔지 몰라서 주석 처리함
@@ -43,12 +79,13 @@ public class TransactionController {
 		if (dto == null) {
 			return "redirect:./error";
 		}
-		EthBlockDto dto1 = new EthBlockDto();
-
-		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto1.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto1.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));
-		dto1.setTimestamp("0x3");
+//		EthBlockDto dto1 = new EthBlockDto();
+//
+//		dto1.setHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto1.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto1.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));
+//		dto1.setTimestamp("0x3");
+		log.info("tranDetail dto: {}", dto);
 
 		model.addAttribute("data", dto);
     model.addAttribute("blData", blockServ.getBlDataByBlocknum(dto.getBlockNumber()));

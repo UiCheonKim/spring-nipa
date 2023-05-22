@@ -31,7 +31,13 @@ public class TransactionServiceImpl {
 	public int getTransCnt() {
 		return tranMapper.getTransCnt();
 	} // 트랜잭션 개수 가져오는 메서드
-	
+	public String getTransHashInput(String transHash) {
+		return tranMapper.getTransHashInput(transHash.substring(2));
+	}
+	public int getTransHashcnt(String transHash) {
+		return tranMapper.getTransHashcnt(transHash.substring(2));
+	}
+
 	public int getFirstTransNum() {
 //		Integer dataNum = tranMapper.getFirstTransNum();
 		Integer dataNum = tranMapper.getEthFirstTransNum();

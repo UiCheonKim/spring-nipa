@@ -128,8 +128,27 @@
                                         	<a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.number}" class="more_btn">블록 상세정보 조회하기</a>
                                         </td>
                                     </tr>
+                                    <c:if test="${data.fcn eq 'Register_NFT' || data.fcn eq 'Read_NFT'}">
+                                    <tr>
+                                        <th>트랜잭션 명</th>
+                                        <td>${data.fcn}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            트랜잭션 데이터
+                                            <div class="tooltip" style="top: 59%; left: -21px;">
+                                                <p class="tooltiptext tooltiptext_top tooltiptext_tran_sub_page_4">
+                                                    <span>트랜잭션이 가지고 있는 데이터입니다. 트랜잭션 명에 따라 가지고 있는 데이터는 다를 수 있습니다.</span>
+                                                </p>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <pre style="height: auto; width: 920px; overflow-x: scroll; line-height: 20px;">${data.writeSet}</pre>
+                                        </td>
+                                    </tr>
+                                    </c:if>
 <%--                                    nftNum 관련 컬럼 없음 주석 처리--%>
-<%--                                    <c:if test="${data.nftNum!=0 && (data.fcn eq 'CREATE_NFT' || data.fcn eq 'READ_NFT')}">--%>
+<%--                                    <c:if test="${data.fcn eq 'Register_NFT' || data.fcn eq 'Read_NFT'}">--%>
 <%--	                                    <tr>--%>
 <%--	                                        <th>NFT ID</th>--%>
 <%--                                       		<td>${fn:toUpperCase(data.nftId)}--%>

@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Param;
 public interface TransactionMapper {
 	void save(@Param("nftNum") String nftNum, @Param("ipfsNum") String ipfsNum);
 	public int getTransCnt(); // 트랜잭션 개수 가져옴
+	public int getTransHashcnt(String transHash);
+	public String getTransHashInput(String transHash);
 	public Integer getFirstTransNum();
 	public Integer getEthFirstTransNum();
 	public String getNftIdByNftNum(String nftNum);

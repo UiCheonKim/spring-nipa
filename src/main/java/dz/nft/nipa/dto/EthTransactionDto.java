@@ -8,6 +8,8 @@ public class EthTransactionDto {
 	private String hash;
 	private int blockNumber;
 	private String insertedAt;
+	private String fcn;
+	private String writeSet;
 
 	public void setHash(byte[] hash) {
 		this.hash = "0x" + Hex.encodeHexString(hash);
