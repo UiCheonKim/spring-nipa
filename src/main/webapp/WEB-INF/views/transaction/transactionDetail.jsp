@@ -134,6 +134,10 @@
                                         <td>${data.fcn}</td>
                                     </tr>
                                     <tr>
+                                        <th>NFT ID</th>
+                                        <td>${data.nftId}</td>
+                                    </tr>
+                                    <tr>
                                         <th>
                                             트랜잭션 데이터
                                             <div class="tooltip" style="top: 59%; left: -21px;">

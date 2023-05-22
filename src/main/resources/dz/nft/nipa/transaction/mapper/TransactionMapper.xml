@@ -209,7 +209,7 @@
 <!--		AND t.id=#{trId}-->
 <!--	</select>-->
 
-	<!-- 수정 코드 -->
+<!--	&lt;!&ndash; 수정 코드 1차 &ndash;&gt;-->
 	<select id="getTrDataById" resultType="dz.nft.nipa.dto.EthTransactionDto">
 		SELECT
 			t.block_number AS blockNumber,
@@ -224,6 +224,39 @@
 		FROM transactions t
 		WHERE encode(t.hash, 'hex') = substring(#{trId} FROM 3)
 	</select>
+
+	<!-- 수정 코드 2차 -->
+<!--	<select id="getTrDataById" resultType="dz.nft.nipa.dto.EthTransactionDto">-->
+<!--		SELECT-->
+<!--			bh.block_number,-->
+<!--			bh.hash,-->
+<!--			TO_CHAR(bh.inserted_at + interval '9 hours', 'yyyy-MM-dd HH24:MI:SS') AS insertedAt,-->
+<!--			nd.nft_num,-->
+<!--			nd.nft_id,-->
+<!--			COALESCE(-->
+<!--				(-->
+<!--					SELECT COUNT(*)-->
+<!--					FROM transactions-->
+<!--					WHERE encode(input::bytea, 'hex') LIKE '%fd216f30%'-->
+<!--				), 0) AS nft_cnt-->
+<!--		FROM nft_data nd-->
+<!--					 JOIN nft_data_detail ndd-->
+<!--								ON nd.detail_num = ndd.detail_num-->
+<!--					 JOIN nft_data_img ndi-->
+<!--								ON ndi.nft_num = nd.nft_num-->
+<!--					 LEFT JOIN-->
+<!--				 (-->
+<!--					 SELECT t1.block_number, t1.hash, t1.inserted_at, b1.timestamp-->
+<!--					 FROM transactions t1-->
+<!--									LEFT JOIN blocks b1-->
+<!--														ON b1.hash = t1.block_hash-->
+<!--					 WHERE encode(t1.input::bytea, 'hex') LIKE '%8e15ee89%'-->
+<!--					 AND encode(t1.hash, 'hex') = substring(#{trId} FROM 3)-->
+<!--				 ) bh-->
+<!--				 ON bh.timestamp IS NOT NULL-->
+<!--		WHERE nd.del_yn = 'N'-->
+<!--			AND nd.hide_yn = 'N'-->
+<!--	</select>-->
 	
 	<select id="getTotalReadCnt" resultType="int">
 		SELECT COUNT(*) 

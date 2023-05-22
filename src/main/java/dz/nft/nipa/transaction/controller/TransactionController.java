@@ -7,7 +7,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import dz.nft.nipa.dto.*;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.jose4j.json.internal.json_simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,9 +64,45 @@ public class TransactionController {
 
 		log.trace("nftData: {}", nftData);
 
+		String key = nftData.getNftId();
+
+		boolean isDelete = false;
+		if (nftData.getDelYn().equals("Y")) {
+			isDelete = true;
+		}
+
+		String nftId = nftData.getNftId();
+		String owner = nftData.getNftOwner();
+		String timestamp = nftData.getNftOriginalDate(); // timestamp 는 무엇을 의미하는지?
+		String tokenUri = nftData.getNftUri();
+		String minter = nftData.getNftPublisher();
+		String fcn = dto.getFcn();
+		String title = nftData.getNftTitle();
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\n");
+		sb.append("  \"set\": \n");
+		sb.append("  {\n");
+		sb.append("    \"key\": \"").append(key).append("\",\n");
+		sb.append("    \"is_delete\": ").append(isDelete).append(",\n");
+		sb.append("    \"value\": \n");
+		sb.append("    {\n");
+		sb.append("      \"nft_id\": \"").append(nftId).append("\",\n");
+		sb.append("      \"owner\": \"").append(owner).append("\",\n");
+		sb.append("      \"timestamp\": \"").append(timestamp).append("\",\n");
+		sb.append("      \"tokenuri\": \"").append(tokenUri).append("\",\n");
+		sb.append("      \"minter\": \"").append(minter).append("\",\n");
+		sb.append("      \"fcn\": \"").append(fcn).append("\",\n");
+		sb.append("      \"title\": \"").append(title).append("\"\n");
+		sb.append("    }\n");
+		sb.append("  }\n");
+		sb.append("}");
+
+		String jsonString = sb.toString();
+
 		WriteSetDto writeSetDto = new WriteSetDto();
-		writeSetDto.setName("문");
-		writeSetDto.setNamename("정인");
+
+
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonPost;
@@ -73,7 +112,10 @@ public class TransactionController {
 			throw new RuntimeException(e);
 		}
 
-		dto.setWriteSet(jsonPost);
+		dto.setNftId(nftData.getNftId());
+//		dto.setWriteSet(jsonPost);
+
+		dto.setWriteSet(jsonString);
 
 
 

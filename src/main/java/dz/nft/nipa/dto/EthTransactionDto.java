@@ -10,7 +10,7 @@ public class EthTransactionDto {
 	private String insertedAt;
 	private String fcn;
 	private String writeSet;
-
+	private String nftId;
 	public void setHash(byte[] hash) {
 		this.hash = "0x" + Hex.encodeHexString(hash);
 	}
