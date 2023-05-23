@@ -86,6 +86,8 @@ public class MainboardController {
 		}else {
 			log.info("전체 아닌 호출");
 			model.addAttribute("dataList", mainServ.getNftListByDateType(typeNum, dateType));
+//			model.addAttribute("dataList", mainServ.getAllNftListByDataType(typeNum));
+
 		}
 		return "/mainboard/module/firstTab";
 	}
@@ -259,6 +261,7 @@ public class MainboardController {
 	@PostMapping("/testSearchId")
 	@ResponseBody
 	public HashMap<String, Object> testSearchId(String searchWord){
+		log.trace("testSearchId-searchWord = {}", searchWord);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
@@ -290,6 +293,7 @@ public class MainboardController {
 	@PostMapping("/testSearchHash")
 	@ResponseBody
 	public HashMap<String, Object> testSearchHash(String searchWord){
+		log.trace("testSearchHash-searchWord = {}", searchWord);
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 

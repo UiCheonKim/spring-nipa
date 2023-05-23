@@ -1,12 +1,17 @@
 package dz.nft.nipa.transaction.controller;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import dz.nft.nipa.dto.*;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +39,7 @@ public class TransactionController {
 	private BlockServiceImpl blockServ;
 	
 	@GetMapping("/tranDetail")
-	public String tranDetail(Model model, @RequestParam(defaultValue = "0") String trNum) {
+	public String tranDetail(Model model, @RequestParam(defaultValue = "0") String trNum) throws ParseException {
 		if (trNum == null) {
 			return "redirect:./error";
 		}
@@ -67,17 +72,25 @@ public class TransactionController {
 		String key = nftData.getNftId();
 
 		boolean isDelete = false;
-		if (nftData.getDelYn().equals("Y")) {
-			isDelete = true;
+		if (nftData.getDelYn() != null) {
+			if (nftData.getDelYn().equals("Y")) {
+				isDelete = true;
+			}
 		}
 
 		String nftId = nftData.getNftId();
 		String owner = nftData.getNftOwner();
-		String timestamp = nftData.getNftOriginalDate(); // timestamp 는 무엇을 의미하는지?
+//		String timestamp = nftData.getNftOriginalDate(); // timestamp 는 무엇을 의미하는지?
+		String timestamp = dto.getInsertedAt();
 		String tokenUri = nftData.getNftUri();
 		String minter = nftData.getNftPublisher();
 		String fcn = dto.getFcn();
 		String title = nftData.getNftTitle();
+
+		// yyyy-MM-dd hh:mm:ss 를 timestamp로 변환
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date date = dateFormat.parse(timestamp);
+		long unixTimestamp = date.getTime() / 1000; // 밀리초에서 초로 변환
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("{\n");
@@ -89,7 +102,7 @@ public class TransactionController {
 		sb.append("    {\n");
 		sb.append("      \"nft_id\": \"").append(nftId).append("\",\n");
 		sb.append("      \"owner\": \"").append(owner).append("\",\n");
-		sb.append("      \"timestamp\": \"").append(timestamp).append("\",\n");
+		sb.append("      \"timestamp\": \"").append(unixTimestamp).append("\",\n");
 		sb.append("      \"tokenuri\": \"").append(tokenUri).append("\",\n");
 		sb.append("      \"minter\": \"").append(minter).append("\",\n");
 		sb.append("      \"fcn\": \"").append(fcn).append("\",\n");
@@ -134,7 +147,7 @@ public class TransactionController {
 //		dto1.setMinerHash(tmp.getBytes(StandardCharsets.UTF_8));
 //		dto1.setParentHash(tmp.getBytes(StandardCharsets.UTF_8));
 //		dto1.setTimestamp("0x3");
-		log.info("tranDetail dto: {}", dto);
+//		log.info("tranDetail dto: {}", dto);
 
 		model.addAttribute("data", dto);
     model.addAttribute("blData", blockServ.getBlDataByBlocknum(dto.getBlockNumber()));

@@ -40,12 +40,7 @@ public class MainboardServiceImpl {
 		for (DataDetailDto dto : detailSize) {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			ArrayList<HashMap<String, Object>> detailList =  mainMapper.getAllNftListByDataType(typeNum, dto.getDetailNum());
-			for (HashMap<String, Object> stringObjectHashMap : detailList) {
-				String nftId = ((String) stringObjectHashMap.get("nft_id")).toUpperCase();
-				String nftIdHex = utf8ToHex(nftId);
-				String ethCnt = mainMapper.getEthCnt(nftIdHex);
-				stringObjectHashMap.put("nft_cnt", ethCnt);
-			}
+			SetNftCnt(detailList);
 			resultMap.put("detailDto", dto);
 			resultMap.put("sortedList", detailList);
 			resultList.add(resultMap);
@@ -53,7 +48,7 @@ public class MainboardServiceImpl {
 		
 		return resultList;
 	}
-	
+
 	public ArrayList<HashMap<String, Object>> getNftListByDateType(int typeNum, String dateType) {
 		
 		ArrayList<HashMap<String, Object>> resultList = new ArrayList<HashMap<String,Object>>();
@@ -62,6 +57,7 @@ public class MainboardServiceImpl {
 		for (DataDetailDto dto : detailSize) {
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 			ArrayList<HashMap<String, Object>> detailList =  mainMapper.getNftListByDateType(typeNum, dto.getDetailNum(), dateType);
+			SetNftCnt(detailList);
 			resultMap.put("detailDto", dto);
 			resultMap.put("sortedList", detailList);
 			resultList.add(resultMap);
@@ -149,6 +145,15 @@ public class MainboardServiceImpl {
 			sb.append(hexString);
 		}
 		return sb.toString();
+	}
+
+	private void SetNftCnt(ArrayList<HashMap<String, Object>> detailList) {
+		for (HashMap<String, Object> stringObjectHashMap : detailList) {
+			String nftId = ((String) stringObjectHashMap.get("nft_id")).toUpperCase();
+			String nftIdHex = utf8ToHex(nftId);
+			String ethCnt = mainMapper.getEthCnt(nftIdHex);
+			stringObjectHashMap.put("nft_cnt", ethCnt);
+		}
 	}
 
 }
