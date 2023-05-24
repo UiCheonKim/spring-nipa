@@ -122,8 +122,7 @@
 			inputTag.focus();
 
 		}else{
-
-			if (searchWord.startsWith("0x")){ // 64
+			if (searchWord.startsWith("0x")){ // Block, Transaction
 
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function(){
@@ -148,13 +147,35 @@
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send("searchWord="+searchWord);
 
-			} else if (searchWord.length == 32){ // 40
+			} else if (searchWord.length == 40){ // NFT ID
 
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function(){
 					if(xmlhttp.readyState==4 && xmlhttp.status == 200){
 						var obj = JSON.parse(xmlhttp.responseText);
-						console.log(obj.result + "아니 로그 왜 안찍힘 진짜 죽이고싶네")
+
+						if(obj.result == 1){
+							const form =  document.querySelector('#search_form')
+							form.setAttribute('action', '../searchById');
+							form.submit();
+						}else{
+							alert("원본증명에 실패하였습니다.\nNFT ID를 확인해주세요.");
+							inputTag.value = "";
+							inputTag.focus();
+						}
+					}
+				};
+				xmlhttp.open("post","/testSearchId" , true);
+				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xmlhttp.send("searchWord="+searchWord);
+
+			} else if (searchWord.length == 32){ // NFT ID
+
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function(){
+					if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+						var obj = JSON.parse(xmlhttp.responseText);
+
 						if(obj.result == 1){
 							const form =  document.querySelector('#search_form')
 							form.setAttribute('action', '../searchById');
