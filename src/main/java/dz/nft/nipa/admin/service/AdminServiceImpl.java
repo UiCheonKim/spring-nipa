@@ -173,7 +173,7 @@ public class AdminServiceImpl implements AdminService {
 			log.trace("todayUnix = {}", todayUnix);
 			String oriFileName = file.getOriginalFilename();
 			log.trace("oriFileName = {}", oriFileName);
-			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+//			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
 			String hashedOriFileName = new HashStringUtil().getHashString(oriFileName);
 			log.trace("hashedOriFileName = {}", hashedOriFileName);
 			
@@ -184,7 +184,7 @@ public class AdminServiceImpl implements AdminService {
 			
 			// 저장할 이미지 이름 설정 및 저장
 			String createImgFileName = createImgFolderPath + "NFT_" + nftNum + "_" + todayUnix + "_" + hashedOriFileName;
-			file.transferTo(new File(createImgFileName + ext));
+			file.transferTo(new File(createImgFileName + ".png"));
 
 			log.trace("createImgFileName = {}", createImgFileName);
 			

@@ -159,12 +159,13 @@ public class AdminController {
 	@PostMapping("/updatedelYn")
 	@ResponseBody
 	public void updatedelYn(int nftNum, Principal principal) {
-		
+		log.trace("삭제 nfNum = {}", nftNum);
 		// session token 값 추출
-		MyAuthentication my = (MyAuthentication) principal;
+//		MyAuthentication my = (MyAuthentication) principal;
 //		String token = my.getUserToken();
 		String nftId = mainServ.getNftId4Admin(nftNum);
-		
+		log.trace("삭제 nftId = {}", nftId);
+
 //		int confirmReadRecord = tranServ.confirmReadRecord(nftId);
 
 		// nftId 가 null 이면 삭제
