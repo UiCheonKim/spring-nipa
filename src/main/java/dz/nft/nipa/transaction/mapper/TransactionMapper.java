@@ -30,7 +30,7 @@ public interface TransactionMapper {
 	public ArrayList<TransactionDto> getTotalTrList(int pageNum);
 	
 	public int getTestResult4SearchHash(String searchWord);
-	public int getTrNumByHash(String searchWord);
+	public String getTrNumByHash(String searchWord);
 	public int confirmReadRecord(String nftId);
 	
 

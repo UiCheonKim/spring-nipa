@@ -239,7 +239,7 @@
 	<select id="getTestResult4SearchWord" resultType="int">
 		SELECT COUNT(*) 
 		FROM nft_data 
-		WHERE nft_id = #{searchWord}
+		WHERE LOWER(nft_id) = #{searchWord}
 		AND del_yn = 'N'
 		AND hide_yn = 'N'
 	</select>
@@ -249,7 +249,7 @@
 			nft_num,
 			detail_num
 		FROM nft_data
-		WHERE nft_id = #{searchWord}
+		WHERE LOWER(nft_id) = #{searchWord}
 		AND del_yn = 'N'
 		AND hide_yn = 'N'
 	</select>

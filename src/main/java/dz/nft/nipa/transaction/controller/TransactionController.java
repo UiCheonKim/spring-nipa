@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Hex;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -189,7 +190,8 @@ public class TransactionController {
 		if (searchWord == null) {
 			return "redirect:./error";
 		}
-		int trNum = tranServ.getTrNumByHash(searchWord.trim());
+		String trNum = "0x" + tranServ.getTrNumByHash(searchWord.trim()).substring(2);
+		System.out.println(trNum);
 		return "redirect:./tranDetail?trNum="+trNum;
 	}
 

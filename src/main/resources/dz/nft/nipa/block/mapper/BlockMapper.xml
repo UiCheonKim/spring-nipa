@@ -237,23 +237,31 @@
 		ORDER BY number DESC
 			LIMIT 10 OFFSET (#{pageNum}-1)*10
 	</select>
-	
+
+	<!-- 기존 코드 -->
+<!--	<select id="getTestResult4SearchHash" resultType="int">-->
+<!--		SELECT COUNT(*)-->
+<!--		FROM blocks b-->
+<!--		LEFT JOIN (-->
+<!--				SELECT it.blockid-->
+<!--				FROM transactions_nipanft it-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = it.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--				GROUP BY it.blockid-->
+<!--			)t-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = b.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		AND b.blockhash = #{searchWord}-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
 	<select id="getTestResult4SearchHash" resultType="int">
 		SELECT COUNT(*)
 		FROM blocks b
-		LEFT JOIN (
-				SELECT it.blockid
-				FROM transactions_nipanft it
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = it.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-				GROUP BY it.blockid
-			)t
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = b.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		AND b.blockhash = #{searchWord}
+		WHERE encode(b.hash, 'hex') = substring(#{trId} FROM 3)
 	</select>
 
 	<!-- 기존 코드 -->

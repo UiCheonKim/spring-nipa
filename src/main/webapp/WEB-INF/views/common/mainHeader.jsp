@@ -43,21 +43,89 @@
 			search();
 		}
 	}
-	
+
+	/** 기존 코드 */
+	// function search(){
+	// 	var inputTag = document.querySelector('#search_word');
+	// 	const inputWord = inputTag.value;
+	// 	const searchWord = inputWord.replace(/(\s*)/g, "");
+	//
+	// 	if(searchWord == "" || searchWord.length == 0){
+	// 		alert("검색어를 입력해주세요");
+	// 		inputTag.value = "";
+	// 		inputTag.focus();
+	//
+	// 	}else{
+	//
+	// 		if (searchWord.length == 64){
+	//
+	// 			var xmlhttp = new XMLHttpRequest();
+	// 			xmlhttp.onreadystatechange = function(){
+	// 				if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+	// 					var obj = JSON.parse(xmlhttp.responseText);
+	// 					if(obj.result == 1){
+	// 						const form =  document.querySelector('#search_form')
+	// 						form.setAttribute('action', '../searchByBlHash');
+	// 						form.submit();
+	// 					}else if(obj.result == 2){
+	// 						const form =  document.querySelector('#search_form')
+	// 						form.setAttribute('action', '../searchByTrHash');
+	// 						form.submit();
+	// 					}else{
+	// 						alert("검색결과가 없습니다.");
+	// 						inputTag.value = "";
+	// 						inputTag.focus();
+	// 					}
+	// 				}
+	// 			};
+	// 			xmlhttp.open("post","/testSearchHash" , true);
+	// 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	// 			xmlhttp.send("searchWord="+searchWord);
+	//
+	// 		} else if (searchWord.length == 40){
+	//
+	// 			var xmlhttp = new XMLHttpRequest();
+	// 			xmlhttp.onreadystatechange = function(){
+	// 				if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+	// 					var obj = JSON.parse(xmlhttp.responseText);
+	// 					if(obj.result == 1){
+	// 						const form =  document.querySelector('#search_form')
+	// 						form.setAttribute('action', '../searchById');
+	// 						form.submit();
+	// 					}else{
+	// 						alert("원본증명에 실패하였습니다.\nNFT ID를 확인해주세요.");
+	// 						inputTag.value = "";
+	// 						inputTag.focus();
+	// 					}
+	// 				}
+	// 			};
+	// 			xmlhttp.open("post","/testSearchId" , true);
+	// 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	// 			xmlhttp.send("searchWord="+searchWord);
+	//
+	// 		} else {
+	// 			alert("올바른 NFT ID 또는 해시값이 아닙니다.\n확인 후 다시 입력해주세요.");
+	// 			inputTag.value = "";
+	// 			inputTag.focus();
+	// 		}
+	//
+	// 	} //  공백 필터링 (if end)
+	// } // search() end
+
+	/** 수정 코드 */
 	function search(){
 		var inputTag = document.querySelector('#search_word');
 		const inputWord = inputTag.value;
 		const searchWord = inputWord.replace(/(\s*)/g, "");
-		
+
 		if(searchWord == "" || searchWord.length == 0){
 			alert("검색어를 입력해주세요");
 			inputTag.value = "";
 			inputTag.focus();
-			
+
 		}else{
-		
-			if (searchWord.length == 64){
-				
+			if (searchWord.startsWith("0x")){ // Block, Transaction
+
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function(){
 					if(xmlhttp.readyState==4 && xmlhttp.status == 200){
@@ -80,13 +148,14 @@
 				xmlhttp.open("post","/testSearchHash" , true);
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send("searchWord="+searchWord);
-				
-			} else if (searchWord.length == 40){
-				
+
+			} else if (searchWord.length == 40){ // NFT ID
+
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function(){
 					if(xmlhttp.readyState==4 && xmlhttp.status == 200){
 						var obj = JSON.parse(xmlhttp.responseText);
+
 						if(obj.result == 1){
 							const form =  document.querySelector('#search_form')
 							form.setAttribute('action', '../searchById');
@@ -101,13 +170,35 @@
 				xmlhttp.open("post","/testSearchId" , true);
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send("searchWord="+searchWord);
-				
+
+			} else if (searchWord.length == 32){ // NFT ID
+
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function(){
+					if(xmlhttp.readyState==4 && xmlhttp.status == 200){
+						var obj = JSON.parse(xmlhttp.responseText);
+
+						if(obj.result == 1){
+							const form =  document.querySelector('#search_form')
+							form.setAttribute('action', '../searchById');
+							form.submit();
+						}else{
+							alert("원본증명에 실패하였습니다.\nNFT ID를 확인해주세요.");
+							inputTag.value = "";
+							inputTag.focus();
+						}
+					}
+				};
+				xmlhttp.open("post","/testSearchId" , true);
+				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xmlhttp.send("searchWord="+searchWord);
+
 			} else {
 				alert("올바른 NFT ID 또는 해시값이 아닙니다.\n확인 후 다시 입력해주세요.");
 				inputTag.value = "";
 				inputTag.focus();
 			}
-			
+
 		} //  공백 필터링 (if end)
 	} // search() end
 	

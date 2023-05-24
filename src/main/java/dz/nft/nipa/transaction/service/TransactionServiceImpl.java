@@ -193,7 +193,7 @@ public class TransactionServiceImpl {
 		return tranMapper.getTestResult4SearchHash(searchWord);
 	}
 
-	public int getTrNumByHash(String searchWord) {
+	public String getTrNumByHash(String searchWord) {
 		return tranMapper.getTrNumByHash(searchWord);
 	}
 	

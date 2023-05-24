@@ -338,41 +338,57 @@
 		ORDER BY t.block_number DESC
 			LIMIT 10 OFFSET (#{pageNum}-1)*10
 	</select>
-	
+
+	<!-- 기존 코드 -->
+<!--	<select id="getTestResult4SearchHash" resultType="int">-->
+<!--		SELECT COUNT(*) -->
+<!--		FROM transactions_nipanft t-->
+<!--		LEFT JOIN (-->
+<!--				SELECT ib.*-->
+<!--				FROM blocks ib-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = ib.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--			)b-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = t.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		AND t.txhash = #{searchWord}-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
 	<select id="getTestResult4SearchHash" resultType="int">
-		SELECT COUNT(*) 
-		FROM transactions_nipanft t
-		LEFT JOIN (
-				SELECT ib.*
-				FROM blocks ib
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = ib.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-			)b
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = t.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		AND t.txhash = #{searchWord}
+		SELECT COUNT(*)
+		FROM transactions t
+		WHERE encode(t.hash, 'hex') = substring(#{trId} FROM 3)
 	</select>
-	
-	<select id="getTrNumByHash" resultType="int">
-		SELECT t.id 
-		FROM transactions_nipanft t
-		LEFT JOIN (
-				SELECT ib.*
-				FROM blocks ib
-				LEFT JOIN channel c 
-				ON c.channel_genesis_hash = ib.channel_genesis_hash
-				WHERE c.name='digitalzonenipanft'
-			)b
-		ON t.blockid = b.blocknum
-		LEFT JOIN channel c 
-		ON c.channel_genesis_hash = t.channel_genesis_hash
-		WHERE c.name='digitalzonenipanft'
-		AND t.txhash = #{searchWord}
+
+	<!-- 기존 코드 -->
+<!--	<select id="getTrNumByHash" resultType="int">-->
+<!--		SELECT t.id -->
+<!--		FROM transactions_nipanft t-->
+<!--		LEFT JOIN (-->
+<!--				SELECT ib.*-->
+<!--				FROM blocks ib-->
+<!--				LEFT JOIN channel c -->
+<!--				ON c.channel_genesis_hash = ib.channel_genesis_hash-->
+<!--				WHERE c.name='digitalzonenipanft'-->
+<!--			)b-->
+<!--		ON t.blockid = b.blocknum-->
+<!--		LEFT JOIN channel c -->
+<!--		ON c.channel_genesis_hash = t.channel_genesis_hash-->
+<!--		WHERE c.name='digitalzonenipanft'-->
+<!--		AND t.txhash = #{searchWord}-->
+<!--	</select>-->
+
+	<!-- 수정 코드 -->
+	<select id="getTrNumByHash" resultType="String">
+		SELECT t.hash
+		FROM transactions t
+		WHERE encode(t.hash, 'hex') = substring(#{trId} FROM 3)
 	</select>
-	
+
 	<select id="confirmReadRecord" resultType="int">
 		SELECT COUNT(t.*)
 		FROM transactions_nipanft t

@@ -147,7 +147,7 @@
                                             </div>
                                         </th>
                                         <td>
-                                            <pre style="height: auto; width: 920px; overflow-x: scroll; line-height: 20px;">${data.writeSet}</pre>
+                                            <pre style="height: auto; width: 920px; overflow-x: auto; line-height: 20px;">${data.writeSet}</pre>
                                         </td>
                                     </tr>
                                     </c:if>
