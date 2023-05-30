@@ -1,5 +1,7 @@
 package dz.nft.nipa.transaction.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.Timestamp;
 import java.text.ParseException;
@@ -46,22 +48,31 @@ public class TransactionController {
 		}
 		log.trace("tranDetail trNum: {}", trNum);
 		EthTransactionDto dto = tranServ.getTrDataById(trNum);
+		log.trace("EthTransactionDto dto: {}", dto);
 
-		String transHashInput = tranServ.getTransHashInput(trNum);
+		InputDataDto transHash = tranServ.getTransHashInput(trNum);
+		log.trace("transHash: {}", transHash.getInput());
+//		String transHashInput = tranServ.getTransHashInput(trNum);
+		String transHashInput = transHash.getInput();
 		log.trace("transHashInput: {}", transHashInput);
 
 		// trNum에 fd216f30이 포함되면 Read_NFT, 8e15ee89이 포함되면 Register_NFT
-		if (transHashInput.contains("fd216f30")) {
-			log.trace("Read_NFT");
-			dto.setFcn("Read_NFT");
-		} else if (transHashInput.contains("8e15ee89")) {
-			log.trace("Register_NFT");
-			dto.setFcn("Register_NFT");
+		// transHashInput가 null 이 아닐 때
+		if (transHashInput != null) {
+			if (transHashInput.contains("fd216f30")) {
+				log.trace("Read_NFT");
+				dto.setFcn("Read_NFT");
+			} else if (transHashInput.contains("8e15ee89")) {
+				log.trace("Register_NFT");
+				dto.setFcn("Register_NFT");
+			}
 		}
 
 		DataNftDto nftData = new DataNftDto();
 		ArrayList<String> nftList = tranServ.getNFTID();
 		for(int i = 0; i < nftList.size(); i++) {
+//			log.trace("nftList.get({}) = {}", i, nftList.get(i));
+//			log.trace("hexToUtf8(transHashInput.substring(2)) = {}", hexToUtf8(transHashInput.substring(2)));
 			if (hexToUtf8(transHashInput.substring(2)).contains(nftList.get(i))) {
 				nftData = tranServ.getNFTData(nftList.get(i).toUpperCase());
 				break;
@@ -196,13 +207,22 @@ public class TransactionController {
 	}
 
 	public static String hexToUtf8(String hex) {
-		StringBuilder sb = new StringBuilder();
-
+//		StringBuilder sb = new StringBuilder();
+//		log.trace("hex = {}", hex);
+//
+//		for (int i = 0; i < hex.length(); i += 2) {
+//			String str = hex.substring(i, i + 2); // 16진수 문자열을 2자리씩 잘라서 문자열 배열에 저장
+//			sb.append((char) Integer.parseInt(str, 16)); // 16진수 문자열을 10진수로 변환 // 10진수를 문자로 변환 // 문자열을 붙임
+//		}
+//		return sb.toString();
+//		log.trace("hex = {}", hex);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		for (int i = 0; i < hex.length(); i += 2) {
 			String str = hex.substring(i, i + 2);
-			sb.append((char) Integer.parseInt(str, 16));
+			int byteVal = Integer.parseInt(str, 16);
+			baos.write(byteVal);
 		}
-		return sb.toString();
+		return baos.toString(StandardCharsets.UTF_8);
 	}
 
 	

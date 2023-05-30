@@ -3,6 +3,10 @@
 
 <mapper namespace="dz.nft.nipa.transaction.mapper.TransactionMapper">
 
+<!--<resultMap id="myMap" type="string">-->
+<!--	<id column="input" property="bytea" jdbcType="BINARY" javaType="String"/>-->
+<!--</resultMap>-->
+
 	<!-- 기존 코드 -->
 <!--	<select id="getTransCnt" resultType="int">-->
 <!--		SELECT COUNT(*)-->
@@ -32,7 +36,7 @@
 		WHERE encode(hash::bytea, 'hex') = #{nftNum}
 	</select>
 
-	<select id="getTransHashInput" resultType="String">
+	<select id="getTransHashInput" resultType="dz.nft.nipa.dto.InputDataDto">
 		SELECT input
 		FROM transactions
 		WHERE encode(hash::bytea, 'hex') = #{transHash}

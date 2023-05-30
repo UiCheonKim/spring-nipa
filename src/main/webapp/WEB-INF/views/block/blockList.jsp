@@ -58,7 +58,7 @@
 					const td4 = document.createElement("td");
 					
 					const a1 = document.createElement("a");
-					a1.setAttribute("href", "${pageContext.request.contextPath}/blockDetail?blNum="+data.inumberd);
+					a1.setAttribute("href", "${pageContext.request.contextPath}/blockDetail?blNum="+data.number);
 					a1.innerText = data.number;
 					td1.appendChild(a1);
 					td1.setAttribute("class", "list_link");

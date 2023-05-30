@@ -166,7 +166,7 @@
             </div>
             <div class="tooltip" style="top: 1095px; left: 575px;">
                 <p class="tooltiptext tooltiptext_bottom tooltiptext_tran">
-                    <span>“트랜잭션 번호”를 클릭하면 해당 트랜잭션의 상세정보를 조회할 수 있는 페이지로 이동합니다.</span>
+                    <span>“트랜잭션 블록번호”를 클릭하면 해당 트랜잭션의 상세정보를 조회할 수 있는 페이지로 이동합니다.</span>
                 </p>
             </div>
         </div>

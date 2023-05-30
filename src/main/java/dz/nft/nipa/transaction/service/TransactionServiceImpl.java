@@ -7,6 +7,7 @@ import java.util.Map;
 
 import dz.nft.nipa.dto.DataNftDto;
 import dz.nft.nipa.dto.EthTransactionDto;
+import dz.nft.nipa.dto.InputDataDto;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public class TransactionServiceImpl {
 	public int getTransCnt() {
 		return tranMapper.getTransCnt();
 	} // 트랜잭션 개수 가져오는 메서드
-	public String getTransHashInput(String transHash) {
+	public InputDataDto getTransHashInput(String transHash) {
 		return tranMapper.getTransHashInput(transHash.substring(2));
 	}
 	public int getTransHashcnt(String transHash) {
@@ -159,7 +160,7 @@ public class TransactionServiceImpl {
 
 	public HashMap<String, Object> readNftContents(String nftId) {
 		// 오류나서 주석 처리
-		// String nftHash = new SendNftId2BlockchainApi().sendData(nftId).get("nftUri").toString();	// 호출함
+		 String nftHash = new SendNftId2BlockchainApi().sendData(nftId).get("nftUri").toString();	// 호출함
 		//String nftUri = new Base64DecodingUtil().base64Decoding(nftHash);
 		/**
 		 * 블록체인에서 콘텐츠 사이트 연결 URI를 정상적으로 리턴하지 못함.

@@ -52,7 +52,7 @@
     </div>
     <div class="info_ballon">
         <div class="content_center">
-            <div class="tooltip" style="top: 667px; left: 671px;">
+            <div class="tooltip" style="top: 510px; left: 671px;">
                 <p class="tooltiptext tooltiptext_top tooltiptext_tran_sub_page_2">
                     <span>“블록 상세정보 조회하기” 클릭 시 해당 트랜잭션이 담긴 블록의 상세정보 페이지로 이동합니다.</span>
                 </p>
@@ -100,9 +100,15 @@
                                     <col style="width: 70%">
                                 </colgroup>
                                 <tbody>
+<%--                                    <tr>--%>
+<%--                                        <th>트랜잭션 블록번호</th>--%>
+<%--                                        <td>${data.blockNumber}</td>--%>
+<%--                                    </tr>--%>
                                     <tr>
-                                        <th>트랜잭션 번호</th>
-                                        <td>${data.blockNumber}</td>
+                                        <th>트랜잭션이 담긴 블록 번호</th>
+                                        <td>${blData.number}
+                                            <a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.number}" class="more_btn">블록 상세정보 조회하기</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>트랜잭션 생성 시각</th>
@@ -114,20 +120,20 @@
                                         	<span id="need2Copy">${data.hash}</span>
                                         	<a class="id_copy_2" onclick="copyTrID()">
                                         		복사
-                                        		<div class="tooltip" style="top: -74px; left: 50%; transform: translateX(-50%);">
-                                                    <p class="tooltiptext tooltiptext_bottom tooltiptext_block_sub_page">
-                                                        <span>“복사” 버튼 클릭 시 “블록 해시”를 클립보드에 복사합니다.<br>복사된 “블록 해시”는 상단의 검색창에서 활용할 수 있습니다.</span>
+                                        		<div class="tooltip" style="top: 50px; left: 50%; transform: translateX(-50%);">
+                                                    <p class="tooltiptext tooltiptext_top tooltiptext_block_sub_page">
+                                                        <span>“복사” 버튼 클릭 시 “트랜잭션 해시”를 클립보드에 복사합니다.<br>복사된 “트랜잭션 해시”는 상단의 검색창에서 활용할 수 있습니다.</span>
                                                     </p>
                                                 </div>
                                         	</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>트랜잭션이 담긴 블록 번호</th>
-                                        <td>${blData.number}
-                                        	<a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.number}" class="more_btn">블록 상세정보 조회하기</a>
-                                        </td>
-                                    </tr>
+<%--                                    <tr>--%>
+<%--                                        <th>트랜잭션이 담긴 블록 번호</th>--%>
+<%--                                        <td>${blData.number}--%>
+<%--                                        	<a href="${pageContext.request.contextPath}/blockDetail?blNum=${blData.number}" class="more_btn">블록 상세정보 조회하기</a>--%>
+<%--                                        </td>--%>
+<%--                                    </tr>--%>
                                     <c:if test="${data.fcn eq 'Register_NFT' || data.fcn eq 'Read_NFT'}">
                                     <tr>
                                         <th>트랜잭션 명</th>

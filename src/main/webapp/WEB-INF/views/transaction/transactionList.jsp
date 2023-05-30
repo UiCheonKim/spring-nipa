@@ -37,7 +37,7 @@
 				const th2 = document.createElement("th");
 				const th3 = document.createElement("th");
 				
-				th1.innerText = '트랜잭션 번호';
+				th1.innerText = '트랜잭션 블록번호';
 				th2.innerText = '트랜잭션 생성 시각';
 				th3.innerText = '트랜잭션 해시';
 				
@@ -54,7 +54,8 @@
 					const td3 = document.createElement("td");
 					
 					const a1 = document.createElement("a");
-					a1.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.blockNumber);
+
+					a1.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.hash);
 					a1.innerText = data.blockNumber;
 					td1.appendChild(a1);
 					td1.setAttribute("class", "list_link");
@@ -62,7 +63,7 @@
 					td2.innerText = data.insertedAt;
 					
 					const a2 = document.createElement("a");
-					a2.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.blockNumber);
+					a2.setAttribute("href", "${pageContext.request.contextPath}/tranDetail?trNum="+data.hash);
 					a2.innerText = data.hash;
 					td3.appendChild(a2);
 					td3.setAttribute("class", "list_link");
@@ -110,7 +111,7 @@
             </div>
             <div class="tooltip" style="top: 554px; left: 0px;">
                 <p class="tooltiptext tooltiptext_two_buttom_top">
-                    <span>“트랜잭션 번호” 또는 “트랜잭션 해시”를 클릭하면 트랜잭션의 상세한 정보를 확인할 수 있는 페이지로 이동할 수 있습니다.</span>
+                    <span>“트랜잭션 블록번호” 또는 “트랜잭션 해시”를 클릭하면 트랜잭션의 상세한 정보를 확인할 수 있는 페이지로 이동할 수 있습니다.</span>
                 </p>
                 <span class="tooltiptext_two_buttom_top_left"></span>
             </div>
@@ -150,7 +151,7 @@
                                 </colgroup>
                                 <tbody id="tb">
                                     <tr>
-                                        <th>트랜잭션 번호</th>
+                                        <th>트랜잭션 블록번호</th>
                                         <th>트랜잭션 생성 시각</th>
                                         <th>트랜잭션 해시</th>
                                     </tr>
